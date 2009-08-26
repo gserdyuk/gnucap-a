@@ -61,6 +61,7 @@ void SIM::outdata(double x)
   ::status.hidden_steps = 0;
   ::status.output.stop();
 }
+
 /*--------------------------------------------------------------------------*/
 /* SIM::head: print column headings and draw plot borders
  */
@@ -75,6 +76,8 @@ void SIM::head(double start, double stop, const std::string& col1)
 
 
   if (!plopen(start, stop, plotlist())) {
+	  if (!OPT::simbinfmt) // text format
+	  {
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     int width = std::min(OPT::numdgt+5, BIGBUFLEN-10);
     char format[20];
@@ -88,6 +91,63 @@ void SIM::head(double start, double stop, const std::string& col1)
       _out.form(format, ' ', p->label().c_str());
     }
     _out << '\n';
+	  } else { // binary format
+			// warning -> it assumes char is 8bit
+
+		  // label
+		  _out.form("%.7s","GNUCAPB");
+		  _out << '\0';
+		  // version
+		  _out << '\0';
+		  _out << '\0';
+		  _out << '\1';
+		  _out << '\0';
+
+		  // 1) first pass -> calculate buffer/header length
+		  uint32_t header_size = 8;
+		  uint32_t columns_count = printlist().size()+1;
+		  uint32_t string_size;
+		  unsigned int size = 0;
+		  for (PROBELIST::const_iterator
+				  p=printlist().begin();  p!=printlist().end();  ++p) {
+			  size = p->label().size();
+			  header_size += size + 5;// 6 - 1 type byte + 4 string size
+		  }
+		  // store header size
+		  for (int i = 0; i < sizeof header_size; ++i)
+		  {
+			  _out.writeout((char)((header_size >> (8 * i)) & 0xFF));
+		  }
+		  // store columns count
+		  for (int i = 0; i < sizeof columns_count; ++i)
+		  {
+			  _out.writeout((char)((columns_count >> (8 * i)) & 0xFF));
+		  }
+
+		  // 2) write columns ...
+		  // we don't need double precision right now, let's make it single precision (temporary?)
+		  _out.form("%c",6);
+		  string_size = col1.length();
+		  for (int i = 0; i < sizeof string_size; ++i)
+		  {
+			  _out.writeout((char)((string_size >> (8 * i)) & 0xFF));
+		  }
+
+		  _out.form("%s",col1.c_str());
+		  for (PROBELIST::const_iterator
+				  p=printlist().begin();  p!=printlist().end();  ++p) {
+
+			  _out.form("%c",6);
+			  string_size = (p->label()).length();
+			  for (int i = 0; i < sizeof string_size; ++i)
+			  {
+				  _out.writeout((char)((string_size >> (8 * i)) & 0xFF));
+			  }
+			  _out.form("%s",p->label().c_str());
+
+		  }
+	  }
+
   }else{
   }
 }
@@ -98,6 +158,8 @@ void SIM::head(double start, double stop, const std::string& col1)
 void SIM::print_results(double x)
 {
   if (!IO::plotout.any()) {
+		if (!OPT::simbinfmt) // text format
+		{
     _out.setfloatwidth(OPT::numdgt, OPT::numdgt+6);
     assert(x != NOT_VALID);
     _out << x;
@@ -106,6 +168,25 @@ void SIM::print_results(double x)
       _out << p->value();
     }
     _out << '\n';
+		} else { // binary format
+			// warning -> it assumes char is 8bit and float/double is IEEE 754
+			// not yet sure it will work as expected on big-endian platforms
+			// store values as single precision float - we don't need double precision right now
+			assert(x != NOT_VALID);
+			float t_single = x;
+			for (int i = 0; i < sizeof t_single; ++i)
+			{
+				_out.writeout((char)((*(reinterpret_cast<uint64_t*>(&t_single)) >> (8 * i)) & 0xFF));
+			}
+			for (PROBELIST::const_iterator
+					p=printlist().begin();  p!=printlist().end();  ++p) {
+				t_single = p->value();
+				for (int i = 0; i < sizeof t_single; ++i)
+				{
+					_out.writeout((char)((*(reinterpret_cast<uint64_t*>(&t_single)) >> (8 * i)) & 0xFF));
+				}
+			}
+		}
   }else{
   }
 }

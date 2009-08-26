@@ -44,7 +44,6 @@ bool OPT::set_values(CS& cmd)
   unsigned here = cmd.cursor();
   do{
     ONE_OF
-	  || Get(cmd, "simbinfmt",	&simbinfmt)
       || Get(cmd, "acct",	&acct)
       || Get(cmd, "list",	&listing)
       || Get(cmd, "mod",	&mod)
@@ -205,7 +204,6 @@ void OPT::print(OMSTREAM& o)
 
   o << "* i/o\n";
   o << ".options";
-  o << ((simbinfmt)   ?"  simbinfmt" :"  nosimbinfmt");
   o << ((acct)   ?"  acct" :"  noacct");
   o << ((listing)?"  list" :"  nolist");
   o << ((clobber) ? "  clobber" : "  noclobber");

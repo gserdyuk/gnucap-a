@@ -92,6 +92,7 @@ public:
 	WCASE=7, TRACE=8, ITL_COUNT=9};
   enum {_keep_time_steps = 5};
 public:
+  static bool simbinfmt; // flag: SIM output in binary format
   static bool acct;	    // flag: print accounting info
   static bool listing;	    // flag: print listing
   static bool mod;	    // flag: print models

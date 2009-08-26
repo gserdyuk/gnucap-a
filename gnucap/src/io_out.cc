@@ -220,5 +220,22 @@ OMSTREAM & OMSTREAM::operator<<(char chr)
   }
   return *this;
 }
+
+bool OMSTREAM::writeout(char chr)
+{
+	if (_mask & 1) {
+		unreachable();
+		_mask &= ~1;
+		error(bDANGER, "internal error: out to stdin\n");
+	}else{
+	}
+	for (int ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
+		if (_mask & mm) {
+			fputc(chr,IO::stream[ii]);
+			//fflush(IO::stream[ii]);
+		}
+	}
+	return true;
+}
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

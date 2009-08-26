@@ -25,6 +25,7 @@
 //testing=trivial 2006.07.17
 #include "u_opt.h"
 
+bool    OPT::simbinfmt = false;
 bool	OPT::acct = false;
 bool	OPT::listing = false;
 bool	OPT::mod = true;

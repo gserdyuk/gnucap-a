@@ -71,6 +71,7 @@ public:
   OMSTREAM& tab(int p)			{return tab(static_cast<unsigned>(p));}
   OMSTREAM& form(const char*,...);
   OMSTREAM& operator<<(char c);
+  bool writeout(char c);
   OMSTREAM& operator<<(const char* s);
   OMSTREAM& operator<<(double x)
     {return (*this)<<ftos(x,_fltwid,_fltdig,_format);}
