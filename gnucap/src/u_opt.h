@@ -186,6 +186,7 @@ public:
 #ifdef KNEECHORD
   static strategy_t strategy; // What method we use to encourage non-linear devices to converge
 #endif
+  static bool drop_spice_comments;  // GS: option to drom spice comment lines, will allow comments before continuation lines
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {

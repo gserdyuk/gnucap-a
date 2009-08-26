@@ -252,6 +252,15 @@ static std::string getlines(FILE *fileptr)
     while (isspace(c= fgetc(fileptr))){
         // skip
     }
+    // GS: patch - drop spice comments if needed (to allow comments between cont lines)
+    if (OPT::drop_spice_comments) 
+      while (c=='*'){ 
+        char dummy[buffer_size+1];
+        fgets(dummy, buffer_size, fileptr);  //skip
+        while (isspace(c= fgetc(fileptr))){
+          // skip ws
+        }
+      }         
 	if (c == '+') {
 	  more = true;
 	}else if (c == '\n') {

@@ -176,6 +176,7 @@ bool OPT::set_values(CS& cmd)
       || Get(cmd, "itl6",	   &itl[6])
       || Get(cmd, "itl7",	   &itl[7])
       || Get(cmd, "itl8",	   &itl[8])
+      || Get(cmd, "drop_spice_comments",    &drop_spice_comments)
       || (cmd.check(bWARNING, "what's this?"), cmd.skiparg());
 
     if (!cmd.stuck(&here)) {
@@ -218,6 +219,7 @@ void OPT::print(OMSTREAM& o)
   o << ((case_insensitive) ?"  insensitive":"  noinsensitive");
   o << "  units=" << units;
   o << "  recursion="<< recursion;
+  o << ((drop_spice_comments)   ?"  drop_spice_comments" :"  nodrop_spice_comments"); 
   o << "\n\n";
 
   o << "* accuracy, i/o\n";
