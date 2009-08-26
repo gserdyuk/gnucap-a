@@ -80,7 +80,7 @@ public:
     }
   }
 } p4;
-DISPATCHER<FUNCTION>::INSTALL d4(&function_dispatcher, "average|mean", &p4);
+DISPATCHER<FUNCTION>::INSTALL d4(&function_dispatcher, "average|mean|avg", &p4);
 /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/

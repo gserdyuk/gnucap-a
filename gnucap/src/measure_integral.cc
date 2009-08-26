@@ -79,7 +79,7 @@ public:
     }
   }
 } p4;
-DISPATCHER<FUNCTION>::INSTALL d4(&function_dispatcher, "integrate|integral|area", &p4);
+DISPATCHER<FUNCTION>::INSTALL d4(&function_dispatcher, "integrate|integral|area|integ", &p4);
 /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
