@@ -245,7 +245,13 @@ static std::string getlines(FILE *fileptr)
 	itested();
 	buffer[count-1] = '\0';
       }else{
-	int c = fgetc(fileptr);
+	// GS: patch 14-jul-2009, proposed by Al
+    // look ahead at next line
+    //int c = fgetc(fileptr);
+    int c;
+    while (isspace(c= fgetc(fileptr))){
+        // skip
+    }
 	if (c == '+') {
 	  more = true;
 	}else if (c == '\n') {
