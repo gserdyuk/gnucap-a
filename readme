@@ -1,0 +1,16 @@
+README
+<gena@analograils.com>
+
+Introduction
+------------
+This repository is intended to keep gnucap Arails development snapshots and releases.
+
+Workflow
+--------
+1) make modifications which you want to have in gnucap-arails
+2) provide test cases for those modifications
+3) when new version of gnucap-main is issued - make merge
+
+as a result - this repository will always contain latest gnucap-arails
+
+commits, which will be made after merge with new gnucap-main will be named like "gnucap-2009-08-11-merged"
