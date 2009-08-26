@@ -42,6 +42,31 @@ public:
     try {
       std::string file_name;
       cmd >> file_name;
+
+      // HACK -- env vars in .lib file name -- warining, depends on environ in unistd.h !!
+      std::string hhk_test_string;
+      std::string hhk_env;
+      std::vector<std::string> hhk_parts;
+      hhk_parts.resize(2);
+      std::size_t pos;
+      for (int hhk=0; environ[hhk]; hhk++)
+      {
+    		  hhk_env = std::string(environ[hhk]);
+    		  pos = hhk_env.find_first_of('=');
+    		  if (pos == std::string::npos)
+    			  continue;
+    		  hhk_parts[0] = hhk_env.substr(0,pos);
+    		  hhk_parts[1] = hhk_env.substr(pos+1);
+
+    		  hhk_test_string = "${" +hhk_parts[0]+"}";
+    		  while ((pos = file_name.find(hhk_test_string)) != std::string::npos)
+    		  {
+    			  file_name.replace(pos,hhk_test_string.size(),hhk_parts[1]);
+    		  }
+      }
+
+      // END HACK --
+
       CS file(CS::_INC_FILE, file_name);
       for (;;) {
 	OPT::language->parse_top_item(file, Scope);
