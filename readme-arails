@@ -25,3 +25,22 @@ Reason for that - good to have commits, which refer to changes in sources only a
 log with irrelevant code.
 
 
+commands:
+---------
+1) 
+at gnucap-main
+apply new gnucap
+add version number
+git add <all files>
+git commit -m "version number"
+git push
+
+2) 
+at gnucap arails
+git-pull gnucap-main HEAD
+if any conflicts {
+     resolve
+     git add <files>
+     git commit -m "<commit comment>"
+     }
+git push
