@@ -1,0 +1,47 @@
+Simple Binary SIM Output format specification.
+
+Goal: KISS binary file format , as main requirement, suitable for sequential writing and reading, with minimal changes 
+to current gnucap output functionality.Data should not be packed much (if not at all) to speedup values writing and reading,
+data columns should have fixed size to keep ability to use simple 'random' method to access data stored in file.      
+
+File structure, in sequential order:
+
+1) File (storage) Header - store usable format/storage info 
+2) Data Header - store columns info
+3) Data 
+
+Specification v0.1 draft details:
+
+Note: All non-string values/data should be stored in little-endian form. 
+Note 2: Sequential order
+
+1) File (storage) header:
+8 bytes - format label (c-string) ( "GNUCAPB\0" ) ( Note: value near to randomly chosen, just to be somehow 'aligned', suggest better one ;) ) 
+2 bytes - format version (uint16_t) ( 0x00 0x00 ) 
+2 bytes - format sub-version (uint16_t) ( 0x01 0x00 ) ( ver. 0.1 ) 
+
+2) Data Header:
+4 bytes - (uint32_t) data header size ( full, including this value )
+4 bytes - (uint32_t) columns count
+block of varying length(s) - sequence of column definitions
+
+2.1) column definition
+1 byte - column type (size)
+4 bytes - column string length ( without terminating zero ) ( QT serialization compatible )
+varying - column name as c-string without terminating zero (column names in as in current default output )
+
+2.2) column types
+
+0 - uint16_t (2 bytes)
+1 - int16_t (2 bytes)
+2 - uint32_t (4 bytes)
+3 - int32_t ( 4 bytes )
+4 - uint64_t ( 8 bytes )
+5 - int64_t ( 8 bytes ) 
+6 - single precision float ( 4 bytes ) ( IEEE 754 )
+7 - double precision float ( 8 bytes ) ( IEEE 754 )
+
+3) data - simple sequence of values , stored in same order as columns definitions in data header, with size defined in that column 
+definition ( 2.1 ), without any delimiters between values.        
+
+    
