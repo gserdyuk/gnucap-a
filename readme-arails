@@ -14,3 +14,14 @@ Workflow
 as a result - this repository will always contain latest gnucap-arails
 
 commits, which will be made after merge with new gnucap-main will be named like "gnucap-2009-08-11-merged"
+
+Notes
+-----
+This repository shall be isolated from others and shall be kept as close as possible to Al's repository.
+Any additional files (like specific build scripts, test cases) better keep in another repository 
+(at least so far). 
+
+Reason for that - good to have commits, which refer to changes in sources only and not overcrowd change 
+log with irrelevant code.
+
+
