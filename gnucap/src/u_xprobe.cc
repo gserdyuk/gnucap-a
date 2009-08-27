@@ -48,7 +48,6 @@ double XPROBE::operator()(mod_t m, bool db)const
 	if ( rv < 0 ) {rv+=360;}
       break;
     case mtIMAG:
-      itested();
       rv = imag(_value);
       break;
     }

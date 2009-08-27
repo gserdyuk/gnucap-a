@@ -61,7 +61,6 @@ void SIM::outdata(double x)
   ::status.hidden_steps = 0;
   ::status.output.stop();
 }
-
 /*--------------------------------------------------------------------------*/
 /* SIM::head: print column headings and draw plot borders
  */

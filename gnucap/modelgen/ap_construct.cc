@@ -228,12 +228,12 @@ static std::string getlines(FILE *fileptr)
   const int buffer_size = BIGBUFLEN;
   std::string s;
 
-  bool more = true;  // get another line (extend)
-  while (more) {
+  bool need_to_get_more = true;  // get another line (extend)
+  while (need_to_get_more) {
     char buffer[buffer_size+1];
-    char* got = fgets(buffer, buffer_size, fileptr);
-    if (!got) { // probably end of file
-      more = false;
+    char* got_something = fgets(buffer, buffer_size, fileptr);
+    if (!got_something) { // probably end of file
+      need_to_get_more = false;
       if (s == "") {
 	throw Exception_End_Of_Input("");
       }else{untested();
@@ -241,18 +241,31 @@ static std::string getlines(FILE *fileptr)
     }else{
       trim(buffer);
       size_t count = strlen(buffer);
-      if (buffer[count-1] == '\\') {
-	itested();
+      if (buffer[count-1] == '\\') {untested();
 	buffer[count-1] = '\0';
       }else{
-	int c = fgetc(fileptr);
+	// look ahead at next line
+	//int c = fgetc(fileptr);
+	int c;
+	while (isspace(c = fgetc(fileptr))) {
+	  // skip
+	}
+    // GS: patch - drop spice comments if needed (to allow comments between cont lines)
+    if (OPT::drop_spice_comments) 
+      while (c=='*'){ 
+        char dummy[buffer_size+1];
+        fgets(dummy, buffer_size, fileptr);  //skip
+        while (isspace(c= fgetc(fileptr))){
+          // skip ws
+        }
+      }         
 	if (c == '+') {
-	  more = true;
-	}else if (c == '\n') {
-	  more = true;
+	  need_to_get_more = true;
+	}else if (c == '\n') {unreachable();
+	  need_to_get_more = true;
 	  ungetc(c,fileptr);
 	}else{
-	  more = false;
+	  need_to_get_more = false;
 	  ungetc(c,fileptr);
 	}
       }

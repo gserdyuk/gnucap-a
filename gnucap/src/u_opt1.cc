@@ -119,8 +119,4 @@ int	OPT::itl[OPT::ITL_COUNT] = {
 		1,	/* 7=worst case iteration limit */
 		99	/* 8=trace nonconvergence start iteration */
 };
-
-#ifdef KNEECHORD
-strategy_t OPT::strategy = stNEWTON; /* Default is Newton's Method, fastest */
-#endif
 bool    OPT::drop_spice_comments = false;
