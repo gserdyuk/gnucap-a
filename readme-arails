@@ -28,7 +28,7 @@ log with irrelevant code.
 commands:
 ---------
 1) 
-at gnucap-main
+at gnucap-main working repo
 apply new gnucap
 add version number
 git add <all files>
@@ -36,7 +36,7 @@ git commit -m "version number"
 git push
 
 2) 
-at gnucap arails
+at gnucap arails working repo
 git-pull gnucap-main HEAD
 if any conflicts {
      resolve
@@ -44,3 +44,5 @@ if any conflicts {
      git commit -m "<commit comment>"
      }
 git push
+
+as a result of two pit-push both repositories contain actual code
