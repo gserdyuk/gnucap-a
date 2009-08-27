@@ -15,11 +15,7 @@ extern "C" {
 #define MAX_NET_NODES 7
 #define INTERNAL_NODES 25
 #define MODEL_TYPE "nmos10|pmos10"
-<<<<<<< HEAD:gnucap/models-bsim/BSIMSOI4p0/wrapper.h
-#define UNCONNECTED_NODES FLOAT
-=======
 #define UNCONNECTED_NODES uFLOAT
->>>>>>> gnucap-main/master:gnucap/models-bsim/BSIMSOI4p0/wrapper.h
 
 static std::string port_names[] = {"d", "g", "s", "bg", "p", "body", "temp"};
 static std::string state_names[] = {};
