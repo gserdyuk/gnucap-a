@@ -257,14 +257,14 @@ static std::string getlines(FILE *fileptr)
 	  // skip
 	}
     // GS: patch - drop spice comments if needed (to allow comments between cont lines)
-    if (OPT::drop_spice_comments) 
+/*    if (OPT::drop_spice_comments) 
       while (c=='*'){ 
         char dummy[buffer_size+1];
         fgets(dummy, buffer_size, fileptr);  //skip
         while (isspace(c= fgetc(fileptr))){
           // skip ws
         }
-      }         
+      }  */ // GS: do not see this patch needed here, in modelgen directory         
 	if (c == '+') {
 	  need_to_get_more = true;
 	}else if (c == '\n') {unreachable();
