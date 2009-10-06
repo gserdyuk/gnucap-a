@@ -41,8 +41,30 @@ void Name_String::parse(CS& File)
 {
   File.skipbl();
   _data = "";
-  while (File.is_alpha() || File.is_pfloat() || File.match1("_[]")) {
-    _data += File.ctoc();
+//  while (File.is_alpha() || File.is_pfloat() || File.match1("_[]")) {
+//   _data += File.ctoc();
+   if (File.is_pfloat()) {
+     while (File.is_pfloat()) {
+        _data += File.ctoc();
+     }
+     if (File.match1("eE")) {
+       _data += File.ctoc();
+       if (File.match1("+-")) {
+          _data += File.ctoc();
+       }else{
+       }
+       while (File.is_digit()) {
+          _data += File.ctoc();
+       }
+     }else{
+     }
+     while (File.is_alpha()) {
+       _data += File.ctoc();
+     }
+   }else{
+     while (File.is_alpha() || File.is_pfloat() || File.match1("_[]")) {
+       _data += File.ctoc();
+     } 
   }
   File.skipbl();
 }
