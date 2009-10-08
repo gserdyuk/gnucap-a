@@ -231,7 +231,7 @@ public:
     return to_string(double(arg));
   }
 } p_stub;
-DISPATCHER<FUNCTION>::INSTALL d_stub(&function_dispatcher, "agauss|gauss|aunif|unif", &p_stub);
+DISPATCHER<FUNCTION>::INSTALL d_stub(&function_dispatcher, "agauss|gauss|aunif|unif|limit", &p_stub);
 /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/

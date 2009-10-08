@@ -325,10 +325,14 @@ inline void PARAMETER<T>::parse(CS& cmd)
     //cmd >> name;
     name = cmd.ctos(",=();", "'{\"", "'}\"");
     if (cmd) {
+      if (cmd.match('(')) {
+       _s = name + '(' +cmd.ctos("","(",")") + ')';
+      }else{
+       _s=name;
+      }
       if (name == "NA") {
 	_s = "";
       }else{
-	_s = name;
       }
     }else{
     }
