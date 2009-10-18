@@ -1,0 +1,13 @@
+./tmp/*
+./*.old
+*.o
+*.so
+d_mos*.cc
+d_mos*.h
+d_dio*.cc
+d_dio*.h
+d_bjt.cc
+d_bjt.h
+gnucap/src/gnucap
+
+
