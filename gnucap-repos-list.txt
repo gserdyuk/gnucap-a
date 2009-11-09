@@ -1,0 +1,14 @@
+gnucap-a        git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-a.git		
+gnucap-main     git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-main.git
+gnucap-arails   git clone ssh://gserdyuk@gnucapplus.org/srv/gnucapplus/git/gnucapplus.git
+bsim-lut        git clone ssh://git.gnucapplus.org/srv/int/plugins/model-bsim.lut.git
+
+gncuap-a	closest possible gnucap-main modification. contains only minimal changes necessary.
+gnucap-main	Al's version of gncuap
+gnucap-arails 	Arails working version. Pul;ls changes from gnucap-main, gnucap-a; may contain own 
+		changes which will not go to gnucap-a
+bsim-lut	LUT (look-up table) enabled bsim models
+
+if there any confusion between gnucap-a and gnucap-arails - please consult.
+
+G.Serdyuk gena@analograils.com
