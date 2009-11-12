@@ -103,9 +103,9 @@ void SIM::head(double start, double stop, const std::string& col1)
 		  _out << '\0';
 
 		  // 1) first pass -> calculate buffer/header length
-		  uint32_t header_size = 8;
-		  uint32_t columns_count = printlist().size()+1;
-		  uint32_t string_size;
+		  /*uint32_t*/ unsigned long int header_size = 8;
+		  /*uint32_t*/ unsigned long int columns_count = printlist().size()+1;
+		  /*uint32_t*/ unsigned long int string_size;
 		  unsigned int size = 0;
 		  for (PROBELIST::const_iterator
 				  p=printlist().begin();  p!=printlist().end();  ++p) {
