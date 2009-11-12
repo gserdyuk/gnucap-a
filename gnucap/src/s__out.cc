@@ -175,14 +175,14 @@ void SIM::print_results(double x)
 			float t_single = x;
 			for (int i = 0; i < sizeof t_single; ++i)
 			{
-				_out.writeout((char)((*(reinterpret_cast<uint64_t*>(&t_single)) >> (8 * i)) & 0xFF));
+				_out.writeout((char)((*(reinterpret_cast</*uint64_t*/ unsigned long long int *>(&t_single)) >> (8 * i)) & 0xFF));
 			}
 			for (PROBELIST::const_iterator
 					p=printlist().begin();  p!=printlist().end();  ++p) {
 				t_single = p->value();
 				for (int i = 0; i < sizeof t_single; ++i)
 				{
-					_out.writeout((char)((*(reinterpret_cast<uint64_t*>(&t_single)) >> (8 * i)) & 0xFF));
+					_out.writeout((char)((*(reinterpret_cast</*uint64_t*/ unsigned long long int *>(&t_single)) >> (8 * i)) & 0xFF));
 				}
 			}
 		}
