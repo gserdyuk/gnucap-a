@@ -2267,7 +2267,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gnucap
- VERSION=2009-09-28
+ VERSION=2009-11-10
 
 
 cat >>confdefs.h <<_ACEOF
@@ -3243,9 +3243,11 @@ ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ex
 ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 
+#AC_CHECK_LIB([termcap], [main])
+#AC_CHECK_LIB([readline], [main])
 
 # Check whether --with-readline was given.
-if test "${with_readline+set}" = set; then
+if test "${with_readline+set}" = set; then :
   withval=$with_readline;
 else
   with_readline=yes
@@ -3254,8 +3256,7 @@ fi
 
 if test "x$with_readline" != xno ; then
 
-
-{ $as_echo "$as_me:$LINENO: checking for main in -ltermcap" >&5
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -ltermcap" >&5
 $as_echo_n "checking for main in -ltermcap... " >&6; }
 if test "${ac_cv_lib_termcap_main+set}" = set; then
   $as_echo_n "(cached) " >&6
@@ -3323,8 +3324,7 @@ _ACEOF
 
 fi
 
-
-{ $as_echo "$as_me:$LINENO: checking for main in -lreadline" >&5
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lreadline" >&5
 $as_echo_n "checking for main in -lreadline... " >&6; }
 if test "${ac_cv_lib_readline_main+set}" = set; then
   $as_echo_n "(cached) " >&6
@@ -3394,8 +3394,7 @@ fi
 
 fi
 
-
-{ $as_echo "$as_me:$LINENO: checking for dlopen in -ldl" >&5
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for dlopen in -ldl" >&5
 $as_echo_n "checking for dlopen in -ldl... " >&6; }
 if test "${ac_cv_lib_dl_dlopen+set}" = set; then
   $as_echo_n "(cached) " >&6

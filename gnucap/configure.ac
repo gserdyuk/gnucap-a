@@ -26,7 +26,7 @@ AC_INIT([src/main.cc])
 # this is any file in the source directory
 # used as a check to be sure we found it
 
-AM_INIT_AUTOMAKE(gnucap, 2009-09-28)
+AM_INIT_AUTOMAKE(gnucap, 2009-11-10)
 AM_CONFIG_HEADER([config.h])
 
 AM_MAINTAINER_MODE
@@ -79,7 +79,7 @@ fi
 # this is a c++ program so use c++ for the tests
 AC_LANG([C++])
 
-#AC_CHECK_LIB([termcap], [main])
+#AC_CHECK_LIB([termcap], [main])	
 #AC_CHECK_LIB([readline], [main])
 AC_ARG_WITH([readline],
 [AS_HELP_STRING([--with-readline],

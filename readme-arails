@@ -46,3 +46,32 @@ if any conflicts {
 git push
 
 as a result of two pit-push both repositories contain actual code
+
+important things
+----------------
+1)  check if in .git/config present something like
+[remote "gnucap-main"]
+	url = ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-main.git
+	fetch = +refs/heads/*:refs/remotes/gnucap-main/*
+
+it was added by 
+>git add remore gnucap-main ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-main.git
+and have to be present.
+if not - add it
+
+2) >git fetch gnucap-main
+will fetch newest gnucap-main chnages
+
+3)  >git branch -r
+will show:
+gnucap-main/master
+....
+
+4) >git merge --no-commit gnucap-main/master 
+will merge changes
+"gnucap-main/master" is <remote>
+
+5) >git add fixes
+   and
+   >git commit -m "message"
+
