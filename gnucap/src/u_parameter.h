@@ -62,6 +62,16 @@ public:
       return _s;
     }
   }
+
+  bool	get_str(CS& cmd, const char *key) {
+    if (cmd.scan(key)) {
+      cmd >> '=' >> _s;
+      _v = 0;
+      return true;
+    } 
+    return false;
+  }
+
   void	print(OMSTREAM& o)const		{o << string();}
   void	set_default(const T& v)		{_v = v; _s = "";}
   void	operator=(const PARAMETER& p)	{_v = p._v; _s = p._s;}

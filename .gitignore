@@ -10,4 +10,5 @@ d_bjt.cc
 d_bjt.h
 gnucap/src/gnucap
 
-
+# separate plugin
+gnucap/gnucap-icarus

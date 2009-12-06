@@ -89,6 +89,14 @@ protected: // override virtual
 public:
   bool		has_ext_args()const;
   static COMMON_COMPONENT* parse_func_type(CS&);
+
+/*GS: This method is only used for gnucap-icarus cosimulation
+  it shall be removed; voltage measurement for co-simulatin  
+  has to be done by "measurement".
+  Do not use it in your code
+  To find related places use code "ICARCOSIMVOLT"
+*/
+  virtual double voltage(ELEMENT *) const {return 0;}
 };
 /*--------------------------------------------------------------------------*/
 class INTERFACE EVAL_BM_COND : public EVAL_BM_BASE {

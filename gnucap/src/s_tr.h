@@ -79,11 +79,11 @@ protected:		// s_tr_swp.cc
 private:
   void	set_step_cause(STEP_CAUSE);
 public:
-  int	step_cause()const;
-  void	first();
-  bool	next();
-  void	accept();
-  void	reject();
+  virtual int	step_cause()const;      // GS virtual
+  virtual void	first();                // GS virtual
+  virtual bool	next();                 // GS virtual
+  virtual void	accept();               // GS virtual
+  virtual void	reject();               // GS virtual
   /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */ 
 private:
   bool	is_step_rejected()const {return (step_cause() > scREJECT);}
