@@ -86,8 +86,9 @@ public:
   has to be done by "measurement".
   Do not use it in your code
   To find related places use code "ICARCOSIMVOLT"
-*/
+
   virtual double voltage(ELEMENT *) const {return 0;}
+*/  
 };
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

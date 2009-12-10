@@ -156,9 +156,9 @@ public:
    It will be deleted when ::voltage vill be deleted 
    Do not use this function in your code
    To find related places use code "ICARCOSIMVOLT"
-*/
-  inline const node_t *node(int i) {return &_nodes[i];}
 
+  inline const node_t *node(int i) {return &_nodes[i];}
+*/
   CPOLY1   _m0;		// matrix parameters, new
   CPOLY1   _m1;		// matrix parameters, 1 fill ago
   double   _loss0;	// shunt conductance
