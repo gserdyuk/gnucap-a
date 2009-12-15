@@ -60,14 +60,6 @@ std::string to_string(int n)
   return s;
 }
 /*--------------------------------------------------------------------------*/
-/* GS moved to plugin
-std::string to_string(long n)
-{
-  char s[100];
-  sprintf(s, "%ld", n);
-  return s;
-}*/
-/*--------------------------------------------------------------------------*/
 std::string to_string(double n)
 {
   return ftos(n, 0, 7, 0);

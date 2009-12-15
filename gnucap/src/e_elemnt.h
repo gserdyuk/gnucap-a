@@ -151,14 +151,6 @@ protected:
 private:
   node_t   _nodes[NODES_PER_BRANCH]; // nodes (0,1:out, 2,3:in)
 public:
-/* GS: this function "node_t *node(int i)" is used only by 
-   EVAL_BM_EXTPWL::voltage from  gnucap-icarus plugin. 
-   It will be deleted when ::voltage vill be deleted 
-   Do not use this function in your code
-   To find related places use code "ICARCOSIMVOLT"
-
-  inline const node_t *node(int i) {return &_nodes[i];}
-*/
   CPOLY1   _m0;		// matrix parameters, new
   CPOLY1   _m1;		// matrix parameters, 1 fill ago
   double   _loss0;	// shunt conductance
