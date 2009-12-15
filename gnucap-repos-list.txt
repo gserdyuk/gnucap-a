@@ -2,7 +2,7 @@ gnucap-a        git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-a.g
 gnucap-main     git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-main.git
 gnucap-arails   git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucapplus.git
 moved to 
-bsim-lut        git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/model-bsim.lut.git
+bsim-lut        git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/models-bsim.lut.git
 gnucap-icarus   git clone ssh://git.gnucapplus.org/srv/gnucapplus/git/gnucap-icarus.git
 
 gncuap-a	closest possible gnucap-main modification. contains only minimal changes necessary.
