@@ -1,0 +1,14 @@
+Branches
+'
+master
+noise  - implementation of noise command
+  
+  
+to checkout branch:
+git checkout --track -b <local-branch-name> origin/<remote-branch>
+for example:
+git checkout --track -b noise origin/noise
+ckeck outs origin/noise into local branch noise
+
+then use 
+git fetch (options ?)
