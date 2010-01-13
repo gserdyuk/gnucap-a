@@ -12,3 +12,8 @@ ckeck outs origin/noise into local branch noise
 
 then use 
 git fetch (options ?)
+
+to create new branch locally
+>git branch newbranch
+to push it:
+>git push origin newbranch
