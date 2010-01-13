@@ -65,7 +65,7 @@ lang_spice.cc lang_spectre.cc lang_verilog.cc
 
 # parameter functions
 FUNC_SRCS = \
-func_core.cc measure_eval.cc \
+func_core.cc func_userdef.cc measure_eval.cc \
 measure_max.cc measure_min.cc measure_slewrate.cc measure_cross.cc \
 measure_integral.cc measure_average.cc measure_rms.cc measure_at.cc
 #------------------------------------------------------------------------
@@ -104,7 +104,7 @@ s__.h s_tr.h \
 e_base.h e_card.h e_node.h e_aux.h e_model.h e_compon.h e_subckt.h \
 e_elemnt.h e_ccsrc.h e_storag.h e_cardlist.h \
 d_coment.h d_dot.h d_logic.h d_subckt.h \
-bm.h \
+bm.h func_userdef.h\
 c_comand.h globals.h
 #------------------------------------------------------------------------
 ## The modelgen generated files

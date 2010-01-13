@@ -27,14 +27,13 @@
 #include "l_stlextra.h"
 #include "u_parameter.h"
 #include "u_lang.h"
-
+#include "func_userdef.h"
+/*
 #include "u_function.h"
 #include "ap.h"
 #include "io_error.h"
-/*--------------------------------------------------------------------------*/
 
 //GS additon
-/*--------------------------------------------------------------------------*/
 class USERDEF_FUNCTION : public FUNCTION {
 private:
     std::string _value;
@@ -71,7 +70,7 @@ public:
     return to_string(res);
   }
 } ;
-
+*/
 /*--------------------------------------------------------------------------*/
 
 void PARAM_LIST::parse(CS& cmd)
