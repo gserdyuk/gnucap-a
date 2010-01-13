@@ -22,7 +22,7 @@
  */
 
 #ifndef FUNC_USERDEF_H
-#define FUNC_uSERDEF_H
+#define FUNC_USERDEF_H
 
 //#include "u_parameter.h"
 //#include "u_lang.h"
