@@ -1,0 +1,33 @@
+* function in subcircuit
+
+.param func_zero()= '0'
+.param func_1(a)  = 'a+1'
+.param func_2(x,y)= 'x+y+2'
+.param func_3(x,y)= '0'
+*****************************************
+.subckt volts 1 2 3 4
+
+.param func_3(x,y)= 'x+y+3'
+
+* voltage = 0 (func_zero from top-level)
+v1 1 0 dc 'func_zero()'
+* voltage = 2.1 (func_1 from top-level)
+v2 2 0 dc 'func_1(1.1)'
+* voltage = 4.15 (func_2 from top-level)
+v3 3 0 dc 'func_2(1.05,1.1)'
+* voltage = 5.15 (func_3 from .subckt volts)
+v4 4 0 dc 'func_3(1.05,1.1)'
+
+.ends
+****************************************
+
+x1 nd1 nd2 nd3 nd4 volts
+
+* this one has to be =0 (first one func_3) but now evaluates 5.15
+v5 5 0 'func_3(1.05,1.1)'
+
+.print op v(nd*) v(5)
+
+.op
+
+.end

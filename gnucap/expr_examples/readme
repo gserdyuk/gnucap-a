@@ -1,0 +1,38 @@
+tests
+1) simple set - one parameter, two parameters, three parameters, +-*/
+    function1.gckt  - passed
+
+2) zero parameters
+    function1.gckt  - passed
+
+3) function in submodule
+    function2.gckt  - passed
+
+4) function calling function - standard and user-defined
+    function3.gckt  - passed
+
+5) function destruction
+    function2.gckt  - failed
+    function from subcircuit should not be visible outside subcircuit?
+        
+6) test visibility according to *spice
+    to be tested
+
+7) test division by 0, other exceptions (like tg(pi/2))
+    to be tested
+
+8) multiline functions
+    function4.gckt  - passed
+
+9) functions from IBM testcase
+    function5.gckt  - ??
+
+10) functions: (x>0)*1,(x<=0)*1, x==y?a:b
+    function6.gckt  - passed
+    
+11) functions: 
+    x==y?a:b		- passed
+    ((x==y)?a:b)	- failed
+    (x==y?a:b)		- failed
+    functions7.gckt
+    

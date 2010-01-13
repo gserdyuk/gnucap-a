@@ -1,0 +1,51 @@
+* functions from realistic library - some stuff does not work
+
+
+
+
+.param expr1(a,b,c)     = 'a - c * (b - a)'
+
+.param expr2(b,n,w,z)   = 'n + (1./(1.+z*(w+b-2.*n)/(w-b)) - 1.) * 2. * (w-n) * (n-b)/(w+b-2.* n)'
+
+.param expr3(n, b, w, x) = '(x>0) * (b-n)*x +(x<=0)*(n - w)*x'
+
+.param expr4(b, n, w, s) = 'n + s*2.*(w-n)*(b-n) / (w n || n b || w == b ? 1. : w-b+s*(w+b-2.*n))'
+
+.param expr5(b, n, w, s) = 'n + s*2.*(w-n)*(b-n) / (w n || n b )'
+
+* expr1(a,b,c) = 'a - c * (b - a)'
+* expr1(5,7,2) = '5 - 3 * (7 - 5)' = 5-2*2 = 1 
+* =1
+v1 1 0 dc 'expr1(5,7,2)'
+
+
+* expr2(b,n,w,z)   = 'n + (1./(1.+z*(w+b-2.*n)/(w-b)) - 1.) * 2. * (w-n) * (n-b)/(w+b-2.* n)'
+* expr2(1,0.5,2,1)   = '0.5 + (1./ (1.+1*(2+1-2.*0.5)/(2-1)) - 1.) * 2. * (2-0.5) * (0.5-1)/(2+1-2.* 0.5)'
+*                    =  '0.5 + (1/3 - 1) * 2. * (2-0.5) * (0.5-1)/2 =
+*                    =  '0.5 +   0.5 = 1
+* =1
+v2 2 0 dc 'expr2(1,0.5,2,1)'
+
+
+* expr3(n, b, w, x) = '(x>0) * (b-n)*x +(x<=0)*(n - w)*x'
+* expr3(1, 2, 0, 1) = '(1>0) * (2-1)*1 = 1* 1*1 = 1
+* = 1 
+v31 31 0 dc 'expr3(1,2,0,1)'
+
+
+* expr3(n, b, w, x) = '(x>0) * (b-n)*x +(x<=0)*(n - w)*x'
+* expr3(0, 0, 1, -1) = 1*(0 - 1)*(-1) = 1
+v32 32 0 dc 'expr3(0,0,1,-1)'
+
+*expr4(b, n, w, s) = 'n + s*2.*(w-n)*(b-n) / (w n || n b || w == b ? 1. : w-b+s*(w+b-2.*n))'
+*v4 4 0 dc 'expr4(1,1,1,1)'
+
+*expr5(b, n, w, s) = 'n + s*2.*(w-n)*(b-n) / (w n || n b )'
+v5 5 0 dc 'expr5(1,1,1,1)'
+
+
+.print op v(v*) 
+
+.op
+
+.end

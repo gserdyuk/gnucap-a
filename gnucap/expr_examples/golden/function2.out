@@ -1,0 +1,14 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* function in subcircuit 
+func_3: already installed, replacing
+stashing as func_3:0
+#           v(nd1)     v(nd2)     v(nd3)     v(nd4)     v(5)      
+ 27.        0.         2.1        4.15       5.15       5.15      
