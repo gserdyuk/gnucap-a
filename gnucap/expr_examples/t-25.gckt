@@ -1,0 +1,26 @@
+* 
+
+.param u='defined(1)'
+.param v='defined(0)'
+
+.param a='1'
+.param w='defined(a)'
+.param x='defined(b)'
+
+.param y='defined(a+1)'
+.param z='defined(b+1)'
+.param zz='defined(a+b+1)'
+
+v1 1 0 dc 'u'
+v2 2 0 dc 'v'
+v3 3 0 dc 'w'
+v4 4 0 dc 'x'
+v5 5 0 dc 'y'
+v6 6 0 dc 'z'
+v7 7 0 dc 'zz'
+
+.print op v(v*)
+.op
+.end
+
+ 

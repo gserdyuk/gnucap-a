@@ -1,0 +1,932 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* 
+Expression::expression(CS& File) = x
+Expression::leaf(CS& File) = x
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+x | 
+++
+reduce_copy
+x
+reduce_copy print#2
+x
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+last_match=<
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 
+++
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+<
+3
+4
+?
+reduce_copy print#2
+1
+2
+<
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 1
+T2=3 
+T3=4 
+b details 3. _ 0x9875448 _ 
+ returning:  3. 
+ Triop-  E                =0xbfc4af00
+ Triop-  t                =0x98747a8
+ Triop-  t->data()        =0x9875448
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 3. |  
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | < | 3 | 4 | ? | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4af00
+Token               =0x98747a8 Token->type=Token_CONSTANT
+tok->data()         =0x9875448 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=x | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4b150
+Token               =0x98745b0 Token->type=Token_CONSTANT
+tok->data()         =0x9875408 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = y
+Expression::leaf(CS& File) = y
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+y | 
+++
+reduce_copy
+y
+reduce_copy print#2
+y
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+last_match=>
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 
+++
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+>
+3
+4
+?
+reduce_copy print#2
+1
+2
+>
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 0
+T2=3 
+T3=4 
+b details 4. _ 0x9875438 _ 
+ returning:  4. 
+ Triop-  E                =0xbfc4af00
+ Triop-  t                =0x9874760
+ Triop-  t->data()        =0x9875438
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 4. |  
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | > | 3 | 4 | ? | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4af00
+Token               =0x9874760 Token->type=Token_CONSTANT
+tok->data()         =0x9875438 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=y | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4b150
+Token               =0x98747a8 Token->type=Token_CONSTANT
+tok->data()         =0x98753b8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = x
+Expression::leaf(CS& File) = x
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+x | 
+++
+reduce_copy
+x
+reduce_copy print#2
+x
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+last_match=<
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 
+++
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+<
+3
+4
+?
+reduce_copy print#2
+1
+2
+<
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 1
+T2=3 
+T3=4 
+b details 3. _ 0x9875448 _ 
+ returning:  3. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x98749b8
+ Triop-  t->data()        =0x9875448
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 3. |  
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | < | 3 | 4 | ? | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4afb0
+Token               =0x98749b8 Token->type=Token_CONSTANT
+tok->data()         =0x9875448 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=x | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4b200
+Token               =0x98747c0 Token->type=Token_CONSTANT
+tok->data()         =0x9875418 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = x
+Expression::leaf(CS& File) = x
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+x | 
+++
+reduce_copy
+x
+reduce_copy print#2
+x
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+last_match=<
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 
+++
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+<
+3
+4
+?
+reduce_copy print#2
+1
+2
+<
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 1
+T2=3 
+T3=4 
+b details 3. _ 0x9875458 _ 
+ returning:  3. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874810
+ Triop-  t->data()        =0x9875458
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 3. |  
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | < | 3 | 4 | ? | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4afb0
+Token               =0x9874810 Token->type=Token_CONSTANT
+tok->data()         =0x9875458 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=x | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4b200
+Token               =0x98749b8 Token->type=Token_CONSTANT
+tok->data()         =0x98753b8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = x
+Expression::leaf(CS& File) = x
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+x | 
+++
+reduce_copy
+x
+reduce_copy print#2
+x
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+last_match=<
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 
+++
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+<
+3
+4
+?
+reduce_copy print#2
+1
+2
+<
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 1
+T2=3 
+T3=4 
+b details 3. _ 0x9875468 _ 
+ returning:  3. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874790
+ Triop-  t->data()        =0x9875468
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 3. |  
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | < | 3 | 4 | ? | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4afb0
+Token               =0x9874790 Token->type=Token_CONSTANT
+tok->data()         =0x9875468 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=x | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4b200
+Token               =0x9874810 Token->type=Token_CONSTANT
+tok->data()         =0x98753f8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = x
+Expression::leaf(CS& File) = x
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+x | 
+++
+reduce_copy
+x
+reduce_copy print#2
+x
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+last_match=<
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 
+++
+Expression::expression(CS& File) = 1<2?3:4
+Expression::leaf(CS& File) = 1<2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | < | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+<
+3
+4
+?
+reduce_copy print#2
+1
+2
+<
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 1
+T2=3 
+T3=4 
+b details 3. _ 0x9875428 _ 
+ returning:  3. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874580
+ Triop-  t->data()        =0x9875428
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 3. |  
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | < | 3 | 4 | ? | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4afb0
+Token               =0x9874580 Token->type=Token_CONSTANT
+tok->data()         =0x9875428 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 3. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=x | 
+ 3. | 
+ 3. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 3. | Expression  this    =0xbfc4b200
+Token               =0x9874790 Token->type=Token_CONSTANT
+tok->data()         =0x98753d8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = y
+Expression::leaf(CS& File) = y
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+y | 
+++
+reduce_copy
+y
+reduce_copy print#2
+y
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+last_match=>
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 
+++
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+>
+3
+4
+?
+reduce_copy print#2
+1
+2
+>
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 0
+T2=3 
+T3=4 
+b details 4. _ 0x9875448 _ 
+ returning:  4. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x98745c8
+ Triop-  t->data()        =0x9875448
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 4. |  
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | > | 3 | 4 | ? | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4afb0
+Token               =0x98745c8 Token->type=Token_CONSTANT
+tok->data()         =0x9875448 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=y | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4b200
+Token               =0x9874580 Token->type=Token_CONSTANT
+tok->data()         =0x9875418 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = y
+Expression::leaf(CS& File) = y
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+y | 
+++
+reduce_copy
+y
+reduce_copy print#2
+y
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+last_match=>
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 
+++
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+>
+3
+4
+?
+reduce_copy print#2
+1
+2
+>
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 0
+T2=3 
+T3=4 
+b details 4. _ 0x9875458 _ 
+ returning:  4. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874598
+ Triop-  t->data()        =0x9875458
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 4. |  
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | > | 3 | 4 | ? | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4afb0
+Token               =0x9874598 Token->type=Token_CONSTANT
+tok->data()         =0x9875458 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=y | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4b200
+Token               =0x98745c8 Token->type=Token_CONSTANT
+tok->data()         =0x98753b8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = y
+Expression::leaf(CS& File) = y
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+y | 
+++
+reduce_copy
+y
+reduce_copy print#2
+y
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+last_match=>
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 
+++
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+>
+3
+4
+?
+reduce_copy print#2
+1
+2
+>
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 0
+T2=3 
+T3=4 
+b details 4. _ 0x9875468 _ 
+ returning:  4. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874760
+ Triop-  t->data()        =0x9875468
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 4. |  
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | > | 3 | 4 | ? | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4afb0
+Token               =0x9874760 Token->type=Token_CONSTANT
+tok->data()         =0x9875468 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=y | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4b200
+Token               =0x9874598 Token->type=Token_CONSTANT
+tok->data()         =0x98753f8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+Expression::expression(CS& File) = y
+Expression::leaf(CS& File) = y
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+y | 
+++
+reduce_copy
+y
+reduce_copy print#2
+y
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+last_match=>
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+ ### trenarytail true
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 
+++
+Expression::expression(CS& File) = 1>2?3:4
+Expression::leaf(CS& File) = 1>2?3:4
+Expression::logicaltail(CS& File)
+ ### trenarytail entered
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | 
+++
+treanarytail - dumping stack ++
+1 | 2 | > | 3 | 4 | ? | 
+++
+reduce_copy
+1
+2
+>
+3
+4
+?
+reduce_copy print#2
+1
+2
+>
+3
+4
+?
+Token_TRIOP::stack_op
+T1->data->value = 0
+T2=3 
+T3=4 
+b details 4. _ 0x9875428 _ 
+ returning:  4. 
+ Triop-  E                =0xbfc4afb0
+ Triop-  t                =0x9874388
+ Triop-  t->data()        =0x9875428
+ Triop-  t->data()->type()=Float
+Triop- simpledump
+ 4. |  
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=1 | 2 | > | 3 | 4 | ? | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4afb0
+Token               =0x9874388 Token->type=Token_CONSTANT
+tok->data()         =0x9875428 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+ stack processed 
+ stack processed - result: 
+ 4. | 
+ stack processed - exiting 
+ Expression::Expression(Proto, Scope): Proto=y | 
+ 4. | 
+ 4. 
+  constructor exiting 
+PARAMETER<T>::lookup_solve - "reduced" created
+Expression eval
+ 4. | Expression  this    =0xbfc4b200
+Token               =0x9874760 Token->type=Token_CONSTANT
+tok->data()         =0x98753d8 
+tok->data()->type() =Float
+PARAMETER<T>::lookup_solve - reduced.eval() 
+#           v(v1)      v(v2)     
+ 27.        3.         4.        
