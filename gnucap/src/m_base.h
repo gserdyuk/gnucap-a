@@ -44,6 +44,7 @@ public:
   virtual ~Base() {}
   virtual std::string val_string()const		{untested(); return "error";}
   virtual bool to_bool()const			{unreachable(); return false;}
+  virtual Base * copier() const {unreachable(); return NULL;}
 
   virtual Base* minus()const			{untested(); return NULL;}
   virtual Base* plus()const			{untested(); return NULL;}
@@ -84,6 +85,7 @@ public:
   virtual Base* r_divide(const Base*)const	{untested(); return NULL;}
   virtual Base* r_divide(const Float*)const	{untested(); return NULL;}
   virtual Base* r_divide(const String*)const	{untested(); return NULL;}
+  virtual Base* select(const Base* , const Base*)  const	{untested(); return NULL;}    
 
   Base* logic_not()const;
   Base* logic_or(const Base* X)const;
@@ -163,6 +165,7 @@ public:
   operator double()const		{untested();return _data;}
   std::string val_string()const		{return ftos(_data, 0, 15, ftos_EXP);}
   bool to_bool()const			{return (_data != 0);}
+  virtual Float * copier() const {return new Float(*this);}
 
   Base* minus()const			{return new Float(-_data);}
   Base* plus()const			{return new Float(_data);}
@@ -205,7 +208,7 @@ public:
   Base* r_subtract(const String*)const	{untested();return NULL;}
   Base* divide(const String*)const	{untested();return NULL;}
   Base* r_divide(const String*)const	{	    return NULL;}
-
+  Base* select(const Base* b, const Base* c)  const	{ return ( to_bool() ? b->copier(): c-> copier() ); }    
   bool  is_NA()const			{untested();return _data == NOT_INPUT;}
 };
 /*--------------------------------------------------------------------------*/
@@ -219,23 +222,26 @@ public:
 private:
   void dump(std::ostream& o)const {untested();o << _data;}
 public:
-  explicit String(CS& file) {untested();parse(file);}
+  /*implicit*/ String(const String& p) :Base(), _data(p._data) {untested();}  // to be used in String::select(Float*, String*);
+  explicit String(CS& file) {untested();parse(file); }
   explicit String()	    {}
   explicit String(const std::string& s) :_data(s) {}
   operator const std::string&()const	{return _data;}
   std::string val_string()const		{untested();return _data;}
   bool to_bool()const			{untested();return (_data != "");}
+  virtual String * copier() const {return new String(*this);}
 
   Base* minus()const			{untested(); return NULL;}
   Base* plus()const			{untested(); return NULL;}
 
-  Base* less(const String* X)const	{untested();assert(X); return new Float((_data < X->_data)?1.:0.);}
-  Base* greater(const String* X)const	{untested();assert(X); return new Float((_data > X->_data)?1.:0.);}
-  Base* leq(const String* X)const	{untested();assert(X); return new Float((_data <= X->_data)?1.:0.);}
-  Base* geq(const String* X)const	{untested();assert(X); return new Float((_data >= X->_data)?1.:0.);}
-  Base* not_equal(const String* X)const	{untested();assert(X); return new Float((_data != X->_data)?1.:0.);}
-  Base* equal(const String* X)const	{untested();assert(X); return new Float((_data == X->_data)?1.:0.);}
-  Base* add(const String* X)const	{untested();assert(X); return new String(_data + X->_data);}
+  // behavior fixed as a<b means "undefined a and b" but not "strings a and b"
+  Base* less(const String* X)const	{untested();assert(X); return NULL; }       //return new Float((_data < X->_data)?1.:0.);}
+  Base* greater(const String* X)const	{untested();assert(X); return NULL; }   //return new Float((_data > X->_data)?1.:0.);}
+  Base* leq(const String* X)const	{untested();assert(X); return NULL; }       //return new Float((_data <= X->_data)?1.:0.);}
+  Base* geq(const String* X)const	{untested();assert(X); return NULL; }       //return new Float((_data >= X->_data)?1.:0.);}
+  Base* not_equal(const String* X)const	{untested();assert(X); return NULL; }   //return new Float((_data != X->_data)?1.:0.);}
+  Base* equal(const String* X)const	{untested();assert(X); return NULL; }       // return new Float((_data == X->_data)?1.:0.);}
+  Base* add(const String* X)const	{untested();assert(X); return NULL; }       // return new String(_data + X->_data);}
   Base* multiply(const String*)const	{untested(); return NULL;}
   Base* subtract(const String*)const	{untested(); return NULL;}
   Base* r_subtract(const String*)const	{untested(); return NULL;}
@@ -267,6 +273,8 @@ public:
   Base* r_subtract(const Float*)const	{untested();return NULL;}
   Base* divide(const Float*)const	{untested();return NULL;}
   Base* r_divide(const Float*)const	{untested();return NULL;}
+  Base* select(const Base* , const Base*)  const	{untested(); return NULL;}    
+
 };
 /*--------------------------------------------------------------------------*/
 class Name_String	// a string that contains only alnum and _[]

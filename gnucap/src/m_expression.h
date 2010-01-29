@@ -111,6 +111,16 @@ public:
   Token* clone()const {untested();return new Token_CONSTANT(*this);}
   void stack_op(Expression*)const;
 };
+class Token_TRIOP : public Token
+{
+public:
+  explicit Token_TRIOP(const std::string Name)
+    : Token(Name, NULL, "") {}
+  explicit Token_TRIOP(const Token_TRIOP& P) : Token(P) {}
+  Token* clone()const {return new Token_TRIOP(*this);}
+  Token* op(const Token* t1, const Token* t2, const Token* t3)const;
+  void stack_op(Expression*)const;
+};
 /*--------------------------------------------------------------------------*/
 class INTERFACE Expression
   :public List_Base<Token>
@@ -120,6 +130,7 @@ public:
 public:
   void parse(CS&);
   void dump(std::ostream&)const;
+  void simpledump(std::ostream&)const;
 private: // expression-in.cc
   void arglisttail(CS& File);
   void arglist(CS& File);
@@ -135,6 +146,7 @@ private: // expression-in.cc
   void andarg(CS& File);
   void exptail(CS& File);
   void expression(CS& File);
+  void trenarytail(CS& File); // gs 
 public:
   explicit Expression() : _scope(NULL) {untested();}
   explicit Expression(CS& File) : _scope(NULL) {parse(File);}
@@ -144,7 +156,7 @@ public:
   explicit Expression(const Expression&, const CARD_LIST*);
 public: // other
   bool as_bool()const {untested();return (!is_empty() && back()->data());}
-  double eval()const {
+  double eval()const   {
     const Float* f = dynamic_cast<const Float*>(back()->data());
     return ((f && size()==1) ? (f->value()) : (NOT_INPUT));
   }

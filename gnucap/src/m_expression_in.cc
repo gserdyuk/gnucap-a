@@ -53,7 +53,10 @@
  * andarg	: logical andtail
  * exptail	: "||" andarg exptail
  *		| nothing
- * expression	: andarg exptail
+ * expression	: andarg exptail trenarytail
+ *
+ * trenaryqs    : "?" expression ":" expression 
+ *      | nothing 
  */
 //testing=script 2009.08.12
 #include "m_expression.h"
@@ -210,11 +213,28 @@ void Expression::expression(CS& File)
 {
   andarg(File);
   exptail(File);
+  trenarytail(File);  
 }
 /*--------------------------------------------------------------------------*/
 void Expression::parse(CS& File)
 {
   expression(File);
 }
+//gs
+/*--------------------------------------------------------------------------*/
+void Expression::trenarytail(CS& File)
+{
+  if (File >> "?") {                                // eat "?"
+    std::string questionmarkop(File.last_match());  // store "?"
+    expression(File);
+    if (File >> ":") {                              // eat ":"
+      expression(File);
+      push_back(new Token_TRIOP(questionmarkop));   // stack is:  logic_expr choise_1 choise_2 Token_?
+    } else {
+    }       
+  }else{
+  }
+}
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

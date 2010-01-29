@@ -299,4 +299,72 @@ Expression::Expression(const Expression& Proto, const CARD_LIST* Scope)
   reduce_copy(Proto);
 }
 /*--------------------------------------------------------------------------*/
+Token* Token_TRIOP::op(const Token* T1, const Token* T2, const Token* T3)const
+{
+  assert(T1);
+  assert(T2);
+  assert(T3);
+  assert(dynamic_cast<const Token_CONSTANT*>(T1));
+  assert(dynamic_cast<const Token_CONSTANT*>(T2));
+  assert(dynamic_cast<const Token_CONSTANT*>(T3));
+  assert(T1->data());
+  assert(T2->data());
+  assert(T3->data());
+  assert(dynamic_cast<const Float*>(T1->data()));   // T1->data() is logical operation, so has to be Float* - see m_base.h
+  
+  const Base* b = 0;
+  if (name() == "?") {
+    b=T1->data()->select(T2->data(), T3->data() );        // x?y:z => x->select(y,z)
+    if (b) { // b has data - so select returned something reasonable  
+      return  new Token_CONSTANT(b->val_string(), b, (T1->aRgs()+T2->aRgs()+T3->aRgs()));
+      }
+    else {  // b has to data , i.e. String:: select was called - returning Token with NULL - see caller
+      return new Token_CONSTANT("false", NULL, "");  
+      }
+    }
+  else {   // name() != "?" -  op name is not "?", meanwhile "?" is only one trenary op
+    unreachable();                          
+    return NULL;
+    }
+}
 /*--------------------------------------------------------------------------*/
+void Token_TRIOP::stack_op(Expression* E)const 
+{
+  assert(E);
+  // replace 2 tokens (binop) with 1 (result)
+  Token* t1 = E->back();
+  E->pop_back();
+  Token* t2 = E->back();
+  E->pop_back();
+  Token* t3 = E->back();
+  E->pop_back();
+    
+  if (dynamic_cast<Token_CONSTANT*>(t1) &&  dynamic_cast<Token_CONSTANT*>(t2) && dynamic_cast<Token_CONSTANT*>(t3) ) {
+        // have # # # ? .. becomes result (the usual)
+        Token* t = op(t3, t2, t1);  // watch for order - op(expr_logic, expr_if_true, expr_if_false)
+        assert(t);
+        
+        if (t->data()) {   // branch 1, when op returned reasonable result
+	      // success
+	      E->push_back(t);
+          delete t3;
+	      delete t2;
+	      delete t1;
+          }
+        else {              // branch 2 - when op returned NULL because t1->data()->select returned NULL 
+          E->push_back(t3);
+          E->push_back(t2);
+          E->push_back(t1);
+          E->push_back(clone());
+          }
+  }  
+  else {                    // branch 3, when not all operands are Token_CONSTANT, so somewhere other they were not evaluated
+       E->push_back(t3);
+       E->push_back(t2);
+       E->push_back(t1);
+       E->push_back(clone());
+  }    
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
