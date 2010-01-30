@@ -120,3 +120,5 @@ int	OPT::itl[OPT::ITL_COUNT] = {
 		99	/* 8=trace nonconvergence start iteration */
 };
 bool    OPT::drop_spice_comments = false;
+bool    OPT::cut_inline_spice_comments = false;
+

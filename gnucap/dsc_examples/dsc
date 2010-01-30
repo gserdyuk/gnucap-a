@@ -1,0 +1,6 @@
+#!/bin/bash
+
+GNUCAP=../src/gnucap
+
+$GNUCAP 	-b dsc1.gckt |tee dsc1.out
+$GNUCAP 	< dsc2.cmd   |tee dsc2.out
