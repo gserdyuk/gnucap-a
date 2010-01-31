@@ -262,7 +262,7 @@ static std::string getlines(FILE *fileptr)
       }
     }else{
       trim(buffer);
-      if (OPT::cut_inline_spice_comments) cut_end_substring(buffer,'$');
+      if (OPT::dollar_as_spice_comment) cut_end_substring(buffer,'$');
       size_t count = strlen(buffer);
       if (buffer[count-1] == '\\') {itested();
 	buffer[count-1] = '\0';

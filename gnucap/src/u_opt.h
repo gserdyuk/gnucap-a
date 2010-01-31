@@ -173,7 +173,7 @@ public:
 			    // 7=worst case iteration limit
 			    // 8=trace nonconvergence start iteration
   static bool drop_spice_comments;          // GS: option to drop spice comment lines, will allow comments before continuation lines
-  static bool cut_inline_spice_comments;    // GS: option to cut inline "$" spice comments
+  static bool dollar_as_spice_comment;      // GS: option to cut inline "$" spice comments
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {

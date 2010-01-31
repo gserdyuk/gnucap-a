@@ -1,6 +1,6 @@
 spice
 * dollar sign comment example
-.options cut_inline_spice_comments
+.options dollar_as_spice_comment
 
 r1 1 0 10k
 v1 1 0 dc 1             $ comment line 1
