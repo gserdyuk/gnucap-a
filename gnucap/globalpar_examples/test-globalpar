@@ -12,6 +12,9 @@ $GNUCAP -b global6.gckt |tee global6.out
 $GNUCAP -b global8.gckt |tee global8.out
 $GNUCAP -b global9.gckt |tee global9.out
 
+$GNUCAP -b global11.gckt |tee global11.out
+$GNUCAP -b global12.gckt |tee global12.out
+
 $GNUCAP -b global21.gckt |tee global21.out
 
 echo "RESULTS <if no - it's ok>":
@@ -24,5 +27,8 @@ diff --ignore-matching-lines="Gnucap gnucap"  global6.out ./golden
 
 diff --ignore-matching-lines="Gnucap gnucap"  global8.out ./golden
 diff --ignore-matching-lines="Gnucap gnucap"  global9.out ./golden
+
+diff --ignore-matching-lines="Gnucap gnucap"  global11.out ./golden
+diff --ignore-matching-lines="Gnucap gnucap"  global12.out ./golden
 
 diff --ignore-matching-lines="Gnucap gnucap"  global21.out ./golden

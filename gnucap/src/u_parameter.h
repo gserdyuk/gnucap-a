@@ -192,20 +192,31 @@ void e_val(T* p, const T& def, const CARD_LIST*)
 class INTERFACE PARAM_LIST {
 private:
   mutable std::map<const std::string, PARAMETER<double> > _pl;
-public:
+private:
   PARAM_LIST* _try_again; // if you don't find it, also look here
+  CARD_LIST*  _upper_level; // _upper_level->params() is "second" _try_again - but _params is mutable at CARD_LIST (mutable PARAM_LIST* _params) so can not refer them directly
+public:
+  PARAM_LIST* get_try_again() {return _try_again;};
+  PARAM_LIST* get_try_again()const {return _try_again;};
+
+  CARD_LIST*  get_upper_level() {return _upper_level;};
+  CARD_LIST*  get_upper_level()const {return _upper_level;};
+  PARAM_LIST* get_upper_level_params() {return _upper_level?_upper_level->params():NULL;};
+  PARAM_LIST* get_upper_level_params() const {return _upper_level?_upper_level->params():NULL;};
+  
 public:
   typedef std::map<const std::string, PARAMETER<double> >::const_iterator
 		const_iterator;
   typedef std::map<const std::string, PARAMETER<double> >::iterator
 		iterator;
-  explicit PARAM_LIST() :_try_again(NULL) {}
+  explicit PARAM_LIST() :_try_again(NULL),_upper_level(NULL) {}
   explicit PARAM_LIST(const PARAM_LIST& p) 
-				:_pl(p._pl), _try_again(p._try_again) {}
+				:_pl(p._pl), _try_again(p._try_again), _upper_level(p._upper_level) {}
   //explicit PARAM_LIST(PARAM_LIST* ta) :_try_again(ta) {untested();}
   ~PARAM_LIST() {}
   void	parse(CS& cmd);
   void	print(OMSTREAM&, LANGUAGE*)const;
+  void  deep_print(OMSTREAM& o, LANGUAGE*, int i=0) const;
   
   size_t size()const {return _pl.size();}
   bool	 is_empty()const {return _pl.empty();}
@@ -219,6 +230,7 @@ public:
   const PARAMETER<double>& operator[](std::string i)const {return deep_lookup(i);}
   void set(std::string, const std::string&);
   void set_try_again(PARAM_LIST* t) {_try_again = t;}
+  void set_upper_level(CARD_LIST* t) {_upper_level = t;}
 
   iterator begin() {return _pl.begin();}
   iterator end() {return _pl.end();}

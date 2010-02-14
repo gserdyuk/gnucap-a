@@ -171,6 +171,10 @@ void DEV_SUBCKT::expand()
   BASE_SUBCKT::expand();
   COMMON_SUBCKT* c = prechecked_cast<COMMON_SUBCKT*>(mutable_common());
   assert(c);
+  // GS: 
+  // HERE is assumed that c is individual for every device. i.e. two different devices do not share same COMMON_SUBCKT
+  // thus, modification of *c, particularly (c->_params) is legal, it will not influence other devices
+  // proved via test. 
   const CARD* model = find_looking_out(c->modelname());
   if (!_parent) {
     if(!dynamic_cast<const MODEL_SUBCKT*>(model)) {
@@ -189,6 +193,18 @@ void DEV_SUBCKT::expand()
   assert(pl);
   c->_params.set_try_again(pl);
   assert(c->_params._try_again);
+#if 1
+  if(OPT::parhier!=parhNONE) {                  // fill upper_level if necessary
+    c->_params.set_upper_level(this->scope());  // as this->scope()->params() are mutable - shall store owner ( this->scope() )
+    }
+  else {
+  }
+  /* 
+    attach parent's parameters to _upper_level
+    change deep_lookup to go down recursively and take latest value if parhier=global
+  */  
+  
+#endif    
   renew_subckt(model, this, scope(), &(c->_params));
   subckt()->expand();
 }
