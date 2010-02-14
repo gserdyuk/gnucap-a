@@ -1,0 +1,6 @@
+*
+r1 1 0 10k
+v1 1 0 dc 1
+.print op v(1)
+.op
+.end

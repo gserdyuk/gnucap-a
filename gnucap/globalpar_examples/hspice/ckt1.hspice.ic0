@@ -1,0 +1,19 @@
+* "simulator" "HSPICE" 
+* "version" "B-2008.09 64-BIT"
+* "format" "HSP"
+* "rundate" "12:43:48 02/02/2010 "
+* "netlist" "ckt1.hspice.cir "
+* "runtitle" "* example1"
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc=   1.0000p       
+.nodeset
++ 1 =   1.0000        
++ 2 =   2.0000        
++ 3 =   5.0000        
++ 4 =   1.0000        
++ 5 =   2.0000        
++ 6 =   5.0000        
+***   END: Saved Operating Point ***                     

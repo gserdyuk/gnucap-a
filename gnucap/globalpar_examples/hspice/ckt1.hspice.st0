@@ -1,0 +1,28 @@
+***** HSPICE -- B-2008.09 64-BIT (Aug 26 2008) linux ******
+ Input File: ckt1.hspice.cir
+ lic:
+ lic: FLEXlm: v8.5b
+ lic: USER:   gserdyuk             HOSTNAME: simulator-dev
+ lic: HOSTID: 5452003dfc40         PID:      22263
+ lic: Using FLEXlm license file:
+ lic: 27667@98.174.230.200
+ lic: Checkout 1 hspice
+ lic: License/Maintenance for hspice will expire on 02-oct-2010/2009.09
+ lic: FLOATING license(s) on SERVER
+ lic:
+ Init: hspice initialization file: /opt/synopsys/hspice/hspice.ini
+ init: begin read circuit files,  cpu clock=  0.00E+00
+       option search   = /usr/local/synopsys/hspice
+       option runlvl
+ init: end read circuit files,  cpu clock=  0.00E+00 memory=       145 kb
+ init: begin check errors,  cpu clock=  0.00E+00
+ init: end check errors,  cpu clock=  0.00E+00 memory=       146 kb
+ init: begin setup matrix, pivot=    10 cpu clock=  0.00E+00
+       establish matrix -- done,  cpu clock=  0.00E+00 memory=       148 kb
+       re-order matrix -- done,  cpu clock=  0.00E+00 memory=       148 kb
+ init: end setup matrix,  cpu clock=  0.00E+00 memory=       158 kb
+ dcop: begin dcop,  cpu clock=  0.00E+00
+ dcop: end dcop,  cpu clock=  0.00E+00 memory=       158 kb  tot_iter=       3
+>info:         ***** hspice job concluded
+ Init: hspice initialization file: /opt/synopsys/hspice/hspice.ini
+ lic: Release hspice token(s)
