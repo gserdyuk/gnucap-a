@@ -129,7 +129,7 @@ public:
   std::string eval(CS& Cmd, const CARD_LIST* Scope)const
   {
     PARAMETER<double> x, y, z;
-    Cmd >> x >> y;
+    Cmd >> x >> y >> z;
     x.e_val(NOT_INPUT, Scope);
     y.e_val(NOT_INPUT, Scope);
     z.e_val(NOT_INPUT, Scope);

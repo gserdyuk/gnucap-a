@@ -1,0 +1,12 @@
+* 
+
+.param y='if(1>0,1,0)'
+
+v2   2 0 'y'
+
+.measure a=eval({  if(1>0,2,3)  })
+.print op v(v*) 
+.op
+
+
+.end
