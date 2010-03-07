@@ -223,6 +223,7 @@ void OPT::print(OMSTREAM& o)
   o << "  units=" << units;
   o << "  recursion="<< recursion;
   o << ((drop_spice_comments)   ?"  drop_spice_comments" :"  nodrop_spice_comments"); 
+  o << ((dollar_as_spice_comment)   ?"  dollar_as_spice_comment" :"  nodollar_as_spice_comment"); 
   o << "\n\n";
 
   o << "* accuracy, i/o\n";
