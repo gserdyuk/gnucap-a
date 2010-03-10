@@ -25,7 +25,7 @@
 # 1) test how variable substitutes - sadme code as in III is used - so one test is enough
 #
 
-GPATH=~/gnucap/g-plus/g-plus/gnucap-a/gnucap/src
+GPATH=../src
 GNUCAP=$GPATH/gnucap
 
 #I - search for incldues in search path
@@ -33,6 +33,7 @@ $GNUCAP -b libsearch1.ckt >libsearch1.ckt.out			#I 1,2
 
 m4 -DPATH1=$PWD -DPATH2=$PWD/ginclude libsearch2.ckt.m4 > libsearch2.ckt
 $GNUCAP -b libsearch2.ckt >libsearch2.ckt.out			#I 2-1
+rm libsearch2.ckt
 
 export GNUCAP_INCLUDE=$PWD/ginclude
 $GNUCAP -b libsearch3.ckt >libsearch3.ckt.out			#I 3,4
@@ -64,3 +65,9 @@ unset GINCLUDE
 #IV  test $VARIABLE in attach
 $GNUCAP -b subst_load1.ckt >subst_load1.ckt.out			#IV 1
 
+echo Comparing
+for FILE in `ls *.out`; do
+  echo $FILE
+  diff --ignore-matching-lines="Gnucap gnucap"   $FILE golden
+done
+echo DONE
