@@ -176,6 +176,15 @@ bool OPT::set_values(CS& cmd)
       || Get(cmd, "itl7",	   &itl[7])
       || Get(cmd, "itl8",	   &itl[8])
       || Get(cmd, "drop_spice_comments",    &drop_spice_comments)
+      || Get(cmd, "dollar_as_spice_comment",    &dollar_as_spice_comment)
+      || (cmd.umatch("parhier {=}") &&
+	  (ONE_OF
+	   || Set(cmd, "none", 	    &parhier, parhNONE)
+	   || Set(cmd, "local", 	&parhier, parhLOCAL)
+	   || Set(cmd, "global", 	&parhier, parhGLOBAL)
+	   || cmd.warn(bWARNING, "illegal method")))
+      || Get(cmd, "includepath", &includepath)
+      || Get(cmd, "loadpath",    &loadpath)       
       || (cmd.check(bWARNING, "what's this?"), cmd.skiparg());
 
     if (!cmd.stuck(&here)) {
@@ -222,7 +231,15 @@ void OPT::print(OMSTREAM& o)
   o << "  units=" << units;
   o << "  recursion="<< recursion;
   o << ((drop_spice_comments)   ?"  drop_spice_comments" :"  nodrop_spice_comments"); 
+  o << ((dollar_as_spice_comment)   ?"  dollar_as_spice_comment" :"  nodollar_as_spice_comment"); 
+  o << "  parhier=" << parhier;
   o << "\n\n";
+  
+  o << "* paths\n";
+  o << ".options";
+  o << "  includepath=" << includepath <<"\n";
+  o << "+ loadpath="<< loadpath <<"\n";
+  o << "\n";
 
   o << "* accuracy, i/o\n";
   o << ".options";

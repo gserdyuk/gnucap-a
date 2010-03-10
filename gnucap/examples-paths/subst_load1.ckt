@@ -1,0 +1,8 @@
+* test for substitution
+.options dollar_as_spice_comment
+.attach $HOME/gnucap/g-plus/g-plus/gnucap-a/gnucap/models-bsim/BSIM3v330/bsim330.so
+
+v1 n1 0 dc 1  
+ 
+.list
+.end

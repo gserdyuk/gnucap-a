@@ -55,6 +55,14 @@ public:
     std::string file_name;
     cmd >> file_name;
     
+    // expand file name according to bash - first
+    file_name=expand_filename(file_name);
+    // find relative file in paths - second
+    std::vector<std::string> paths;
+    paths.push_back(OPT::loadpath);
+    paths.push_back(std::string(GNUCAP_LOADPATH)); 
+    file_name=findfile_paths(file_name, paths, R_OK);
+    
     void* handle = attach_list[file_name];
     if (handle) {
       if (CARD_LIST::card_list.is_empty()) {

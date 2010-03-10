@@ -165,6 +165,7 @@ public:
 INTERFACE bool Get(CS& cmd, const std::string&, bool*);
 INTERFACE bool Get(CS& cmd, const std::string&, int*,    AP_MOD=mNONE, int=0);
 INTERFACE bool Get(CS& cmd, const std::string&, double*, AP_MOD, double=0.);
+INTERFACE bool Get(CS& cmd, const std::string&, std::string*);
 /*--------------------------------------------------------------------------*/
 template <class T>
 bool Get(CS& cmd, const std::string& key, T* val)

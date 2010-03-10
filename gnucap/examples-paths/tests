@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# I. test list for library search
+# 1) test search local
+# 2) test search in list OPT::includepath
+# 2-1) test seach with OPT::inclduepath with absolute path
+# 3) test search in env GNUCAP_INCLUDE
+# 4) test search using GNUCAP_INCLUE with $HOME, $PWD
+# 5) same with ~
+# 6) test absolute path
+# 
+# II. test list for attach search
+# 1) test seach in GNUCAP_LOAD attach 
+#
+# III. test list for $VARIABLES substitution
+# 1) test how variale substituted if it is defined
+# 2) test what happens if it is not defined
+# 3) test $comment in text if dollar_as_spice_comment=true - has to work
+# 4) set dollar_as_spice_comment=true and check converison of $VALUE in .include .get .lib
+# 5) test merge
+# 6) test 2 and 3 variables, test veriable at beginning, end and middle of the string 
+# 7) one variables is not defined
+#
+# IV test for $VARIABLE substitution in .attcah 
+# 1) test how variable substitutes - sadme code as in III is used - so one test is enough
+#
+
+GPATH=~/gnucap/g-plus/g-plus/gnucap-a/gnucap/src
+GNUCAP=$GPATH/gnucap
+
+#I - search for incldues in search path
+$GNUCAP -b libsearch1.ckt >libsearch1.ckt.out			#I 1,2
+
+m4 -DPATH1=$PWD -DPATH2=$PWD/ginclude libsearch2.ckt.m4 > libsearch2.ckt
+$GNUCAP -b libsearch2.ckt >libsearch2.ckt.out			#I 2-1
+
+export GNUCAP_INCLUDE=$PWD/ginclude
+$GNUCAP -b libsearch3.ckt >libsearch3.ckt.out			#I 3,4
+unset GNUCAP_INCLUDE
+# I - completed --------   I.5 - untested; I.6 - tested with 2-1
+
+# II test search for attach/load
+export GNUCAP_LOAD=$GPATH/../models-bsim/BSIM3v330
+$GNUCAP -b search_load1.ckt >search_load1.ckt.out		#II 1
+unset GNUCAP_LOAD
+
+#III test $VARIABLE
+$GNUCAP -b subst1.ckt > subst1.ckt.out				#III 1
+
+$GNUCAP -b subst2.ckt > subst2.ckt.out				#III 2
+
+$GNUCAP -b subst3.ckt > subst3.ckt.out				#III 3,4
+
+$GNUCAP -b subst4.ckt > subst4.ckt.out				#III 5
+
+export GINCLUDE=ginclude
+$GNUCAP -b subst6.ckt > subst6.ckt.out				#III 6
+unset GINCLUDE
+
+export GINCLUDE=ginclude
+$GNUCAP -b subst7.ckt > subst7.ckt.out				#III 7
+unset GINCLUDE
+
+#IV  test $VARIABLE in attach
+$GNUCAP -b subst_load1.ckt >subst_load1.ckt.out			#IV 1
+
