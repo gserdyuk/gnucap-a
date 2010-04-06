@@ -28,11 +28,11 @@
 #include "l_lib.h"
 /*--------------------------------------------------------------------------*/
 class CS;
-const int MAXHANDLE = CHAR_BIT*sizeof(int)-1;
+const int MAXHANDLE = CHAR_BIT*sizeof(long)-1;
 /*--------------------------------------------------------------------------*/
 class INTERFACE OMSTREAM {
 private:
-  int _mask;
+  long _mask;
   int _fltdig;			/* max precision for float/double numbers */
   int _fltwid;			/* fixed(min)width for float/double numbers */
   int _format;			/* how to format io.  Basic option. */
