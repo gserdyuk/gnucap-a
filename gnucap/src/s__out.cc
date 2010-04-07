@@ -22,6 +22,7 @@
  * tr,dc analysis output functions (and some ac)
  */
 //testing=obsolete,script 2005.09.17
+#include <stdint.h> 
 #include "u_sim_data.h"
 #include "u_status.h"
 #include "m_wave.h"
@@ -103,9 +104,9 @@ void SIM::head(double start, double stop, const std::string& col1)
 		  _out << '\0';
 
 		  // 1) first pass -> calculate buffer/header length
-		  /*uint32_t*/ unsigned long int header_size = 8;
-		  /*uint32_t*/ unsigned long int columns_count = printlist().size()+1;
-		  /*uint32_t*/ unsigned long int string_size;
+		  uint32_t header_size = 8;
+		  uint32_t columns_count = printlist().size()+1;
+		  uint32_t string_size;
 		  unsigned int size = 0;
 		  for (PROBELIST::const_iterator
 				  p=printlist().begin();  p!=printlist().end();  ++p) {
@@ -175,14 +176,14 @@ void SIM::print_results(double x)
 			float t_single = x;
 			for (int i = 0; i < sizeof t_single; ++i)
 			{
-				_out.writeout((char)((*(reinterpret_cast</*uint64_t*/ unsigned long long int *>(&t_single)) >> (8 * i)) & 0xFF));
+				_out.writeout((char)((*(reinterpret_cast<uint64_t *>(&t_single)) >> (8 * i)) & 0xFF));
 			}
 			for (PROBELIST::const_iterator
 					p=printlist().begin();  p!=printlist().end();  ++p) {
 				t_single = p->value();
 				for (int i = 0; i < sizeof t_single; ++i)
 				{
-					_out.writeout((char)((*(reinterpret_cast</*uint64_t*/ unsigned long long int *>(&t_single)) >> (8 * i)) & 0xFF));
+					_out.writeout((char)((*(reinterpret_cast<uint64_t *>(&t_single)) >> (8 * i)) & 0xFF));
 				}
 			}
 		}
