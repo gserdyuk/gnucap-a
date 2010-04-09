@@ -172,7 +172,8 @@ public:
 			    // 6=source stepping iteration limit
 			    // 7=worst case iteration limit
 			    // 8=trace nonconvergence start iteration
-  static bool drop_spice_comments;  // GS: option to drom spice comment lines, will allow comments before continuation lines
+  static bool drop_spice_comments;          // GS: option to drop spice comment lines, will allow comments before continuation lines
+  static bool dollar_as_spice_comment;      // GS: option to cut inline "$" spice comments
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {

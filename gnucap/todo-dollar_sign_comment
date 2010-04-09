@@ -1,0 +1,16 @@
+TODO Dollar_Sign_Comment Branch
+G. Serdyuk <gena@analograils.com>
+
+I. Introduction
+This file contains list of todo items for Dollar_Sign_Commment branch
+After merge to master this will be copied in master, so will be evident what has to be done yet
+When all todo items will be completed - this file can be deleted
+
+II. Done
+
+1) "$" as a comment - implemented
+
+III. ToDos
+
+complete tests in gnucap-a.tests/dollar_sign_comment
+

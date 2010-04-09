@@ -224,6 +224,26 @@ char *getcmd(const char *prompt, char *buffer, int buflen)
   }
 }
 /*--------------------------------------------------------------------------*/
+// cuts spice inline comments like:
+// v1 1 2 dc 4      $ some comments
+void cut_end_substring(char * buffer,char limiter='$'){
+  unsigned len=strlen(buffer);
+  bool contline= (buffer[len-1] == '\\'); // continue at next line  ("\" last symbol) - so preserve after trimming comment 
+  char* limiter_pos=strchr(buffer,limiter);
+
+  if (limiter_pos==NULL) {   // nothing found - ok
+    }
+  else {                    // found some - so cut line
+    if (contline) {
+      *limiter_pos='\\';    // attach "\" if it was present
+      *(limiter_pos+1)='\0';// cut line
+      }
+    else{
+      *limiter_pos='\0';    // just cut line
+      }    
+    }
+}
+/*--------------------------------------------------------------------------*/      
 static std::string getlines(FILE *fileptr)
 {
   assert(fileptr);
@@ -242,6 +262,7 @@ static std::string getlines(FILE *fileptr)
       }
     }else{
       trim(buffer);
+      if (OPT::dollar_as_spice_comment) cut_end_substring(buffer,'$');
       size_t count = strlen(buffer);
       if (buffer[count-1] == '\\') {itested();
 	buffer[count-1] = '\0';
