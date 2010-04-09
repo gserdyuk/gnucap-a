@@ -1,0 +1,44 @@
+* logic functions
+
+.param f1(x)  = '(x>0)*1'
+.param f2(x)  = '(x<=0)*2'
+.param f3(x,y)= 'x==y ? 0 : 1 '
+.param f4(x,y)= 'x||y'
+.param f5(x,y)= 'x&&y'
+
+* expected 0
+v10 10 0 dc 'f1(-1)'
+* expected 0
+v11 11 0 dc 'f1(0)'
+* expected 1
+v12 12 0 dc 'f1(0.1)'
+
+* expected 2
+v20 20 0 dc 'f2(-1)'
+* expected 2
+v21 21 0 dc 'f2(0)'
+* expected 0
+v22 22 0 dc 'f2(0.1)'
+
+* expected 0
+v30 30 0 dc 'f3(1,1.2)'
+* expected 1
+v31 31 0 dc 'f3(1.1,1.1)'
+
+* expected 1
+v40 40 0 dc 'f4(1,0)'
+* expected 0
+v41 41 0 dc 'f4(0,0)'
+
+* expected 1
+v50 50 0 dc 'f5(1,1)'
+* expected 0
+v51 51 0 dc 'f5(1,0)'
+
+
+
+.print op v(v*) 
+
+.op
+
+.end

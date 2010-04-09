@@ -27,7 +27,52 @@
 #include "l_stlextra.h"
 #include "u_parameter.h"
 #include "u_lang.h"
+#include "func_userdef.h"
+/*
+#include "u_function.h"
+#include "ap.h"
+#include "io_error.h"
+
+//GS additon
+class USERDEF_FUNCTION : public FUNCTION {
+private:
+    std::string _value;
+    std::vector< std::string> _args;
+public:
+  USERDEF_FUNCTION(std::vector< std::string> arg, std::string val) { _args=arg; _value=val;}
+  
+  std::string eval(CS& fact_args, const CARD_LIST* Scope)const
+  {
+// evaluate position parameters in call using Scope - TBD
+
+    std::vector<PARAMETER<double> >x(_args.size());
+    PARAMETER<double> y;
+    for (int i = 0; i<_args.size(); ++i)
+        fact_args >> x[i]; 
+
+    for (int i = 0; i<_args.size(); ++i)
+        x[i].e_val(NOT_INPUT,Scope);
+
+// create new environment - localScope - contans all position parameter only
+    CARD_LIST localScope;
+    PARAM_LIST* pl = localScope.params();
+    
+    for (int i=0; i<_args.size(); ++i) 
+        pl->addParameter(_args[i],x[i]);
+
+// create new command to evaluate
+    CS::CS cm(CS::_STRING,_value);  // creates command with expression (_value is "1+3+a" - rhs of function) 
+       
+    Expression e(cm);             // Create expression
+    //cm.check(bDanger, "expression syntax error");  // tbd   
+    Expression r(e, &localScope); // (CARD_LIST*)NULL);  // reduced expression
+    double res=r.eval();
+    return to_string(res);
+  }
+} ;
+*/
 /*--------------------------------------------------------------------------*/
+
 void PARAM_LIST::parse(CS& cmd)
 {
   (cmd >> "real |integer "); // ignore type
@@ -39,18 +84,54 @@ void PARAM_LIST::parse(CS& cmd)
     }
     std::string Name;
     PARAMETER<double> Value;
-    cmd >> Name >> '=' >> Value;
-    if (cmd.stuck(&here)) {untested();
-      break;
-    }else{
+    // cmd >> Name >> '=' >> Value;
+    cmd >> Name; 
+    /* GS here split:
+       if >>'=' - folow  current path
+       if >>'(' - means .param name(....... - so read function
+       in my unserstamndin, PARAM_LIST has to be split later onto 2 classes - old param_list and 
+       func_list, or rather func_installer_list, which will manage function destruction when 
+       function goes out of scope         
+    */
+    if (cmd.peek() == '=') {
+      // parameter
+      cmd >> '=' >> Value;;
+      if (cmd.stuck(&here)) {untested();
+        break;
+      }else{
+      }
+      if (OPT::case_insensitive) {
+        notstd::to_lower(&Name);
+      }else{
+      }
+      _pl[Name] = Value;
     }
-    if (OPT::case_insensitive) {
-      notstd::to_lower(&Name);
-    }else{
+    else if (cmd.peek() == '('){
+      // function
+      std::vector<std::string> args;
+      std::string a;
+      cmd >> '(';
+      for(;;){       
+        if (cmd.peek() == ')')  // fix to handle absense of ")"
+            break;
+        cmd >> a;
+        args.push_back(a);
+        }
+      cmd >> ')';
+      cmd >> '=';
+      cmd >> Value;
+             
+      // add here one function called 
+      USERDEF_FUNCTION *uf=new USERDEF_FUNCTION(args,Value.string());
+      _fl[Name] = new DISPATCHER<FUNCTION>::INSTALL (&function_dispatcher, Name.c_str(), uf);
+      _fal[Name]= args;  // tbd shall be string of arguments
     }
-    _pl[Name] = Value;
+    else {
+    /*issue*/
+    }
   }
   cmd.check(bDANGER, "syntax error");
+
 }
 /*--------------------------------------------------------------------------*/
 void PARAM_LIST::print(OMSTREAM& o, LANGUAGE* lang)const

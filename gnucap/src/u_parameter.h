@@ -192,7 +192,10 @@ void e_val(T* p, const T& def, const CARD_LIST*)
 class INTERFACE PARAM_LIST {
 private:
   mutable std::map<const std::string, PARAMETER<double> > _pl;
-private:
+  std::map<const std::string, DISPATCHER<FUNCTION>::INSTALL *> _fl; // function intallers list
+    // not going to use installers directly - just provide destruction mechanism (to be tested)
+  std::map<const std::string, std::vector<std::string> > _fal;       // function argument list
+public:
   PARAM_LIST* _try_again; // if you don't find it, also look here
   CARD_LIST*  _upper_level; // _upper_level->params() is "second" _try_again - but _params is mutable at CARD_LIST (mutable PARAM_LIST* _params) so can not refer them directly
 public:
@@ -211,9 +214,10 @@ public:
 		iterator;
   explicit PARAM_LIST() :_try_again(NULL),_upper_level(NULL) {}
   explicit PARAM_LIST(const PARAM_LIST& p) 
-				:_pl(p._pl), _try_again(p._try_again), _upper_level(p._upper_level) {}
+				:_pl(p._pl), _try_again(p._try_again), _fl(p._fl)/*?*/, _fal(p._fal), _upper_level(p._upper_level) {}    //[todo] GS fix copy constructor w.r.t. _fl
+                                                                        // used in COMMON_SUBCKT:: copy constructor
   //explicit PARAM_LIST(PARAM_LIST* ta) :_try_again(ta) {untested();}
-  ~PARAM_LIST() {}
+  ~PARAM_LIST() {}                                                      //[todo] GS fix destructor w.r.t. _fl
   void	parse(CS& cmd);
   void	print(OMSTREAM&, LANGUAGE*)const;
   void  deep_print(OMSTREAM& o, LANGUAGE*, int i=0) const;
@@ -237,6 +241,9 @@ public:
 private:
   mutable int _index;
   mutable const_iterator _previous;
+//GS
+public:
+  void addParameter(std::string s, PARAMETER<double> val){_pl[s] = val;} 
 };
 /*--------------------------------------------------------------------------*/
 template <>
@@ -258,7 +265,7 @@ inline T PARAMETER<T>::lookup_solve(const T& def, const CARD_LIST* scope)const
   }else{
     const PARAM_LIST* pl = scope->params();
     return T(pl->deep_lookup(_s).e_val(def, scope));
-  }
+  } 
 }
 /*--------------------------------------------------------------------------*/
 #if 0

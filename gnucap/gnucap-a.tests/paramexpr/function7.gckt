@@ -1,0 +1,27 @@
+* expr ? a : b - all forms shall work
+
+.param f31(x,y)= 'x==y?0:1'
+* -ok
+
+.param f32(x,y)= '(x==y?0:1)'   
+* - fails
+
+.param f33(x,y)= '(x==y)?0:1'
+* -ok
+
+.param f34(x,y)= '( (x==y)?0:1 )' 
+* - fails
+
+
+* expected 1
+v31 31 0 dc 'f31(1.1,1.1)'
+v32 32 0 dc 'f32(1.1,1.1)'
+v33 33 0 dc 'f33(1.1,1.1)'
+v34 34 0 dc 'f34(1.1,1.1)'
+
+
+.print op v(v*) 
+
+.op
+
+.end

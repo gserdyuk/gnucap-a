@@ -1,0 +1,18 @@
+* functions use other functions
+
+.param f1()= 'exp(1)'
+.param f2(x)  = 'x+sin(x)'
+.param f3(x,y)= 'exp(x)+f2(y)'
+
+* f1 = 2.718281828 
+v1 1 0 dc 'f1()'
+* f2(1)=1+sin(1)=1.8414709
+v2 2 0 dc 'f2(1)'
+* f3 =2.718281828+1.8414709 = 4.55975
+v3 3 0 dc 'f3(1,1)'
+
+.print op v(v*) 
+
+.op
+
+.end

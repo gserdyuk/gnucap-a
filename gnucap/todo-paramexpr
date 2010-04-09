@@ -1,0 +1,19 @@
+TODO Paramexpr Branch
+G. Serdyuk <gena@analograils.com>
+
+I. Introduction
+This file contains list of todo items for Paramexpr branch
+After merge to master this will be copied in master, so will be evident what has to be done yet
+When all todo items will be completed - this file can be deleted
+
+II. Done
+
+1) .param=<expression> is implemented
+
+III. ToDos
+
+1) put tests in order
+2) fill up - some issues were with expressions, with expression destruction, with creation (see email and fill up) - GS
+ 
+
+
