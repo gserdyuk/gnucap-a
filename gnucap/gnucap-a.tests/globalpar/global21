@@ -1,0 +1,5 @@
+#!/bin/bash
+GNUCAP=../src/gnucap
+
+#export EF_PROTECT_BELOW=1; 
+export EF_PROTECT_FREE=1;  $GNUCAP -b global21.gckt  | tee global21.out

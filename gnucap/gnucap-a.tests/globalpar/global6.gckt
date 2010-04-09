@@ -1,0 +1,30 @@
+* global parameter test
+.options parhier=local
+.param a='2'
+
+.subckt MODULE_UP p1 p2 p3 p4 p5 p6 p7 p8 
+.param c='3'
+
+.subckt MODULE1 p1 p2 p3 p4 
+.param b='4'
+v1 p1 0 dc 'a'
+v2 p2 0 dc 'b'
+v3 p3 0 dc 'c'
+v4 p4 0 dc 'd'
+.ends
+
+x1 p1 p2 p3 p4 MODULE1  a='5' b='6' 
+x2 p5 p6 p7 p8 MODULE1  c='9'
+
+.ends
+
+xa nd1 nd2 nd3 nd4 nd5 nd6 nd7 nd8 MODULE_UP d='8'
+
+*.list
+.print op v(nd*)
+*.print  all
+.op
+
+
+.end
+

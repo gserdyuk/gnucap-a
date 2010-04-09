@@ -1,0 +1,27 @@
+* parhier local/global
+.option parhier=local
+ 
+.param Val=1
+x1 n0 0 Sub1
+.subCkt Sub1 n1 n2 Val=1
+  r1 n1 n2 Val
+  x2 n1 n2 Sub2
+.Ends Sub1
+.SubCkt Sub2 n1 n2 Val=2
+  r2 n1 n2 Val
+  x3 n1 n2 Sub3
+.Ends Sub2
+.SubCkt Sub3 n1 n2 Val=3
+  r3 n1 n2 Val
+.Ends Sub3
+
+v1 n0 0 dc 1
+
+.print op v(nodes) i(v1) 
+.op
+.end
+
+* resistance or the circuit can be : 0.5455 or 0.3333
+* so current can be   1/0.5455 = 1.83318 or 1/0.3333=3
+*
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+GNUCAP=../src/gnucap
+
+$GNUCAP -b global6.gckt  | tee global6.out

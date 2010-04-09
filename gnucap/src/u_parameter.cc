@@ -63,6 +63,19 @@ void PARAM_LIST::print(OMSTREAM& o, LANGUAGE* lang)const
   }
 }
 /*--------------------------------------------------------------------------*/
+
+void PARAM_LIST::deep_print(OMSTREAM& o, LANGUAGE* lang, int i) const
+{
+  int j=i+1;
+  print(o,lang);
+  o<<"\n";
+  const PARAM_LIST *pl=get_try_again();
+  if(pl) pl->deep_print(o,lang,j);
+  pl=get_upper_level_params();  
+  if(pl) pl->deep_print(o,lang,j);
+}
+
+/*--------------------------------------------------------------------------*/
 bool PARAM_LIST::is_printable(int i)const
 {
   //BUG// ugly linear search
@@ -106,6 +119,8 @@ void PARAM_LIST::eval_copy(PARAM_LIST& p, const CARD_LIST* scope)
 {
   assert(!_try_again);
   _try_again = p._try_again;
+  assert(!_upper_level);
+  _upper_level = p._upper_level;  
 
   for (iterator i = p._pl.begin(); i != p._pl.end(); ++i) {
     if (i->second.has_hard_value()) {
@@ -125,19 +140,47 @@ const PARAMETER<double>& PARAM_LIST::deep_lookup(std::string Name)const
     notstd::to_lower(&Name);
   }else{
   }
+  
+  // normal branch - parhier=none or local
+  if (OPT::parhier==parhNONE || parhLOCAL ) {
   PARAMETER<double> & rv = _pl[Name];
   if (rv.has_hard_value()) {
     // found a value, return it
     return rv;
-  }else if (_try_again) {
+    }
+  
+  if (_try_again) {
     // didn't find one, look in enclosing scope
-    return _try_again->deep_lookup(Name);
-  }else{
-    // no enclosing scope to look in
-    // really didn't find it, give up
-    // return garbage value (NOT_INPUT)
-    return rv;
+    const PARAMETER<double> & rv2 = _try_again->deep_lookup(Name);
+    if (rv2.has_hard_value() ) {
+        return rv2;
+        }
+   }
+   
+  if (_upper_level) {
+    // have to look at upper-level params
+    const PARAMETER<double> & rv3 = get_upper_level_params()->deep_lookup(Name);
+    if (rv3.has_hard_value() ) {
+        return rv3;
+        }
+   }
+  
+  // no enclosing scope to look in
+  // really didn't find it, give up
+  // return garbage value (NOT_INPUT)
+  return rv;
   }
+
+  // specific branch - parhier=global - can be inefficeint  
+  else if (OPT::parhier= parhGLOBAL) {
+    unreachable();  
+    // to be implemented parhier=global
+  }
+  
+  else {
+    unreachable();
+  }
+  
 }
 /*--------------------------------------------------------------------------*/
 void PARAM_LIST::set(std::string Name, const std::string& Value)

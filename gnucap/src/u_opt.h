@@ -66,6 +66,17 @@ inline OMSTREAM& operator<<(OMSTREAM& o, UNITS t) {
 /*--------------------------------------------------------------------------*/
 enum {dsINIT=001, dsRANGE=002, dsDEVLIMIT=004, dsDEVREGION=010, dsREVERSE=020};
 /*--------------------------------------------------------------------------*/
+/* parhier method selector  */
+enum parhier_t {parhNONE=0,	// no hierarchy used - only defined parameters
+	       parhLOCAL,		// look up in hierarchy, local parameter precedence
+	       parhGLOBAL	    // look up in hierarchy, global parameter precedence
+           };	
+inline OMSTREAM& operator<<(OMSTREAM& o, parhier_t t) {
+  const std::string s[] = {"none", "local", "global"};
+  return (o << s[t]);
+}
+/*--------------------------------------------------------------------------*/
+
 class INTERFACE OPT {
 private:
   explicit OPT(const OPT&) {unreachable(); incomplete();}
@@ -174,6 +185,7 @@ public:
 			    // 8=trace nonconvergence start iteration
   static bool drop_spice_comments;          // GS: option to drop spice comment lines, will allow comments before continuation lines
   static bool dollar_as_spice_comment;      // GS: option to cut inline "$" spice comments
+  static parhier_t parhier;                 // enum: parameter hierarchy method - none, local, global
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {

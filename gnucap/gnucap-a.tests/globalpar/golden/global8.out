@@ -1,0 +1,12 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* global parameter test 
+#           v(31)      v(32)      v(33)      v(34)      v(41)      v(42)      v(43)      v(44)     
+ 27.        21.        12.        23.        64.        21.        12.        23.        14.       

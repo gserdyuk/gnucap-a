@@ -1,0 +1,4 @@
+#!/bin/bash
+GNUCAP=../src/gnucap
+
+export EF_PROTECT_FREE=1; $GNUCAP -b global1.gckt  | tee global1.out
