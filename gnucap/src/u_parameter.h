@@ -195,7 +195,6 @@ private:
   std::map<const std::string, DISPATCHER<FUNCTION>::INSTALL *> _fl; // function intallers list
     // not going to use installers directly - just provide destruction mechanism (to be tested)
   std::map<const std::string, std::vector<std::string> > _fal;       // function argument list
-public:
   PARAM_LIST* _try_again; // if you don't find it, also look here
   CARD_LIST*  _upper_level; // _upper_level->params() is "second" _try_again - but _params is mutable at CARD_LIST (mutable PARAM_LIST* _params) so can not refer them directly
 public:
