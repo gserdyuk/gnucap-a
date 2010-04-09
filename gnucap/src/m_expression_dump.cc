@@ -100,7 +100,24 @@ void Expression::dump(std::ostream& out)const
       Token* t = new Token_SYMBOL(tmp, "");
       locals.push_back(t);
       stack.push_back(t);
-    }else{
+    }else if (dynamic_cast<const Token_TRIOP*>(*i)) {   // GS - may be better: (typeid(*i) == typeid(Token_TRIOP*))
+      // pop pop pop op push  -  logic true false op push
+      assert(!stack.empty());
+      const Token* t3 = stack.back();
+      stack.pop_back();
+      assert(!stack.empty());
+      const Token* t2 = stack.back();
+      stack.pop_back();
+      assert(!stack.empty());
+      const Token* t1 = stack.back();
+      stack.pop_back();
+      std::string tmp('(' + t1->full_name() + ' ' + (**i).name() + ' ' + t2->full_name() + ':' + t3->full_name()+ ')');
+      Token* t = new Token_SYMBOL(tmp, "");
+      locals.push_back(t);
+      stack.push_back(t);
+
+    }  
+    else{
       unreachable();
     }
   }
@@ -115,5 +132,13 @@ void Expression::dump(std::ostream& out)const
     locals.pop_back();
   }
 }
+/*--------------------------------------------------------------------------*/
+void Expression::simpledump(std::ostream& out)const
+{
+  for (const_iterator i = begin(); i != end(); ++i) {
+    out<<(*i)->full_name()<<" | ";
+    }
+}
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

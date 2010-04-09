@@ -1,0 +1,16 @@
+* 
+
+.param x='1<2?3:4'
+.param y='1>2?3:4'
+.param u='1?5:6'
+.param v='0?5:6'
+  
+v1   1 0 'x'
+v2   2 0 'y'
+v3   3 0 'u'
+v4   4 0 'v'
+
+
+.print op v(v*) 
+.op
+.end

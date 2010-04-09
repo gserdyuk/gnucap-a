@@ -1,0 +1,5 @@
+#!/bin/bash
+
+../src/gnucap -b param5.gckt    |tee param5.out
+../src/gnucap -b param7.gckt    |tee param7.out
+

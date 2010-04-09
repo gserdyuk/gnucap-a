@@ -1,0 +1,19 @@
+* expr ? a : b - all forms shall work
+
+.param f31_11= '1==1?2:3'
+.param f32_11= '(1==1?0:1)'   
+.param f33_11= '(1==1)?0:1'
+.param f34_11= '( (1==1)?0:1 )' 
+
+
+* expected 0
+v31 31 0 dc 'f31_11'
+*v32 32 0 dc 'f32_11'
+*v33 33 0 dc 'f33_11'
+*v34 34 0 dc 'f34_11'
+
+.print op v(v*) 
+
+.op
+
+.end

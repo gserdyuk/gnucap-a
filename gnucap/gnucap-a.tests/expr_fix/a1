@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP="../src/gnucap"
+
+$GNUCAP -b a1.gckt |tee a1.out

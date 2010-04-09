@@ -1,0 +1,67 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* expr ? a : b - all forms shall work 
+Expression::expression(CS& File) = f31_11
+Expression::leaf(CS& File) = f31_11
+=== parsed = 
+f31_11
+=== end    = 
+Expression::expression(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+=== parsed = 
+(1 == 1)
+=== end    = 
+Expression::expression(CS& File) = f31_11
+Expression::leaf(CS& File) = f31_11
+=== parsed = 
+f31_11
+=== end    = 
+Expression::expression(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+=== parsed = 
+(1 == 1)
+=== end    = 
+Expression::expression(CS& File) = f31_11
+Expression::leaf(CS& File) = f31_11
+=== parsed = 
+f31_11
+=== end    = 
+Expression::expression(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+=== parsed = 
+(1 == 1)
+=== end    = 
+Expression::expression(CS& File) = f31_11
+Expression::leaf(CS& File) = f31_11
+=== parsed = 
+f31_11
+=== end    = 
+Expression::expression(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+=== parsed = 
+(1 == 1)
+=== end    = 
+Expression::expression(CS& File) = f31_11
+Expression::leaf(CS& File) = f31_11
+=== parsed = 
+f31_11
+=== end    = 
+Expression::expression(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+Expression::leaf(CS& File) = 1==1?2:3
+=== parsed = 
+(1 == 1)
+=== end    = 
+#           v(v31)    
+ 27.        1.        

@@ -129,7 +129,7 @@ public:
   std::string eval(CS& Cmd, const CARD_LIST* Scope)const
   {
     PARAMETER<double> x, y, z;
-    Cmd >> x >> y;
+    Cmd >> x >> y >> z;
     x.e_val(NOT_INPUT, Scope);
     y.e_val(NOT_INPUT, Scope);
     z.e_val(NOT_INPUT, Scope);
@@ -246,6 +246,19 @@ public:
   }
 } p_stub;
 DISPATCHER<FUNCTION>::INSTALL d_stub(&function_dispatcher, "agauss|gauss|aunif|unif|limit", &p_stub);
+/*--------------------------------------------------------------------------*/
+// function detects if argument is defined
+// function argument has t be evaluated before function call, so if it is != NOT_INPUT -so it is defined
+class DEFINED : public FUNCTION {  
+public:
+  std::string eval(CS& Cmd, const CARD_LIST* Scope)const
+  {
+    PARAMETER<double> arg;
+    Cmd >> arg;
+    return to_string(arg.has_good_value());
+  }
+} p_defined;
+DISPATCHER<FUNCTION>::INSTALL d_defined(&function_dispatcher, "defined", &p_defined);
 /*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
