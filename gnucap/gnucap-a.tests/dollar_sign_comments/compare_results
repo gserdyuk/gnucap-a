@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# calling <mydiff file dir> or <compare file file>
+function mydiff {
+    first=$1
+    second=$2
+    diff --exclude="Gnucap gnucap" $first $second 
+    return $?
+    }
+
+#calling <printresult topic code>
+function printresult {
+   topic=$1
+   code=$2
+# o - ok, !=0 - trouble
+   echo "$topic" "$code" 
+   }
+   
+FILES=`ls *.out`
+
+for file in $FILES; do
+  mydiff $file "./golden"
+  printresult "test dollar_sign_comment" $?
+  done
+  
