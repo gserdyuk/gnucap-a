@@ -80,4 +80,15 @@ bool Get(CS& cmd, const std::string& key, double* val, AP_MOD mod, double scale)
   }
 }
 /*--------------------------------------------------------------------------*/
+bool Get(CS& cmd, const std::string& key, std::string* val)
+{
+  if (cmd.umatch(key + " {=}")) {
+	*val = cmd.ctos("","'\"({","'\")}","");		       // '/\"/(/{  something:else:and:more }/)/\"/' 
+    return true;
+    }
+  else{
+    return false;
+    }
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

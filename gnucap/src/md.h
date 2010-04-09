@@ -82,6 +82,9 @@ enum {
 #define	USERSTARTPATH	OS::getenv("HOME")
 #define STEPFILE   	"/tmp/SXXXXXX"
 #define SHELL		OS::getenv("COMSPEC")
+#define GNUCAP_INCLUDEPATH OS::getenv("GNUCAP_INCLUDE")
+#define GNUCAP_LOADPATH OS::getenv("GNUCAP_LOAD")
+#define NAMEDELIM   "~!@#%^*-+[]{};:,.?/| "
 /*--------------------------------------------------------------------------*/
 #else
 #define	ENDDIR		"/"
@@ -92,6 +95,9 @@ enum {
 #define	USERSTARTPATH	OS::getenv("HOME")
 #define STEPFILE   	"/tmp/SXXXXXX"
 #define SHELL		OS::getenv("SHELL")
+#define GNUCAP_INCLUDEPATH OS::getenv("GNUCAP_INCLUDE")
+#define GNUCAP_LOADPATH OS::getenv("GNUCAP_LOAD")
+#define NAMEDELIM   "~!@#%^*-+[]{};:,.?/| "
 #endif
 /*--------------------------------------------------------------------------*/
 /* machine and compiler patches */

@@ -1,0 +1,12 @@
+* test for substitution
+#.options dollar_as_spice_comment
+#.options
+
+v1 n1 0 dc 1  
+.include $PWD/lib_file2.ckt
+.include $PWD/ginclude/lib_file3.ckt
+ 
+.list
+.print op v(n*)
+.op
+.end

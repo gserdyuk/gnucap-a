@@ -97,6 +97,8 @@ public:
 		       void	   outreset();
 	     INTERFACE OMSTREAM*   outset(CS&,OMSTREAM*);
 /* findf */	       std::string findfile(const std::string&,const std::string&,int);
+                   std::string findfile_paths(const std::string& filename, std::vector<std::string> paths, int mode);
+                   std::string expand_filename(std::string filename);
 /* xopen */	       void	   xclose(FILE**);
 		       FILE*	   xopen(CS&,const char*,const char*);
 /*--------------------------------------------------------------------------*/

@@ -874,6 +874,13 @@ static void getmerge(CS& cmd, Skip_Header skip_header, CARD_LIST* Scope)
 
   std::string file_name, section_name;
   cmd >> file_name;
+  // expand file name according to bash - first
+  file_name=expand_filename(file_name);
+  // find relative file in paths - second
+  std::vector<std::string> paths;
+  paths.push_back(OPT::includepath);
+  paths.push_back(std::string(GNUCAP_INCLUDEPATH)); 
+  file_name=findfile_paths(file_name, paths, R_OK);
   
   bool  echoon = false;		/* echo on/off flag (echo as read from file) */
   bool  liston = false;		/* list on/off flag (list actual values) */

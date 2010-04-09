@@ -186,6 +186,8 @@ public:
   static bool drop_spice_comments;          // GS: option to drop spice comment lines, will allow comments before continuation lines
   static bool dollar_as_spice_comment;      // GS: option to cut inline "$" spice comments
   static parhier_t parhier;                 // enum: parameter hierarchy method - none, local, global
+  static std::string includepath;  // GS - path to load circiut files, lib, etc
+  static std::string loadpath;     // GS - path to load binary (so) files
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {

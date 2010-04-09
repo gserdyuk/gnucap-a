@@ -69,4 +69,53 @@ std::string findfile(const std::string& filename, const std::string& path,
   return ""; // path doesn't exist - didn't go thru loop at all
 }
 /*--------------------------------------------------------------------------*/
+// find files if it is not abs-path , looks in the list of locations
+// if found - returns actuial full path
+// if not found - return file name as it was initially passed
+
+std::string findfile_paths(const std::string& filename, std::vector<std::string> paths, int mode){
+
+// check original filename and return if it is asolute path  
+  if (filename[0]=='/') 
+    return filename;
+
+//other - call findfile:  
+  for (int i=0; i<paths.size(); i++) {
+    if (paths[i]!="")  {
+        std::string retname = findfile(filename, paths[i], mode);
+        if (retname!="")
+            return retname; // did found something - returning
+    }
+}
+  
+   return filename;  // did not find anything in both searches - returning initial filename
+}
+/*--------------------------------------------------------------------------*/
+// expands $VARIABLE according to environment
+std::string expand_filename(std::string filename){
+
+  std::string delim(NAMEDELIM);  
+  while(true){
+    // look for $
+    // look for nonalphanum after $
+    //all what we found $.... (till nonalphanum) is variable name
+    // look for such variable name and substitute
+    std:size_t pos1=filename.find_first_of("$",0);
+    if (pos1==std::string::npos) // this will happen finally, return is granted
+      return filename;
+  
+    // get environment variable
+    std::size_t pos2=filename.find_first_of(delim,pos1);
+    std::string name=filename.substr(pos1+1,pos2-(pos1+1));  // if pos2==npos - good too  
+    char * env=getenv(name.c_str());
+    std::string env_subst;
+    if (env==NULL)
+      env_subst="";
+    else
+      env_subst=std::string(env);
+      
+    filename = filename.substr(0,pos1)+env_subst+filename.substr(pos2);
+  }
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

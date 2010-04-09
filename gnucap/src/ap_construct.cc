@@ -244,6 +244,24 @@ void cut_end_substring(char * buffer,char limiter='$'){
     }
 }
 /*--------------------------------------------------------------------------*/      
+// returns 1 if buffer resembles ".inlcude" like, i.e. if starts with ".include"  // TBD - hack, re-factor
+int is_include_line(char* buffer){
+char include[]  =".include";
+char lib[]      =".lib";     //  lest to process: <,<<
+char merge[]    =".merge";   
+char get[]      =".get";     
+char load[]     =".load";    
+char attach[]   =".attach";  
+
+return !strncmp(buffer,include,strlen(include))  ||   // will return 1 if all sysmbols coinside
+       !strncmp(buffer,lib,    strlen(lib)    )  ||   // in for any word
+       !strncmp(buffer,merge,  strlen(merge)  )  ||
+       !strncmp(buffer,get,    strlen(get)    )  || 
+       !strncmp(buffer,load,   strlen(load)   )  ||
+       !strncmp(buffer,attach, strlen(attach) )  ;
+
+}
+/*--------------------------------------------------------------------------*/      
 static std::string getlines(FILE *fileptr)
 {
   assert(fileptr);
@@ -262,7 +280,9 @@ static std::string getlines(FILE *fileptr)
       }
     }else{
       trim(buffer);
-      if (OPT::dollar_as_spice_comment) cut_end_substring(buffer,'$');
+      if (OPT::dollar_as_spice_comment)         // if use dollar as comment     NB; TBD; TODO; this all requires refactoring.
+        if (!is_include_line(buffer))           // if line is not .include/.lib/.get/.lib line
+            cut_end_substring(buffer,'$');      // cut everything after comment
       size_t count = strlen(buffer);
       if (buffer[count-1] == '\\') {itested();
 	buffer[count-1] = '\0';
