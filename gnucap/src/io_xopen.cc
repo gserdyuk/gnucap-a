@@ -106,13 +106,7 @@ FILE *xopen(CS& cmd, const char *ext, const char *how)
     code = fopen(fname,how);
   }
   
-  if (code && fileno(code)>MAXHANDLE) {untested(); 
-    error(bWARNING, "internal error: files: %d\n", fileno(code));
-    fclose(code);
-    code = NULL;
-  }
   if (code) {
-    IO::stream[static_cast<int>(fileno(code))] = code;
   }else{itested();
     error(bWARNING, "can't open %s, %s\n", fname, strerror(errno));
   }

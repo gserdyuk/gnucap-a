@@ -30,4 +30,3 @@ OMSTREAM IO::plotout;
 bool	IO::plotset(false);
 int	IO::formaat(0);
 bool	IO::incipher(false);
-FILE*	IO::stream[MAXHANDLE+1] = {0, stdout, stderr};

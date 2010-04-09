@@ -39,6 +39,7 @@
 //	OMSTREAM & OMSTREAM::operator<<(const char *str)
 //	OMSTREAM & OMSTREAM::operator<<(char chr)
 /*--------------------------------------------------------------------------*/
+FILE* OMSTREAM::_stream[MAXHANDLE+1];
 unsigned OMSTREAM::_cpos[MAXHANDLE+1];         /* character counter    */
 /*--------------------------------------------------------------------------*/
 /* octal: make octal string for an int
@@ -56,7 +57,7 @@ const char* octal(int x)
  */
 OMSTREAM & OMSTREAM::tab(unsigned count)
 {
-  for (long ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
+  for (int ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
     if (_mask & mm) {
       OMSTREAM this_file(_mask & mm);
       if (_cpos[ii] > count) {
@@ -125,7 +126,7 @@ OMSTREAM & OMSTREAM::operator<<(const char *str)
   }
 
   /* auto line break, with a '+' to continue. */
-  for (long ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
+  for (int ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
     if ((_mask & mm)
 	&& (sl+_cpos[ii]) >= OPT::outwidth
 	&& _cpos[ii] != 0) {
@@ -188,12 +189,12 @@ OMSTREAM & OMSTREAM::operator<<(char chr)
   }else{
   }
   
-  for (long ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
+  for (int ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
     if (_mask & mm) {
-      assert(IO::stream[ii]);
+      assert(_stream[ii]);
       if (chr=='\b') {untested();
 	--_cpos[ii];
-	fflush(IO::stream[ii]);
+	fflush(_stream[ii]);
       }else if (count) {
 	++_cpos[ii];
       }else{itested();
@@ -201,18 +202,18 @@ OMSTREAM & OMSTREAM::operator<<(char chr)
       
       if (chr=='\n') {
 	_cpos[ii] = 0;
-	fflush(IO::stream[ii]);
+	fflush(_stream[ii]);
       }else if (chr=='\r') {itested();
 	if (_cpos[ii] == 0) {untested();
 	  suppress = true;
 	}else{itested();
 	  _cpos[ii] = 0;
-	  fflush(IO::stream[ii]);
+	  fflush(_stream[ii]);
 	}
       }else{
       }
       if (!suppress) {
-	fputc(chr,IO::stream[ii]);
+	fputc(chr,_stream[ii]);
       }else{itested();
       }
     }else{
@@ -229,10 +230,9 @@ bool OMSTREAM::writeout(char chr)
 		error(bDANGER, "internal error: out to stdin\n");
 	}else{
 	}
-	for (long ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
+	for (int ii=0, mm=1;   ii<=MAXHANDLE;   ++ii, mm<<=1) {
 		if (_mask & mm) {
-			fputc(chr,IO::stream[ii]);
-			//fflush(IO::stream[ii]);
+			fputc(chr,_stream[ii]);
 		}
 	}
 	return true;

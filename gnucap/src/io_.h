@@ -28,15 +28,16 @@
 #include "l_lib.h"
 /*--------------------------------------------------------------------------*/
 class CS;
-const int MAXHANDLE = CHAR_BIT*sizeof(long)-1;
+const int MAXHANDLE = CHAR_BIT*sizeof(int)-1;
 /*--------------------------------------------------------------------------*/
 class INTERFACE OMSTREAM {
 private:
-  long _mask;
+  static FILE* _stream[MAXHANDLE+1];
+  static unsigned _cpos[MAXHANDLE+1];/* character counter */
+  int _mask;
   int _fltdig;			/* max precision for float/double numbers */
   int _fltwid;			/* fixed(min)width for float/double numbers */
   int _format;			/* how to format io.  Basic option. */
-  static unsigned _cpos[MAXHANDLE+1];/* character counter */
   bool _cipher;			/* flag: encrypt output file */
   bool _pack;			/* flag: convert whitespace to tabs on out */
 
@@ -45,7 +46,25 @@ private:
 public:
   explicit OMSTREAM(FILE* f = 0)
     :_mask(0),_fltdig(7),_fltwid(0),_format(0),_cipher(false), _pack(false)
-    {_mask = (f) ? 1<<fileno(f) : 0;}
+  {
+    if (f) {
+      for (int ii=1; ; ++ii) {
+	if (_stream[ii] == 0) {
+	  _stream[ii] = f;
+	  _mask = 1 << ii;
+	  break;
+	}else if (_stream[ii] == f) {
+	  _mask = 1 << ii;
+	  break;
+	}else if (ii >= MAXHANDLE) {unreachable();
+	  break;
+	}else{
+	  // keep looking
+	}
+      }
+    }else{
+    }
+  }
   OMSTREAM& operator=(const OMSTREAM& x)  {_mask = x._mask; return *this;}
   OMSTREAM& attach(const OMSTREAM& x)	{itested();_mask |= x._mask; return *this;}
   OMSTREAM& attach(FILE* f)		{itested();return attach(OMSTREAM(f));}
@@ -90,7 +109,6 @@ public:
   static bool	  plotset;		/* plot on by default flag */
   static int	  formaat;		/* how to format io.  Basic option. */
   static bool	  incipher;		/* flag: decrypt input file */
-  static FILE*	  stream[MAXHANDLE+1];	/* reverse of fileno() */
 };
 /*--------------------------------------------------------------------------*/
 /* contrl */ INTERFACE void	   initio(OMSTREAM&);

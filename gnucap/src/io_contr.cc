@@ -126,8 +126,6 @@ OMSTREAM* outset(CS& cmd, OMSTREAM* out)
       cmd >> command;
       to_pipe = popen(command.c_str(), "w");
       assert(to_pipe);
-
-      IO::stream[static_cast<int>(fileno(to_pipe))] = to_pipe;
       (*out).attach(to_pipe);
 
       IO::formaat = ftos_EXP;
