@@ -1,0 +1,19 @@
+TODO Globalpar Branch
+G. Serdyuk <gena@analograils.com>
+
+I. Introduction
+This file contains list of todo items for Globalpar branch
+After merge to master this will be copied in master, so will be evident what has to be done yet
+When all todo items will be completed - this file can be deleted
+
+II. Done
+
+1) .options parhier added
+2) parhier=local is implemented
+
+III. ToDos
+
+1) parhier=global - to be done yet
+2) complete tests in gnucap-a.tests/globalpar
+
+
