@@ -1,8 +1,1 @@
 tests params
-has to provide two scripts:
-run_tests
-compare_results
-
-run_tests - runs all tests and prepare output files
-compare_results - compares results with golden files, says 
-test name: [ok] or [failed]

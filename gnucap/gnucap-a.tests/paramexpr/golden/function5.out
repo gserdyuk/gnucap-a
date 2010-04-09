@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 globalpar
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -8,5 +8,5 @@ to redistribute it under the terms of
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
 * functions from realistic library - some stuff does not work 
-n + s*2.*(w-n)*(b-n) / (w n || n b )
-                          ^ ? unbalanced parentheses (factor)
+#           v(v1)      v(v2)      v(v31)     v(v32)     v(v61)     v(v62)    
+ 27.        1.         1.         1.         1.         1.2        1.3077    

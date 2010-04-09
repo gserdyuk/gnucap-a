@@ -20,9 +20,9 @@ v21 21 0 dc 'f2(0)'
 * expected 0
 v22 22 0 dc 'f2(0.1)'
 
-* expected 0
-v30 30 0 dc 'f3(1,1.2)'
 * expected 1
+v30 30 0 dc 'f3(1,1.2)'
+* expected 0
 v31 31 0 dc 'f3(1.1,1.1)'
 
 * expected 1

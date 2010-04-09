@@ -1,4 +1,0 @@
-#!/bin/bash
-
-../src/gnucap -b t-2.gckt    |tee t-2.out
-

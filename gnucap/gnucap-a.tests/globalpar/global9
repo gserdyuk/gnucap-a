@@ -1,4 +1,0 @@
-#!/bin/bash
-GNUCAP=../src/gnucap
-
-$GNUCAP -b global9.gckt  | tee global9.out

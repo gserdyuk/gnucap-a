@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 globalpar
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -7,6 +7,9 @@ This is free software, and you are welcome
 to redistribute it under the terms of 
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
-* 
-#           v(v1)      v(v2)      v(v3)      v(v4)     
- 27.        3.         4.         5.         6.        
+(1 ? 3:4)= 3.
+(0 ? 3:4)= 4.
+(1 ? a:4)=a
+(0 ? a:4)= 4.
+(1 ? ((a + 2) + 3):4)=(1 ? (a +  5.):4)
+(0 ? ((a + 2) + 3):4)=(0 ? (a +  5.):4)

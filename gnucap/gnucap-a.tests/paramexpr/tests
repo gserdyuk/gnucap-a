@@ -10,8 +10,8 @@
 ../src/gnucap -b function6.gckt |tee function6.out
 ../src/gnucap -b function7.gckt |tee function7.out
 
-echo SUMMARY:
+echo "SUMMARY <ok is no output>:"
 
 for file in `ls function*.out`; do
-    diff $file ./golden
+    diff --ignore-matching-lines="Gnucap gnucap" $file ./golden
 done

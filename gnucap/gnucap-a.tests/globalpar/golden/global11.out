@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 globalpar
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -7,10 +7,6 @@ This is free software, and you are welcome
 to redistribute it under the terms of 
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
-* dollar sign comment example 
-r1 ( 1 0 )  10.K
-v1 ( 1 0 )  DC  1.
-v2 ( 2 0 )  DC  2.
-v3 ( 3 0 )  DC  3.
-#           v(v1)      v(v2)      v(v3)     
- 27.        1.         2.         3.        
+* parhier local/global 
+#           v(n0)      i(v1)     
+ 27.        0.99998   -1.8333    
