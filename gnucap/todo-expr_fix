@@ -1,0 +1,17 @@
+TODO Expr_Fix Branch
+G. Serdyuk <gena@analograils.com>
+
+I. Introduction
+This file contains list of todo items for Expr_Fix branch
+After merge to master this will be copied in master, so will be evident what has to be done yet
+When all todo items will be completed - this file can be deleted
+
+II. Done
+
+1) a?b:c - implememnted
+2) function defined(a) implemented - returns 1 if defined, 0  - otherwise.
+
+III. ToDos
+
+complete tests in gnucap-a.tests/expr_fix
+
