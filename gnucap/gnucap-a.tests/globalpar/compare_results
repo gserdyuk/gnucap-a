@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source ../compare_results.inc
+   
+FILES=`ls global*.out`
+
+for file in $FILES; do
+
+  #exception
+  if [ $file = "global12.out" ] ; then 
+    continue
+    fi 
+
+  mydiff $file "./golden" >>../diffs
+  printresult "test globalpar $file" $?
+  done
+
+

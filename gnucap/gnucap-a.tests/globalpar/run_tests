@@ -1,0 +1,19 @@
+#!/bin/bash
+
+GNUCAP="../../src/gnucap"
+
+$GNUCAP -b global1.gckt |tee global1.out
+$GNUCAP -b global2.gckt |tee global2.out
+$GNUCAP -b global3.gckt |tee global3.out
+$GNUCAP -b global4.gckt |tee global4.out
+$GNUCAP -b global5.gckt |tee global5.out
+$GNUCAP -b global6.gckt |tee global6.out
+
+$GNUCAP -b global8.gckt |tee global8.out
+$GNUCAP -b global9.gckt |tee global9.out
+
+$GNUCAP -b global11.gckt |tee global11.out
+$GNUCAP -b global12.gckt |tee global12.out
+
+$GNUCAP -b global21.gckt |tee global21.out
+

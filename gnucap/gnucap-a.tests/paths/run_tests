@@ -65,9 +65,3 @@ unset GINCLUDE
 #IV  test $VARIABLE in attach
 $GNUCAP -b subst_load1.ckt >subst_load1.ckt.out			#IV 1
 
-echo Comparing
-for FILE in `ls *.out`; do
-  echo $FILE
-  diff --ignore-matching-lines="Gnucap gnucap"   $FILE golden
-done
-echo DONE

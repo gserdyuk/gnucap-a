@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source ../compare_results.inc
+
+function mydiff {
+    first=$1
+    second=$2
+    diff -u --ignore-matching-lines="Gnucap gnucap" --ignore-matching-lines="includepath" $first $second 
+    return $?
+    }
+
+echo Comparing
+for FILE in `ls *.out`; do
+  mydiff $FILE ./golden >>../diffs
+  printresult "test paths $FILE" $?
+done

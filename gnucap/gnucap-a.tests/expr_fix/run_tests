@@ -1,0 +1,17 @@
+#!/bin/bash
+
+GNUCAP="../../src/gnucap"
+
+$GNUCAP -b param5.gckt |tee param5.out
+$GNUCAP -b param7.gckt |tee param7.out
+
+$GNUCAP -b t-2.gckt  |tee t-2.out
+$GNUCAP -b t-20.gckt |tee t-20.out
+$GNUCAP -b t-21.gckt |tee t-21.out
+$GNUCAP -b t-22.gckt |tee t-22.out
+$GNUCAP <  t-23.cmd  |tee t-23.out
+$GNUCAP <  t-24.cmd  |tee t-24.out
+$GNUCAP -b t-25.gckt |tee t-25.out
+
+$GNUCAP -b a1.gckt |tee a1.out
+

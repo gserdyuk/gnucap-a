@@ -1,0 +1,14 @@
+#!/bin/bash
+
+GNUCAP=../../src/gnucap
+
+$GNUCAP -b function1.gckt |tee function1.out
+$GNUCAP -b function2.gckt |tee function2.out
+$GNUCAP -b function3.gckt |tee function3.out
+$GNUCAP -b function4.gckt |tee function4.out
+
+$GNUCAP -b function5.gckt |tee function5.out
+
+$GNUCAP -b function6.gckt |tee function6.out
+$GNUCAP -b function7.gckt |tee function7.out
+

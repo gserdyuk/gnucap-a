@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GNUCAP="../src/gnucap"
+GNUCAP="../../src/gnucap"
 
 $GNUCAP -b global1.gckt |tee global1.out
 $GNUCAP -b global2.gckt |tee global2.out

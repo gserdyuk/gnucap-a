@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source ../compare_results.inc
+
+FILES=" \
+param5.out  param7.out   t-2.out  t-20.out   t-21.out  t-22.out 
+t-23.out  t-24.out   t-25.out   a1.out "
+
+
+for file in $FILES; do
+  mydiff $file "./golden" >>../diffs
+  printresult "test expr_fix $file" $?
+  done
+  
