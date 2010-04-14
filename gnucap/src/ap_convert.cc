@@ -324,6 +324,8 @@ double CS::ctof()
     power *= ((OPT::units == uSI) ? (1e15) : 1e-12);
   }else if (skip1("fF")) {
     power *= 1e-15;
+  }else if (skip1("aA")) {
+    power *= 1e-18;
   }else if (skip1("kK")) {
     power *= 1e3;
   }else if (skip1("gG")) {
