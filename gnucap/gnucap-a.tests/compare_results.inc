@@ -16,4 +16,16 @@ function printresult {
    echo "$topic" "$code" 
    }
    
+
+#calling <printresult topic code>
+function printresult1 {
+   topic=$1
+   code=$2
+# o - ok, !=0 - trouble
+   if test $2==0; then
+	echo "$topic" "OK"
+   else 
+        echo "$topic" "Failed"
+   fi    
+   }
   
