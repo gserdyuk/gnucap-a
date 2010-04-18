@@ -12,7 +12,7 @@ for file in $FILES; do
     fi 
 
   mydiff $file "./golden" >>../diffs
-  printresult "test globalpar $file" $?
+  printresult1 "test globalpar $file" $?
   done
 
 

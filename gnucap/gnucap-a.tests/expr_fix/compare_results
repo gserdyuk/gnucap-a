@@ -9,6 +9,6 @@ t-23.out  t-24.out   t-25.out   a1.out "
 
 for file in $FILES; do
   mydiff $file "./golden" >>../diffs
-  printresult "test expr_fix $file" $?
+  printresult1 "test expr_fix $file" $?
   done
   

@@ -1,0 +1,34 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* bin test - start with 0, selects bin 0 
+#          
+ 27.       
+#           v(a1)      v(a2)      i(vdd)    
+ 0.5        5.         0.5        0.        
+ 0.55       5.         0.55       0.        
+ 0.6        5.         0.6        0.        
+ 0.65       5.         0.65      -399.96n   
+ 0.7        5.         0.7       -1.6u      
+ 0.75       5.         0.75      -3.6u      
+ 0.8        5.         0.8       -6.4001u   
+ 0.85       5.         0.85      -10.u      
+ 0.9        5.         0.9       -14.4u     
+ 0.95       5.         0.95      -19.6u     
+ 1.         5.         1.        -25.6u     
+ 1.05       5.         1.05      -32.4u     
+ 1.1        5.         1.1       -40.u      
+ 1.15       5.         1.15      -48.4u     
+ 1.2        5.         1.2       -57.6u     
+ 1.25       5.         1.25      -67.6u     
+ 1.3        5.         1.3       -78.4u     
+ 1.35       5.         1.35      -90.u      
+ 1.4        5.         1.4       -102.4u    
+ 1.45       5.         1.45      -115.6u    
+ 1.5        5.         1.5       -129.6u    

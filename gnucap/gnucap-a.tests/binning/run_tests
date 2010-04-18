@@ -1,0 +1,10 @@
+#!/bin/bash
+GNUCAP=../../src/gnucap
+$GNUCAP -b bintest1.gckt >bintest1.gckt.out
+echo "1 done"
+$GNUCAP -b bintest2.gckt >bintest2.gckt.out
+echo "2 done"
+$GNUCAP -b bintest3.gckt >bintest3.gckt.out
+echo "3 done"
+$GNUCAP -b bintest4.gckt >bintest4.gckt.out
+echo "4 done"

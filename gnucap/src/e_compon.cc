@@ -757,14 +757,16 @@ const MODEL_CARD* COMPONENT::find_model(const std::string& modelname)const
 	  c = Scope->find_in_my_scope(modelname);
 	}catch (Exception_Cant_Find& e1) {
 	  // didn't find plain model.  try binned models
-	  bin_count = 0;
+      bin_count = 0;
 	  for (;;) {
 	    // loop over binned models
-	    std::string extended_name = modelname + '.' + to_string(++bin_count);
-	    try {
+	    std::string extended_name = modelname + '.' + to_string(bin_count++); // now bins start with 0
+        try {
 	      c = Scope->find_in_my_scope(extended_name);
 	    }catch (Exception_Cant_Find& e2) {
-	      // that's all .. looked at all of them
+          if (bin_count<=2) // bin_count++<=2
+              continue; // if bin_count==0 failed - allow to check bin_count==1 and 2
+          // that's all .. looked at all of them
 	      c = NULL;
 	      break;
 	    }
@@ -775,7 +777,7 @@ const MODEL_CARD* COMPONENT::find_model(const std::string& modelname)const
 	    }else{
 	      // keep looking
 	    }
-	  }
+      }
 	}
       }
       if (!c) {
