@@ -6,3 +6,5 @@ $GNUCAP < testgain.gckt 		|tee testgain.out
 $GNUCAP < testgain_spctr.gckt 		|tee testgain_spctr.out
 $GNUCAP < testgain_verilog.gckt 	|tee testgain_verilog.out
 
+$GNUCAP < testgain_p.gckt 	|tee testgain_p.out
+
