@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ../compare_results.inc
+
+FILES=" testgain.out testgain_spctr.out testgain_verilog.out"
+
+for file in $FILES; do
+  mydiff $file "./golden" >>../diffs
+  printresult1 "test meter2 $file" $?
+  done
+  

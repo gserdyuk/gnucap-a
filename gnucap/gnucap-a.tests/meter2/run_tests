@@ -1,0 +1,8 @@
+#!/bin/bash
+
+GNUCAP="../../src/gnucap"
+
+$GNUCAP < testgain.gckt 		|tee testgain.out
+$GNUCAP < testgain_spctr.gckt 		|tee testgain_spctr.out
+$GNUCAP < testgain_verilog.gckt 	|tee testgain_verilog.out
+

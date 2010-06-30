@@ -1,0 +1,13 @@
+* 
+spice
+
+v1 1 0 dc 1 ac 1
+resistor1 1 2 1
+r2 2 0 999
+.verilog
+meter2 #()  A1 (2 0 1 0);
+spice
+.print ac v(1) v(2) gain(A1)
+.ac
+
+.end
