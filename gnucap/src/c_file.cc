@@ -43,6 +43,7 @@ public:
       std::string file_name;
       cmd >> file_name;
 
+/* removing according to Igor's advice, 23-Jul-2010
       // HACK -- env vars in .lib file name -- warining, depends on environ in unistd.h !!
       std::string hhk_test_string;
       std::string hhk_env;
@@ -66,7 +67,7 @@ public:
       }
 
       // END HACK --
-
+*/
       CS file(CS::_INC_FILE, file_name);
       for (;;) {
 	OPT::language->parse_top_item(file, Scope);
