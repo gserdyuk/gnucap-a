@@ -106,6 +106,8 @@ std::string expand_filename(std::string filename){
   
     // get environment variable
     std::size_t pos2=filename.find_first_of(delim,pos1);
+    if (pos2==std::string::npos)    // this can happen too
+        pos2= filename.size();      
     std::string name=filename.substr(pos1+1,pos2-(pos1+1));  // if pos2==npos - good too  
     char * env=getenv(name.c_str());
     std::string env_subst;
