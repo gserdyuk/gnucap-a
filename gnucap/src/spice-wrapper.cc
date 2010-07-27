@@ -80,7 +80,7 @@ extern "C" {
   #define TAIL_SIZE 1
 #endif
 #if !defined(IS_VALID)
-#define IS_VALID {std::cout<<" spice-wrapper is valid\n"<<std:flush; return MODEL_CARD::is_valid(d);}
+#define IS_VALID {return MODEL_CARD::is_valid(d);}
 #endif
 /*--------------------------------------------------------------------------*/
 extern SPICEdev info;
