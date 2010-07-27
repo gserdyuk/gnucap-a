@@ -80,7 +80,7 @@ extern "C" {
   #define TAIL_SIZE 1
 #endif
 #if !defined(IS_VALID)
-#define IS_VALID {return MODEL_CARD::is_valid(d);}
+#define IS_VALID {std::cout<<" spice-wrapper is valid\n"<<std:flush; return MODEL_CARD::is_valid(d);}
 #endif
 /*--------------------------------------------------------------------------*/
 extern SPICEdev info;
@@ -598,7 +598,7 @@ void MODEL_SPICE::set_param_by_name(std::string Name, std::string Value)
   }else{
   }
   _params.set(Name, Value);
-  Set_param_by_name(Name, to_string(_params[Name].e_val(1,scope())));
+  //Set_param_by_name(Name, to_string(_params[Name].e_val(1,scope())));
 }
 /*--------------------------------------------------------------------------*/
 void MODEL_SPICE::precalc_first()
