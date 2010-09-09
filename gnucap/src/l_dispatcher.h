@@ -145,6 +145,14 @@ public:
     return rv;
   }
 
+  void listall(void) {
+    assert(_map);
+    for (typename std::map<std::string, T*>::iterator i=_map->begin(); 
+            i!=_map->end(); 
+                ++i)
+	std::cout<<(*i).first<<" \n";
+  }
+
   T* operator[](CS& cmd) {
     unsigned here = cmd.cursor();
     std::string s;

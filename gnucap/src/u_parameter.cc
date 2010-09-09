@@ -112,7 +112,7 @@ void PARAM_LIST::parse(CS& cmd)
       std::string a;
       cmd >> '(';
       for(;;){       
-        if (cmd.peek() == ')')  // fix to handle absense of ")"
+        if (cmd.peek() == ')')  // todo: fix to handle absense of ")"
             break;
         cmd >> a;
         args.push_back(a);
@@ -121,7 +121,12 @@ void PARAM_LIST::parse(CS& cmd)
       cmd >> '=';
       cmd >> Value;
              
-      // add here one function called 
+      // add here one function called; TODO - switch it out, use mstdout/OMSTREAM
+      //std::cout<<"userdef_function adding "<<Name<<" (";
+      //for (int j=0; j<args.size(); j++)
+      //   std::cout<<args[j]<<",";
+      //std::cout<<") ="<<Value.string()<<"\n";
+      
       USERDEF_FUNCTION *uf=new USERDEF_FUNCTION(args,Value.string());
       _fl[Name] = new DISPATCHER<FUNCTION>::INSTALL (&function_dispatcher, Name.c_str(), uf);
       _fal[Name]= args;  // tbd shall be string of arguments

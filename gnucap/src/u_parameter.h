@@ -294,7 +294,7 @@ T PARAMETER<T>::e_val(const T& def, const CARD_LIST* scope)const
     // blank string means to use default value
     _v = def;
     if (recursion > 1) {
-      error(bWARNING, "parameter " + *first_name + " has no value\n");
+      error(bWARNING, "parameter " + *first_name + " has no value, default used\n");
     }else{
     }
   }else if (_s != "#") {

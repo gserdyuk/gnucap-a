@@ -126,6 +126,7 @@ void Token_SYMBOL::stack_op(Expression* E)const
       E->push_back(new Token_CONSTANT(value, v, ""));
       delete T1;
     }else{
+      error(bWARNING, "Function " + name() + " is NOT found in dispatcher\n");  // GS added
       throw Exception_No_Match(name()); //BUG// memory leak
       unreachable();
       E->push_back(clone());
@@ -141,11 +142,12 @@ void Token_SYMBOL::stack_op(Expression* E)const
       PARAMETER<double> p = (*(E->_scope->params()))[name()];
       if (p.has_hard_value()) {
 	// can find value - push value
-	double v = p.e_val(NOT_INPUT, E->_scope);
+       double v = p.e_val(NOT_INPUT, E->_scope);
 	Float* n = new Float(v);
 	E->push_back(new Token_CONSTANT(n->val_string(), n, ""));
       }else{
 	// no value - push name (and accept incomplete solution later)
+    error(bWARNING, "Token SYMBOL " + name() + " has no value, soluition will be incomplete\n");  //GS
 	String* s = new String(name());
 	E->push_back(new Token_CONSTANT(name(), s, ""));	
       }
