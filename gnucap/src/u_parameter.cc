@@ -139,6 +139,12 @@ void PARAM_LIST::parse(CS& cmd)
              
       // add here one function called; TODO - switch it out, use mstdout/OMSTREAM
       std::cout<<"userdef_function adding "<<Name<<" (";
+      for (int i=0; i<args.size(); i++){
+        std::cout<<args[i];
+        if (i<args.size()-1)
+            std::cout<<",";
+        }
+      std::cout<<")\n";
       
       USERDEF_FUNCTION *uf=new USERDEF_FUNCTION(args,Value.string());
       _fl[Name] = new DISPATCHER<FUNCTION>::INSTALL (&function_dispatcher, Name.c_str(), uf);
