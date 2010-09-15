@@ -252,10 +252,12 @@ inline bool PARAMETER<bool>::lookup_solve(const bool&, const CARD_LIST*)const
   return cmd.ctob();
 }
 /*--------------------------------------------------------------------------*/
+std::string s_char_subst(std::string s, char a, char b);  // substitutes all occurances of a to b in s
+
 template <class T>
 inline T PARAMETER<T>::lookup_solve(const T& def, const CARD_LIST* scope)const
 {
-  CS cmd(CS::_STRING, _s);
+  CS cmd(CS::_STRING, s_char_subst(_s,'\'',' ') );   // GS - remove quotes from _s to handle expr like cos('a+b'\
   Expression e(cmd);
   Expression reduced(e, scope);
   T v = T(reduced.eval());

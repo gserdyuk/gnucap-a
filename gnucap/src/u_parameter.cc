@@ -110,22 +110,35 @@ void PARAM_LIST::parse(CS& cmd)
       // function
       std::vector<std::string> args;
       std::string a;
+      
       cmd >> '(';
+      
+      if (OPT::case_insensitive) {
+          notstd::to_lower(&Name);
+      }else{
+      }
+
       for(;;){       
         if (cmd.peek() == ')')  // todo: fix to handle absense of ")"
             break;
         cmd >> a;
+        
+        if (OPT::case_insensitive) {
+            notstd::to_lower(&a);
+        }else{
+        }
+
         args.push_back(a);
         }
+        
       cmd >> ')';
       cmd >> '=';
       cmd >> Value;
+
+      // do not transform Value.string() to lowercase - it will be done in deep_search()
              
       // add here one function called; TODO - switch it out, use mstdout/OMSTREAM
-      //std::cout<<"userdef_function adding "<<Name<<" (";
-      //for (int j=0; j<args.size(); j++)
-      //   std::cout<<args[j]<<",";
-      //std::cout<<") ="<<Value.string()<<"\n";
+      std::cout<<"userdef_function adding "<<Name<<" (";
       
       USERDEF_FUNCTION *uf=new USERDEF_FUNCTION(args,Value.string());
       _fl[Name] = new DISPATCHER<FUNCTION>::INSTALL (&function_dispatcher, Name.c_str(), uf);
@@ -222,6 +235,10 @@ void PARAM_LIST::eval_copy(PARAM_LIST& p, const CARD_LIST* scope)
 /*--------------------------------------------------------------------------*/
 const PARAMETER<double>& PARAM_LIST::deep_lookup(std::string Name)const
 {
+// switching case is tricky.
+// in case of regular parameter calculations everythiung works fine.
+// but in case of function computation - list of parameters and name are handled in parse
+// function body is handled due to this code
   if (OPT::case_insensitive) {
     notstd::to_lower(&Name);
   }else{
@@ -304,6 +321,15 @@ bool Get(CS& cmd, const std::string& key, PARAMETER<int>* val)
   }else{
     return false;
   }
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+//GS used in lookup_solve to eliminate single quotes in expressions.
+std::string s_char_subst(std::string s, char a, char b){
+    for (int i=0; i<=s.size(); i++)
+        if (s[i]==a)
+            s[i]=b;
+    return s;
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
