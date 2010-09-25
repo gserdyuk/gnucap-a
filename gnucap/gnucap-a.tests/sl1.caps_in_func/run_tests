@@ -1,0 +1,10 @@
+#!/bin/bash
+./a  test1.gckt     >test1.out
+./a  test1ok.gckt   >test1ok.out
+./a  test2.gckt     >test2.out
+./a  test3.gckt     >test3.out
+./a  test4.gckt     >test4.out
+./a  test5.gckt     >test5.out
+./a  test6.gckt     >test6.out
+./a  test-p-1.gckt  >test-p-1.out
+./a  test-p-2.gckt  >test-p-2.out

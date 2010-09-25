@@ -67,7 +67,7 @@ public: // override virtual, used by callback
 public: // override virtual, called by commands
   void		parse_top_item(CS&, CARD_LIST*);
   DEV_COMMENT*	parse_comment(CS&, DEV_COMMENT*);
-  DEV_DOT*	parse_command(CS&, DEV_DOT*);
+  DEV_DOT*	parse_command(CS&, DEV_DOT*, CARD_LIST*);
   MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*);
   MODEL_SUBCKT* parse_module(CS&, MODEL_SUBCKT*);
   COMPONENT*	parse_instance(CS&, COMPONENT*);
@@ -202,11 +202,11 @@ DEV_COMMENT* LANG_VERILOG::parse_comment(CS& cmd, DEV_COMMENT* x)
   return x;
 }
 /*--------------------------------------------------------------------------*/
-DEV_DOT* LANG_VERILOG::parse_command(CS& cmd, DEV_DOT* x)
+DEV_DOT* LANG_VERILOG::parse_command(CS& cmd, DEV_DOT* x, CARD_LIST* Scope)
 {
   assert(x);
   x->set(cmd.fullstring());
-  CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
+  CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;   // TODO GS check if this does work with IMIS issue
 
   cmd.reset();
   CMD::cmdproc(cmd, scope);

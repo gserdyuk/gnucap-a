@@ -1,0 +1,19 @@
+* "include" handling
+spice
+
+X1 1 0 module
+
+.subckt module a b 
+.param p1=1.1
+
+v1 a b dc p2
+
+.include "./test2.inc"
+*.param p2='p1'
+.ends
+
+
+.print op v(1)
+.op
+
+.end

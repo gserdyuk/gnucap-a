@@ -1,0 +1,20 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* simlpe multiline element circuit 
+r1 ( 1 2 )  50.K
+r2 ( 1 2 )  50.K
+r3 ( 1 2 )  50.K
+r4 ( 1 2 )  50.K
+r5 ( 1 2 )  50.K
+r6 ( 1 2 )  50.K
+r7 ( 1 2 )  50.K
+r8 ( 1 2 )  50.K
+#          
+ 0.        

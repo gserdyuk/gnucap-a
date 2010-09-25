@@ -514,3 +514,14 @@ void CARD_LIST::map_subckt_nodes(const CARD* model, const CARD* owner)
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+#include "u_lang.h"
+void print_cardlist(const CARD_LIST *scope){
+    std::cout<<" <<<<      print card list -- \n";
+    std::cout<<" top-level params\n";    
+    scope->params()->deep_print(IO::mstdout, OPT::language);
+    std::cout<<" card_list itself\n";    
+    for (CARD_LIST::const_iterator ci=scope->begin();ci!=scope->end();++ci) {
+      OPT::language->print_item(IO::mstdout, *ci);
+    }
+    std::cout<<" >>>>     ---------------- -- \n";
+}

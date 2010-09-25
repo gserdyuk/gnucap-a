@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ../compare_results.inc
+   
+FILES=`ls *.out`
+
+for file in $FILES; do
+  mydiff $file "./golden" >>../diffs
+  printresult1 " $file" $?
+  done
+  

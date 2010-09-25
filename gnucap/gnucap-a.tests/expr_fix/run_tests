@@ -15,3 +15,4 @@ $GNUCAP -b t-25.gckt |tee t-25.out
 
 $GNUCAP -b a1.gckt |tee a1.out
 
+$GNUCAP -b param5-1.gckt |tee param5-1.out

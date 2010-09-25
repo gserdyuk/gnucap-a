@@ -1,0 +1,15 @@
+* capitals in function names - expected to wkr as "caseinsensitive"  -- does not
+spice
+*.options noinsensitive 
+.options debug
+.param  p1=1.1
+.param FUNC1(a,b) = a+b
+.param b=func1(p1,p1)
+
+v1 1 0 dc b
+
+.print op v(1) 
+
+
+.op
+.end

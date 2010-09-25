@@ -1,0 +1,19 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* hash in names 
+r1 ( 1 0 )  50.K
+r# ( 1 0 )  50.K
+r## ( 1 #1 )  50.K
+r3# ( #1 0 ) RSH
+R4 ( 1 2 ) R#
+R5 ( 2 0 )  50.K
+v1 ( 1 0 )  DC  2.
+#           v(#1)      v(1)       v(2)       v(r1)      v(r#)      v(r##)     v(r3#)     v(R4)      v(R5)      v(v1)     
+ 27.        1.         2.         1.         2.         2.         1.         1.         1.         1.         2.        

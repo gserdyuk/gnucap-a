@@ -89,7 +89,7 @@ const CARD* LANGUAGE::find_proto(const std::string& Name, const CARD* Scope)
   }
 }
 /*--------------------------------------------------------------------------*/
-void LANGUAGE::new__instance(CS& cmd, MODEL_SUBCKT* owner, CARD_LIST* Scope)
+void LANGUAGE::new__instance(CS& cmd, MODEL_SUBCKT* owner, CARD_LIST* Scope)    // cmd, owner, owner->suibckt()
 {
   if (cmd.is_end()) {
     // nothing
@@ -99,19 +99,20 @@ void LANGUAGE::new__instance(CS& cmd, MODEL_SUBCKT* owner, CARD_LIST* Scope)
       CARD* new_instance = proto->clone_instance();
       assert(new_instance);
       new_instance->set_owner(owner);
-      CARD* x = parse_item(cmd, new_instance);
+      CARD* x = parse_item(cmd, new_instance, Scope);                           // GS , IMIS issue fix
       if (x) {
-	assert(Scope);
-	Scope->push_back(x);
+       assert(Scope);
+       Scope->push_back(x);
       }else{
       }
     }else{
       cmd.warn(bDANGER, type + ": no match");
     }
   }
+
 }
 /*--------------------------------------------------------------------------*/
-CARD* LANGUAGE::parse_item(CS& cmd, CARD* c)
+CARD* LANGUAGE::parse_item(CS& cmd, CARD* c, CARD_LIST *Scope )                 // GS , IMIS issue fix
 {
   // See Stroustrup 15.4.5
   // If you can think of a better way, tell me.
@@ -126,7 +127,7 @@ CARD* LANGUAGE::parse_item(CS& cmd, CARD* c)
   }else if (dynamic_cast< DEV_COMMENT*>(c)) {
     return parse_comment(cmd, prechecked_cast<DEV_COMMENT*>(c));
   }else if (dynamic_cast<DEV_DOT*>(c)) {
-    return parse_command(cmd, prechecked_cast<DEV_DOT*>(c));
+    return parse_command(cmd, prechecked_cast<DEV_DOT*>(c), Scope);             // GS , IMIS issue fix
   }else{untested();
     incomplete();
     unreachable();

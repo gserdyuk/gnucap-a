@@ -1,0 +1,14 @@
+* capitals in parameter names
+spice
+
+.param  P1=1.1
+.param  b=p1+1.1
+
+v1 1 0 dc b
+
+.print op v(1) 
+
+
+.op
+
+.end

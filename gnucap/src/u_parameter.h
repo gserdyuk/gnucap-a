@@ -252,10 +252,12 @@ inline bool PARAMETER<bool>::lookup_solve(const bool&, const CARD_LIST*)const
   return cmd.ctob();
 }
 /*--------------------------------------------------------------------------*/
+std::string s_char_subst(std::string s, char a, char b);  // substitutes all occurances of a to b in s
+
 template <class T>
 inline T PARAMETER<T>::lookup_solve(const T& def, const CARD_LIST* scope)const
 {
-  CS cmd(CS::_STRING, _s);
+  CS cmd(CS::_STRING, s_char_subst(_s,'\'',' ') );   // GS - remove quotes from _s to handle expr like cos('a+b')
   Expression e(cmd);
   Expression reduced(e, scope);
   T v = T(reduced.eval());
@@ -294,7 +296,7 @@ T PARAMETER<T>::e_val(const T& def, const CARD_LIST* scope)const
     // blank string means to use default value
     _v = def;
     if (recursion > 1) {
-      error(bWARNING, "parameter " + *first_name + " has no value\n");
+      error(bWARNING, "parameter " + *first_name + " has no value, default used\n");
     }else{
     }
   }else if (_s != "#") {

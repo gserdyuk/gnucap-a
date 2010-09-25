@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136 experimental_1 2010-02-16
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -8,33 +8,9 @@ to redistribute it under the terms of
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
 * test for library search 
-* i/o
-.options  nosimbinfmt  noacct  nolist  clobber  out=9999  ydivisions= 4.  phase=degrees  harmonics=9  edit  language=acs  insensitive  units=spice  recursion=20  nodrop_spice_comments  nodollar_as_spice_comment  parhier=none
-
-* paths
-.options  includepath=/home/gserdyuk/gnucap/cases/HOME-dir/tests:/home/gserdyuk/gnucap/cases/HOME-dir/tests/ginclude
-+ loadpath=
-
-* accuracy, i/o
-.options  numdgt=5  floor= 1.E-21  vfloor= 1.f  roundofftol= 100.f
-
-* accuracy, tolerances
-.options  gmin= 1.p  short= 10.u  reltol= 0.001  abstol= 1.p  vntol= 1.u  trtol= 7.  chgtol= 10.f  pivtol= 100.f  bypasstol= 0.1  loadtol= 0.1
-
-* accuracy, algorithms
-.options  method=trap  bypass  incmode  lcbypass  lubypass  fbbypass  traceload  order=auto  mode=mixed  transits=2  noquitconvfail
-
-* iteration limiting and heuristics
-.options  itl1=100  itl2=50  itl3=6  itl4=20  itl5=0  itl6=5000  itl7=1  itl8=99  itermin=1  vmax= 5.  vmin=-5.  dampmax= 1.  dampmin= 0.5  dampstrategy=0
-
-* time step control
-.options  dtmin= 1.p  dtratio= 1.G  trstepgrow= 1.E+99  trstephold= 1.E+99  trstepshrink= 2.  trreject= 0.5  trsteporder=3  trstepcoef1= 0.25  trstepcoef2= 0.04166667  trstepcoef3= 0.005208333
-
-* circuit environment
-.options  tnom= 27.  temperature= 27.  rstray  cstray  defl= 100.u  defw= 100.u  defad= 0.  defas= 0.
-
 v1 ( n1 0 )  DC  1.
 v2 ( n2 0 )  DC  2.
 v3 ( n3 0 )  DC  3.
+#.options 
 #           v(n1)      v(n2)      v(n3)     
  27.        1.         2.         3.        

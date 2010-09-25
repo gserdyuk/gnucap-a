@@ -1,0 +1,21 @@
+* hash in names
+
+.param RSH=50k
+.param R# = 50K
+
+r1   1  0  50k
+r#   1  0  50K
+
+r##  1  #1 50k
+r3#  #1 0  RSH
+
+R4   1  2  R#
+R5   2  0  50k
+
+v1   1  0  dc 2
+
+.list
+.print op v(*)
+.op 
+.end
+

@@ -1,0 +1,45 @@
+* simlpe multiline element circuit
+.options drop_spice_comments=yes
+
+r1 1 2 50k
+r2 1 
+* first line of comments
++ 2 50k
+r3 1
+* comment line 1
+* comment line 2
++ 2 50k
+
+r4 1
+* comment line 1
+* comment line 2 and empty line then
+
++ 2 50k
+
+r5 
+* comment angain
+
+* comment after blank line
++1 2 50K
+
+r6
+* comment
+      
+* comment after blank line with whitespaces
++ 1 2 50k
+
+r7
+      
++ 1 2 50k
+
+r8
+* 1st comment line
+     
+*second comment line after whitespaces
+      
++ 1 2 50k
+
+.list
+.dc
+.end
+

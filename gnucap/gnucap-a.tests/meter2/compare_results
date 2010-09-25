@@ -2,7 +2,7 @@
 
 source ../compare_results.inc
 
-FILES=" testgain.out testgain_spctr.out testgain_verilog.out testgain_p.gckt"
+FILES=" testgain.out testgain_spctr.out testgain_verilog.out testgain_p.out"
 
 for file in $FILES; do
   mydiff $file "./golden" >>../diffs

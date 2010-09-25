@@ -1,0 +1,10 @@
+depending - built-in or plugin model - error appears on plugin spice model only
+
+fix in spice-wrapper.cc 
+in DEV_SPICE::set_param_be_name - remove call
+     Set_param_by_name
+    
+its enough to have call at DEV_SPICE::precalc_first
+
+resolved
+

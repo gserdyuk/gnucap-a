@@ -598,7 +598,7 @@ void MODEL_SPICE::set_param_by_name(std::string Name, std::string Value)
   }else{
   }
   _params.set(Name, Value);
-  Set_param_by_name(Name, to_string(_params[Name].e_val(1,scope())));
+  //Set_param_by_name(Name, to_string(_params[Name].e_val(1,scope())));
 }
 /*--------------------------------------------------------------------------*/
 void MODEL_SPICE::precalc_first()
@@ -838,9 +838,9 @@ void DEV_SPICE::set_param_by_name(std::string Name, std::string Value)
   }else{
   }
   COMPONENT::set_param_by_name(Name, Value);
-  COMMON_SUBCKT* c = dynamic_cast<COMMON_SUBCKT*>(mutable_common());
-  assert(c);
-  Set_param_by_name(Name, to_string(c->_params[Name].e_val(1,scope())));
+  //COMMON_SUBCKT* c = dynamic_cast<COMMON_SUBCKT*>(mutable_common());
+  //assert(c);
+  // Set_param_by_name(Name, to_string(c->_params[Name].e_val(1,scope())));   GS - is that too early?  see also precalc_first
 }
 /*--------------------------------------------------------------------------*/
 void DEV_SPICE::Set_param_by_index(int i, std::string& new_value, int offset)
@@ -1073,7 +1073,7 @@ void DEV_SPICE::precalc_last()
 
     assert(ok == OK);
     assert(num_states_garbage == _num_states);
-    trace3("precalc", maxEqNum_stash, ckt()->CKTmaxEqNum, (maxEqNum_stash == ckt()->CKTmaxEqNum));
+    // trace3("precalc", maxEqNum_stash, ckt()->CKTmaxEqNum, (maxEqNum_stash == ckt()->CKTmaxEqNum));  GS - maxEqNum_stash is not defined
     assert(_maxEqNum == ckt()->CKTmaxEqNum);
     notstd::copy_n(node_stash, matrix_nodes(), node); // put back real nodes
     // hopefully, the matrix pointers are the same as last time!
