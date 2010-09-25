@@ -138,14 +138,9 @@ void PARAM_LIST::parse(CS& cmd)
       // do not transform Value.string() to lowercase - it will be done in deep_search()
              
       // add here one function called; TODO - switch it out, use mstdout/OMSTREAM
-      std::cout<<"userdef_function adding "<<Name<<" (";
-      for (int i=0; i<args.size(); i++){
-        std::cout<<args[i];
-        if (i<args.size()-1)
-            std::cout<<",";
-        }
-      std::cout<<")\n";
       
+      error(bDEBUG,"Userdef_function adding function: "+Name+"\n");
+
       USERDEF_FUNCTION *uf=new USERDEF_FUNCTION(args,Value.string());
       _fl[Name] = new DISPATCHER<FUNCTION>::INSTALL (&function_dispatcher, Name.c_str(), uf);
       _fal[Name]= args;  // tbd shall be string of arguments
