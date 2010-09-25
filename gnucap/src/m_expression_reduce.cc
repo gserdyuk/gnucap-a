@@ -147,7 +147,7 @@ void Token_SYMBOL::stack_op(Expression* E)const
 	E->push_back(new Token_CONSTANT(n->val_string(), n, ""));
       }else{
 	// no value - push name (and accept incomplete solution later)
-    error(bWARNING, "Token SYMBOL " + name() + " has no value, soluition will be incomplete\n");  //GS
+    error(bDEBUG, "Token SYMBOL " + name() + " has no value, soluition will be incomplete\n");  //GS
 	String* s = new String(name());
 	E->push_back(new Token_CONSTANT(name(), s, ""));	
       }
