@@ -6,7 +6,6 @@ FILES=`ls *.out`
 
 for file in $FILES; do
   mydiff $file "./golden" >>../diffs
-  a=$? 
-  printresult1 "test dollar_sign_comment $file" $a
+  printresult1 "parameters of plugin model  $file" $?
   done
   

@@ -7,5 +7,7 @@ This is free software, and you are welcome
 to redistribute it under the terms of 
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
-#Freq       v(1)       v(2)       gain(A1)  
- 0.         1.         0.999      0.999     
+* param with ? expression - wrong () handling 
+Userdef_function adding function: distr
+#           v(v1)      v(v2)     
+ 27.        1.3077     1.3077    

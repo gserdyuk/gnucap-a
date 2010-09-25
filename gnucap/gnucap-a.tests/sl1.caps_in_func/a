@@ -1,0 +1,4 @@
+#!/bin/bash
+GNUCAP=../../
+SIM=$GNUCAP/src/gnucap 
+$SIM < $1

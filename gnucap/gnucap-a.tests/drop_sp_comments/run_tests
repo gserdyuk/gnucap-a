@@ -1,0 +1,7 @@
+#!/bin/bash
+GNUCAP=../../src/gnucap
+$GNUCAP -b c.ckt.drop_comments.ckt >  c.ckt.drop_comments.ckt.out
+echo "1 done"
+$GNUCAP -b comments_ws.ckt >comments_ws.ckt.out
+echo "2 done"
+

@@ -1,0 +1,15 @@
+* capitals in function definitions - expected to work - it does already
+spice
+.options debug
+.param  p1=1.1
+.param func1(A,B) = A+B
+.param b=func1(p1,p1)
+
+v1 1 0 dc b
+
+.print op v(1) 
+
+
+.op
+
+.end

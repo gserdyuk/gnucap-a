@@ -1,0 +1,5 @@
+#!/bin/bash
+GNUCAP=../../src/gnucap
+$GNUCAP -b hash_in_names.ckt >  hash_in_names.ckt.out
+echo "1 done"
+

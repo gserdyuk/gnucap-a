@@ -1,0 +1,7 @@
+#!/bin/bash
+GNUCAP=../../
+SIM=$GNUCAP/src/gnucap 
+MDL=$GNUCAP/models-bsim/BSIM3v330/bsim330.so
+#export EF_ALLOW_MALLOC_0=1
+#ef 
+$SIM -a $MDL < $1

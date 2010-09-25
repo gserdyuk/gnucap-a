@@ -1,0 +1,7 @@
+
+eliminated quote in input string : 
+
+CS cmd(CS::_STRING, s_char_subst(_s,'\'',' ') );   // GS - remove quotes from _s to handle expr like cos('a+b')
+in inline T PARAMETER<T>::lookup_solve
+
+resolved

@@ -1,0 +1,13 @@
+* argument in quotes
+spice
+
+.param p1=1.1
+.param p2=1.1
+.param p3=cos('p1-p2')
+
+v1 1 0 dc p3
+
+.print op v(1)
+.op
+
+.end

@@ -1,0 +1,13 @@
+readme
+
+test1.gckt     - cap letetrs in param names of function - fixed
+test1ok.gckt   - low casee - works fine
+test2.gckt     - kile test1 options noinsensitive - works ok
+test3.gckt     - caps in function name - fixed
+test4.gckt     - caps in functini name / noinsensitive
+test5.gckt     - mixed case in expression 
+test6.gckt     - same as test6, var 2
+test-p-1.gckt  - capital letter in parameter names
+test-p-2.gckt  - too
+
+sl1.          means special library 1  - all those cases were met in special library 1

@@ -1,0 +1,25 @@
+* 7 - attempt to reproduce - 
+spice
+
+
+.subckt sname na nb 
+.param a=1.1u b=1.2u
+.param c=a2(0.1,0.2)
+.param d=a2(0.1,0.2)
+
+.model fetmodel nmos ( level=49 )
+
+v1 na nb dc c
+m1 d g s x fetmodel w=d l=c 
+.ends
+
+X1 1 0 sname
+
+.param a2(x,y)=x+y
+
+.print op v(1) 
+
+
+.op
+
+.end

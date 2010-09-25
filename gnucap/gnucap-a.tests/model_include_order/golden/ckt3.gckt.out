@@ -7,5 +7,5 @@ This is free software, and you are welcome
 to redistribute it under the terms of 
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
-#Freq       v(1)       v(2)       gain(A1)  
- 0.         1.         0.999      0.999     
+*****Single NMOS Transistor For BSIM3V3.1  general purpose check (Id-Vd) *** 
+m1: no bins match: n1
