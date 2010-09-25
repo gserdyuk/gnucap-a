@@ -50,10 +50,10 @@ public: // used by obsolete_callback
   // in
 public: // real public interface
   virtual void		parse_top_item(CS&, CARD_LIST*);
-  virtual CARD*		parse_item(CS&, CARD*);
+  virtual CARD*		parse_item(CS&, CARD*, CARD_LIST*);             // GS IMIS issue fix
 public: // called by commands and parse_item
   virtual DEV_COMMENT*	parse_comment(CS&, DEV_COMMENT*) = 0;
-  virtual DEV_DOT*	parse_command(CS&, DEV_DOT*) = 0;
+  virtual DEV_DOT*	parse_command(CS&, DEV_DOT*, CARD_LIST*) = 0;   // GS IMIS issue fix
   virtual MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*) = 0;
   virtual MODEL_SUBCKT* parse_module(CS&, MODEL_SUBCKT*) = 0;
   virtual COMPONENT*	parse_instance(CS&, COMPONENT*) = 0;

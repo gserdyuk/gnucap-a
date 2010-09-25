@@ -44,7 +44,7 @@ public: // override virtual, used by callback
 
 public: // override virtual, called by commands
   DEV_COMMENT*	parse_comment(CS&, DEV_COMMENT*);
-  DEV_DOT*	parse_command(CS&, DEV_DOT*);
+  DEV_DOT*	parse_command(CS&, DEV_DOT*, CARD_LIST*);       // GS change - see IMIS issue
   MODEL_CARD*	parse_paramset(CS&, MODEL_CARD*);
   MODEL_SUBCKT* parse_module(CS&, MODEL_SUBCKT*);
   COMPONENT*	parse_instance(CS&, COMPONENT*);
@@ -501,11 +501,16 @@ DEV_COMMENT* LANG_SPICE_BASE::parse_comment(CS& cmd, DEV_COMMENT* x)
   return x;
 }
 /*--------------------------------------------------------------------------*/
-DEV_DOT* LANG_SPICE_BASE::parse_command(CS& cmd, DEV_DOT* x)
+DEV_DOT* LANG_SPICE_BASE::parse_command(CS& cmd, DEV_DOT* x, CARD_LIST * scope)         // GS change, see IMIS issue - Include Model In Subcircuit
 {
   assert(x);
   x->set(cmd.fullstring());
-  CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;
+  //CARD_LIST* scope = (x->owner()) ? x->owner()->subckt() : &CARD_LIST::card_list;      // GS - IMIS issue was here !! 
+  /*
+  GS, 25 oct 2010
+  when model was included in subcircuit, this constructiion worked improperly. check in verilog and spectre
+  decided to pass from new__instance through parse_item, parse_command actuar Scope for usage.
+  */
 
   cmd.reset();
   skip_pre_stuff(cmd);
@@ -967,7 +972,7 @@ public:
     getmerge(cmd, NO_HEADER, Scope);
   }
 } p3;
-DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, ".include", &p3);
+DISPATCHER<CMD>::INSTALL d3(&command_dispatcher, ".include|.inc", &p3);
 /*--------------------------------------------------------------------------*/
 /* cmd_merge: merge command
  * as get, but do not clear first
@@ -1078,6 +1083,32 @@ public:
   }
 } p99;
 DISPATCHER<CMD>::INSTALL d99(&command_dispatcher, ".control", &p99);
+/*--------------------------------------------------------------------------*/
+class CMD_ECHO : public CMD {
+private:
+  bool is_param(std::string a)
+  {   // shall be param if it is in curly braces - {name}
+  return false;
+  }
+        
+public:
+  void do_it(CS& cmd, CARD_LIST* Scope)
+  {
+    std::string msg;
+    while (cmd >> msg){ 
+/*      if (is_param(msg){
+      std::cout msg_stripped=strip(msg);
+      PARAMETER<double> p(msg_stripped);
+     double param=p->e_val(...);
+          IO::mstdout<<param<<" ";
+          }
+      else  */
+          IO::mstdout<<msg<<" ";
+      }
+  IO::mstdout<<"\n";
+  }
+} p1001;
+DISPATCHER<CMD>::INSTALL d1001(&command_dispatcher, ".echo", &p1001);
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 }
