@@ -1,7 +1,8 @@
 ./tmp/*
-./*.old
+*.old
 *.o
 *.so
+*~
 gnucap/src/d_mos*.cc
 gnucap/src/d_mos*.h
 gnucap/src/d_dio*.cc

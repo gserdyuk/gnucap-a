@@ -90,6 +90,11 @@ public:
   Base* logic_not()const;
   Base* logic_or(const Base* X)const;
   Base* logic_and(const Base* X)const;
+
+  virtual Base* powerof(const Base*)const	{untested(); return NULL;}
+  virtual Base* powerof(const Float*)const	{untested(); return NULL;}
+  virtual Base* powerof(const String*)const	{untested(); return NULL;}
+
 };
 inline CS&	     operator>>(CS& f, Base& b)	{untested();b.parse(f); return f;}
 inline std::ostream& operator<<(std::ostream& out, const Base& d)
@@ -182,6 +187,7 @@ public:
   Base* r_subtract(const Float* X)const	{assert(X); return new Float(X->_data - _data);}
   Base* divide(const Float* X)const	{untested();assert(X); return new Float(_data / X->_data);}
   Base* r_divide(const Float* X)const	{assert(X); return new Float(X->_data / _data);}
+  Base* powerof(const Float* X)const	{assert(X); return new Float(pow(_data, X->_data));}
 
   Base* less(const Base* X)const	{return ((X) ? (X->greater(this))   : (NULL));}
   Base* greater(const Base* X)const	{return ((X) ? (X->less(this))      : (NULL));}
@@ -195,6 +201,7 @@ public:
   Base* r_subtract(const Base* X)const	{untested();return ((X) ? (X->subtract(this))  : (NULL));}
   Base* divide(const Base* X)const	{return ((X) ? (X->r_divide(this))  : (NULL));}
   Base* r_divide(const Base* X)const	{untested();return ((X) ? (X->divide(this))    : (NULL));}
+  Base* powerof(const Base* X)const	{return ((X) ? (X->powerof(this))  : (NULL));}
 
   Base* less(const String*)const	{untested();return NULL;}
   Base* greater(const String*)const	{untested();return NULL;}
@@ -209,6 +216,8 @@ public:
   Base* divide(const String*)const	{untested();return NULL;}
   Base* r_divide(const String*)const	{	    return NULL;}
   Base* select(const Base* b, const Base* c)  const	{ return ( to_bool() ? b->copier(): c-> copier() ); }    
+  Base* powerof(const String*)const	{untested();return NULL;}
+
   bool  is_NA()const			{untested();return _data == NOT_INPUT;}
 };
 /*--------------------------------------------------------------------------*/

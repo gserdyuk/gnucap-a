@@ -63,6 +63,8 @@ Token* Token_BINOP::op(const Token* T1, const Token* T2)const
     b = (T1->data())->logic_or(T2->data());
   }else if (name() == "&&") {
     b = (T1->data())->logic_and(T2->data());
+  }else if (name() == "**") {
+    b = (T2->data())->powerof(T1->data());
   }else{
     // op (name()) not one of those listed
     unreachable();

@@ -29,9 +29,11 @@
  * arglist	: "(" expression arglisttail ")";
  *		| "(" ")"
  *		| nothing
- * leaf		: name arglist
- * factor	: unary "(" expression ")"
- *		| unary leaf
+ * leaf		: name arglist  
+ * factor	: unary "(" expression ")" factortail
+ *		| unary leaf factortail
+ * factortail: "**" factor
+ *     | nothing
  * termtail	: "*" factor termtail
  *		| "/" factor termtail
  *		| nothing
@@ -55,7 +57,7 @@
  *		| nothing
  * expression	: andarg exptail trenarytail
  *
- * trenaryqs    : "?" expression ":" expression 
+ * trenarytail    : "?" expression ":" expression 
  *      | nothing 
  */
 //testing=script 2009.08.12
@@ -107,6 +109,15 @@ void Expression::leaf(CS& File)
   }
 }
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+void Expression::factortail(CS& File){
+  if (File >> "**") {
+    factor (File);
+    push_back(new Token_BINOP("**")); 
+    }
+  else {
+  }
+}
+/*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 void Expression::factor(CS& File)
 {
   Token* t = 0;
@@ -124,6 +135,9 @@ void Expression::factor(CS& File)
   }else{
     leaf(File);
   }
+  
+  factortail(File); // factortail represents special case .... ** power
+      
   if (t) {
     push_back(t);
   }else{

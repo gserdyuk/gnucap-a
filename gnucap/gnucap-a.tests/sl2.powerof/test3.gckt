@@ -1,0 +1,12 @@
+* argument in quotes
+spice
+
+.param p3='2**p2'
+.param p2=3
+
+v1 1 0 dc p3
+
+.print op v(1)
+.op
+
+.end
