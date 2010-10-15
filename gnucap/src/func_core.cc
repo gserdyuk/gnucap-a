@@ -260,6 +260,19 @@ public:
 } p_defined;
 DISPATCHER<FUNCTION>::INSTALL d_defined(&function_dispatcher, "defined", &p_defined);
 /*--------------------------------------------------------------------------*/
+// function shall return circuit voltage
+// now it is defined to return zero value - so simulation will return wrongh results
+class CKT_VOLTAGE : public FUNCTION {  
+public:
+  std::string eval(CS& Cmd, const CARD_LIST* Scope)const
+  {
+    PARAMETER<double> arg1, arg2;
+    Cmd >> arg1 >> arg2;
+    return to_string(0);
+  }
+} p_ckt_voltage;
+DISPATCHER<FUNCTION>::INSTALL d_ckt_voltage(&function_dispatcher, "v", &p_ckt_voltage);
+/*--------------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
