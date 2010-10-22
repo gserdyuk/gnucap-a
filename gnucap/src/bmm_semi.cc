@@ -517,7 +517,7 @@ MODEL_SEMI_RESISTOR::MODEL_SEMI_RESISTOR()
 }
 /*--------------------------------------------------------------------------*/
 MODEL_SEMI_RESISTOR::MODEL_SEMI_RESISTOR(const MODEL_SEMI_RESISTOR& p)
-  :MODEL_SEMI_BASE(),
+  :MODEL_SEMI_BASE(p),  // GS - it was :MODEL_SEMI_BASE(),
    _rsh(p._rsh)
 {
 }
