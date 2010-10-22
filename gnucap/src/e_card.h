@@ -39,6 +39,9 @@ class TIME_PAIR;
 class INTERFACE CARD : public CKT_BASE {
 private:
   mutable int	_evaliter;	// model eval iteration number
+public:
+  int evaliter(void) {return _evaliter;}	// used in trace
+private:
   CARD_LIST*	_subckt;
   CARD* 	_owner;
   bool		_constant;	// eval stays the same every iteration
