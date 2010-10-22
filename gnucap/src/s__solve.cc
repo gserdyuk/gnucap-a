@@ -92,7 +92,7 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
 bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
 {
   solve(itl, trace);
-  trace2("plain", ::status.iter[iSTEP], OPT::gmin);
+  //GS trace2("plain", ::status.iter[iSTEP], OPT::gmin);
   if (!converged && OPT::itl[OPT::SSTEP] > 0) {
     int save_itermin = OPT::itermin;
     OPT::itermin = 0;
