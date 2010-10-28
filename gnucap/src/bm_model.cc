@@ -83,7 +83,24 @@ void EVAL_BM_MODEL::parse_common_obsolete_callback(CS& cmd) //used
   assert(!_func);
   assert(!has_model());
   parse_modelname(cmd);
-  _arglist = cmd.ctos("", "(", ")");
+  
+  //_arglist = cmd.ctos("", "(", ")");  // GS: this is old code  
+  while (cmd.ns_more()){
+  _arglist += " "+ cmd.ctos("", "(", ")");  
+  } 
+  /* new code handles standard constructs like  
+  r 10 12 rmodel 10
+  r 10 20 rmodel (10 20 30)
+  but also construct like
+  r 10 20 rmodel 10 20 30 L=40
+  _arglist= "10 20 30 L=40"
+  
+  cmd.ctos("", "(", ")") returns only one token w/o parenthes or 
+  multi-tokens in  parenthes
+  
+  while (cmd.ns_more()){..} allows to return multi tokens w/o parenthes - 
+  like semi resistor in hspice format
+  */
   assert(!_func);
 }
 /*--------------------------------------------------------------------------*/
@@ -127,7 +144,6 @@ void EVAL_BM_MODEL::expand(const COMPONENT* d)
   // now we have one
   // link to the real one
   // later, a "deflate" will push it down to proper place.
-
   c->set_modelname(modelname());
   CS args(CS::_STRING, _arglist);
   c->parse_common_obsolete_callback(args);

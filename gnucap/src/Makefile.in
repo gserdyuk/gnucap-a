@@ -65,7 +65,7 @@ am__objects_5 = bm_complex.$(OBJEXT) bm_cond.$(OBJEXT) \
 	bm_model.$(OBJEXT) bm_poly.$(OBJEXT) bm_posy.$(OBJEXT) \
 	bm_pulse.$(OBJEXT) bm_pwl.$(OBJEXT) bm_sffm.$(OBJEXT) \
 	bm_sin.$(OBJEXT) bm_tanh.$(OBJEXT) bmm_table.$(OBJEXT) \
-	bmm_semi.$(OBJEXT)
+	bmm_semi_hsp.$(OBJEXT)
 am__objects_6 = c_clear.$(OBJEXT) c_comand.$(OBJEXT) \
 	c_delete.$(OBJEXT) c_exp.$(OBJEXT) c_list.$(OBJEXT) \
 	c_measure.$(OBJEXT) c_modify.$(OBJEXT) c_param.$(OBJEXT) \
@@ -228,7 +228,7 @@ d_trln.cc d_vcg.cc d_vcr.cc d_vcvs.cc d_vs.cc d_meter2.cc
 BM_SRCS = \
 bm_complex.cc bm_cond.cc bm_exp.cc bm_fit.cc bm_generator.cc \
 bm_model.cc bm_poly.cc bm_posy.cc bm_pulse.cc bm_pwl.cc bm_sffm.cc \
-bm_sin.cc bm_tanh.cc bmm_table.cc bmm_semi.cc
+bm_sin.cc bm_tanh.cc bmm_table.cc bmm_semi_hsp.cc
 
 
 # utility commands, usually one file per command
@@ -399,7 +399,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bm_sin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bm_tanh.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bm_value.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bmm_semi.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bmm_semi_hsp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bmm_table.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c__cmd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/c_attach.Po@am__quote@

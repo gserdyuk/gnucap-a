@@ -324,6 +324,28 @@ bool Get(CS& cmd, const std::string& key, PARAMETER<int>* val)
   }
 }
 /*--------------------------------------------------------------------------*/
+INTERFACE bool GetToken(CS& cmd, PARAMETER<int>* val)
+{
+  if (cmd.is_digit()) {
+    *val = int(cmd.ctof());
+    return true;
+  }else{
+    return false;
+  }
+
+}
+/*--------------------------------------------------------------------------*/
+INTERFACE bool GetToken(CS& cmd, PARAMETER<double>* val)
+{
+  if (cmd.is_float()) {
+    *val = cmd.ctof();
+    return true;
+  }else{
+    return false;
+  }
+
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 //GS used in lookup_solve to eliminate single quotes in expressions.
 std::string s_char_subst(std::string s, char a, char b){

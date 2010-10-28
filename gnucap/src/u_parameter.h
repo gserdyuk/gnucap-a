@@ -376,6 +376,8 @@ inline void PARAMETER<T>::parse(CS& cmd)
 /*--------------------------------------------------------------------------*/
 INTERFACE bool Get(CS& cmd, const std::string& key, PARAMETER<bool>* val);
 INTERFACE bool Get(CS& cmd, const std::string& key, PARAMETER<int>* val);
+INTERFACE bool GetToken(CS& cmd, PARAMETER<int>* val);
+INTERFACE bool GetToken(CS& cmd, PARAMETER<double>* val);
 /*--------------------------------------------------------------------------*/
 template <class T>
 inline OMSTREAM& operator<<(OMSTREAM& o, const PARAMETER<T> p)

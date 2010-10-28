@@ -45,7 +45,7 @@ d_trln.cc d_vcg.cc d_vcr.cc d_vcvs.cc d_vs.cc d_meter2.cc
 BM_SRCS = \
 bm_complex.cc bm_cond.cc bm_exp.cc bm_fit.cc bm_generator.cc \
 bm_model.cc bm_poly.cc bm_posy.cc bm_pulse.cc bm_pwl.cc bm_sffm.cc \
-bm_sin.cc bm_tanh.cc bmm_table.cc bmm_semi.cc
+bm_sin.cc bm_tanh.cc bmm_table.cc bmm_semi_hsp.cc
 
 # utility commands, usually one file per command
 # some have multiple commands in a file
