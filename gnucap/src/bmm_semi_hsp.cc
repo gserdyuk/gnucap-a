@@ -150,6 +150,15 @@
 #include "u_lang.h"
 #include "e_model.h" 
 #include "bm.h"
+/*
+G. Serdyuk, 28-oct-2010:
+Note, that classes EVAL_BM_SEMI_BASE, EVAL_BM_SEMI_RESISTOR, MODEL_BM_SEMI_BASE and
+MODEL_BM_SEMI_RESISTOR in this file are differemy from classes with same names in bmm_semi.cc file
+EVAL_BM_SEMI_CAPACITOR, MODEL_BM_SEMI_CAPACITOR coinside yet, but will be changed too.
+
+With time those classed will be renames nbot to confuse them with classes in bmm_semi.cc
+
+*/
 /*--------------------------------------------------------------------------*/
 class EVAL_BM_SEMI_BASE : public EVAL_BM_ACTION_BASE {
 protected:
