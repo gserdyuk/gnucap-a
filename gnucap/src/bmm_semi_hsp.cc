@@ -502,12 +502,10 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
     _value=_resistance;
     }
   else {
-  
     double width    = (_width == NOT_INPUT)    ? m->_defw : _width;
     eff_width       = width - m->_narrow;
     double length   = (_length == NOT_INPUT)  ? m->_defl : _length;    
-    eff_length      = _length - m->_narrow;
-
+    eff_length      = _length - m->_narrow;      
     
     if (eff_width != 0.) {
       _value = m->_rsh * eff_length / eff_width;
@@ -537,7 +535,7 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
 }
 /*--------------------------------------------------------------------------*/
 bool EVAL_BM_SEMI_RESISTOR::parse_params_obsolete_callback(CS& cmd)
-{
+{    
   return ONE_OF
     || (GetToken(cmd, &_resistance) && GetToken(cmd, &_tc1) && GetToken(cmd, &_tc2))   // consumes (possible) first three num parameters
     || Get(cmd, "r",	&_resistance)

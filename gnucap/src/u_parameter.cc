@@ -324,23 +324,17 @@ bool Get(CS& cmd, const std::string& key, PARAMETER<int>* val)
   }
 }
 /*--------------------------------------------------------------------------*/
-INTERFACE bool GetToken(CS& cmd, PARAMETER<int>* val)
-{
-  if (cmd.is_digit()) {
-    *val = int(cmd.ctof());
-    return true;
-  }else{
-    return false;
-  }
-
-}
-/*--------------------------------------------------------------------------*/
 INTERFACE bool GetToken(CS& cmd, PARAMETER<double>* val)
 {
-  if (cmd.is_float()) {
-    *val = cmd.ctof();
+  if (cmd.is_float()) {                 // number
+    *val = cmd.skipbl().ctof();
     return true;
-  }else{
+  }
+  else if (cmd.skipbl().match1("'")){   // expression 
+    cmd>>*val;
+    return true;
+  }
+  else{
     return false;
   }
 
