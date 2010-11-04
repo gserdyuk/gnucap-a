@@ -184,7 +184,10 @@ bool OPT::set_values(CS& cmd)
 	   || Set(cmd, "global", 	&parhier, parhGLOBAL)    /* todo - not implemented yet */
 	   || cmd.warn(bWARNING, "illegal method")))
       || Get(cmd, "includepath", &includepath)
-      || Get(cmd, "loadpath",    &loadpath)       
+      || Get(cmd, "loadpath",    &loadpath)   
+      || Get(cmd, "scalm", &scalm)    
+      || Get(cmd, "scale", &scale)    
+      || Get(cmd, "gmax", &gmax) 
       || (cmd.check(bWARNING, "what's this?"), cmd.skiparg());
 
     if (!cmd.stuck(&here)) {
@@ -204,6 +207,7 @@ bool OPT::set_values(CS& cmd)
     lowlim = 1 - reltol;
     uplim  = 1 + reltol;
     numdgt = to_range(3, numdgt, 20);
+    shortckt=1./(gmax*1000);  // there is relation between minres = shortckt=1/(gmax*1000*M)  
   }
   return changed;
 }
@@ -261,6 +265,7 @@ void OPT::print(OMSTREAM& o)
   o << "  pivtol=" << pivtol;
   o << "  bypasstol=" << bypasstol;
   o << "  loadtol=" << loadtol;
+  o << "  gmax="   << gmax; 
   o << "\n\n";
 
   o << "* accuracy, algorithms\n";
@@ -321,6 +326,8 @@ void OPT::print(OMSTREAM& o)
   if (mosflags) {
     o << "  mosflags="    << octal(mosflags);
   }
+  o<< "  scalm="   << scalm; 
+  o<< "  scale="   << scale; 
   o << "\n\n";
 
   // compatibility options ignored

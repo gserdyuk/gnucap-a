@@ -124,3 +124,6 @@ bool    OPT::dollar_as_spice_comment = false;
 parhier_t OPT::parhier = parhNONE;
 std::string OPT::includepath="";
 std::string OPT::loadpath="";
+double OPT::scalm=1.;
+double OPT::scale=1.;
+double OPT::gmax=100;  // GMAX = 100 siemens, relates to Rmin = 1/ (gmax * 1000 * M); value of shortckt is equal to 1/100000 = 10.e-6

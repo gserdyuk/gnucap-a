@@ -188,6 +188,9 @@ public:
   static parhier_t parhier;                 // enum: parameter hierarchy method - none, local, global
   static std::string includepath;  // GS - path to load circiut files, lib, etc
   static std::string loadpath;     // GS - path to load binary (so) files
+  static double scalm;		   // GS - scalm option - to scale models
+  static double scale;		   // GS - scale option - to scale devices    
+  static double gmax;		   // GS - gmax - max conductivity and relates to min resistance 
 };
 /*--------------------------------------------------------------------------*/
 class SET_RUN_MODE {
