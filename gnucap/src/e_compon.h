@@ -103,9 +103,9 @@ public:
   virtual int param_count()const {return 4;}
 public:
   virtual void precalc_first(const CARD_LIST*);
-  virtual void expand(const COMPONENT*)		{}
+  virtual void expand(const COMPONENT*);//GS	{}
   virtual COMMON_COMPONENT* deflate()		{return this;}
-  virtual void precalc_last(const CARD_LIST*)	{}
+  virtual void precalc_last(const CARD_LIST*);//GS	{}
 
   virtual void	tr_eval(ELEMENT*)const;
   virtual void	ac_eval(ELEMENT*)const;
@@ -129,6 +129,8 @@ public:
   const PARAMETER<double>& value()const {return _value;}
 private:
   bool parse_param_list(CS&);
+public:
+  double temp_c(void) const {return _temp_c;}
 };
 /*--------------------------------------------------------------------------*/
 /* note on _attach_count ...

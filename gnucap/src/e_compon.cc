@@ -41,7 +41,7 @@ COMMON_COMPONENT::COMMON_COMPONENT(const COMMON_COMPONENT& p)
 COMMON_COMPONENT::COMMON_COMPONENT(int c)
   :_tnom_c(NOT_INPUT),
    _dtemp(0),
-   _temp_c(NOT_INPUT),
+   _temp_c(NOT_INPUT),   // GS ? - may be OPT::temp_c ??
    _mfactor(1),
    _value(0),
    _modelname(),
@@ -274,9 +274,32 @@ void COMMON_COMPONENT::precalc_first(const CARD_LIST* Scope)
   assert(Scope);
   _tnom_c.e_val(OPT::tnom_c, Scope);
   _dtemp.e_val(0., Scope);
+  
+//  std::cout<<" COMMON_COMPONENT::precalc_first "<<modelname()<<"\n"<<
+//    " CKT_BASE::_sim->_temp_c ="<< CKT_BASE::_sim->_temp_c<<"\n"<<
+//    " _dtemp                  ="<<_dtemp<<"\n";
   _temp_c.e_val(CKT_BASE::_sim->_temp_c + _dtemp, Scope);
+//  std::cout<< "_temp_c="<<_temp_c<<"\n";
+  
   _mfactor.e_val(1, Scope);
   _value.e_val(0, Scope);
+
+//  std::cout<< "COMMON_COMPONENT::precalc_first "<<modelname()<<" _temp_c="<<_temp_c<<"\n";
+
+}
+
+void COMMON_COMPONENT::precalc_last(const CARD_LIST* Scope)
+{
+  assert(Scope);
+// std::cout<< "COMMON_COMPONENT::precalc_last  "<<modelname()<<" _temp_c="<<_temp_c<<"\n";
+
+}
+
+void COMMON_COMPONENT::expand(const COMPONENT* d)
+{
+  assert(Scope);
+//  std::cout<< "COMMON_COMPONENT::expand  "<<modelname()<<" _temp_c="<<_temp_c<<"\n";
+
 }
 /*--------------------------------------------------------------------------*/
 void COMMON_COMPONENT::tr_eval(ELEMENT*x)const
@@ -498,9 +521,18 @@ void COMPONENT::expand()
 {
   CARD::expand();
   if (has_common()) {
+//    std::cout<<" COMPONENT::expand() "<< long_label()<< " "<<"temp_c common           = "<<common()->temp_c()<<"\n";
+//    std::cout<<"            typeid (*common())   ="<<typeid(*common()).name()<<"\n";
     COMMON_COMPONENT* new_common = common()->clone();
+//    std::cout<<" COMPONENT::expand() "<< long_label()<< " "<<"temp_c new_common       = "<<new_common->temp_c()<<"\n";
+//    std::cout<<"             typeid (*new_common)="<<typeid(*new_common).name()<<"\n";
+//    std::cout<<"  ##### start expand \n";
     new_common->expand(this);
+//    std::cout<<"  #####  end  expand \n";
+//    std::cout<<" COMPONENT::expand() "<< long_label()<< " "<<"temp_c new_common/post expand  = "<<new_common->temp_c()<<"\n";
     COMMON_COMPONENT* deflated_common = new_common->deflate();
+//    std::cout<<" COMPONENT::expand() "<< long_label()<< " "<<"temp_c deflated_common  = "<<deflated_common->temp_c()<<"\n";
+
     if (deflated_common != common()) {
       attach_common(deflated_common);
     }else{untested();
@@ -514,6 +546,7 @@ void COMPONENT::precalc_first()
   CARD::precalc_first();
   if (has_common()) {
     try {
+//     std::cout<<" COMPONENT::precalc_first() "<< long_label()<<"\n";
       mutable_common()->precalc_first(scope());
     }catch (Exception_Precalc& e) {
       error(bWARNING, long_label() + ": " + e.message());
@@ -536,8 +569,10 @@ void COMPONENT::precalc_first()
 void COMPONENT::precalc_last()
 {
   CARD::precalc_last();
+  // GS todo here mutable-common has wrong _temp_c
   if (has_common()) {
     try {
+//      std::cout<<" COMPONENT::precalc_last) "<< long_label()<<"\n";
       mutable_common()->precalc_last(scope());
     }catch (Exception_Precalc& e) {
       error(bWARNING, long_label() + ": " + e.message());
