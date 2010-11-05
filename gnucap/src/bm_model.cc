@@ -128,7 +128,7 @@ void EVAL_BM_MODEL::expand(const COMPONENT* d)
   try {
     attach_model(d);
     assert(has_model());
-    c = dynamic_cast<EVAL_BM_ACTION_BASE*>(model()->new_common());
+    c = dynamic_cast<EVAL_BM_ACTION_BASE*>(model()->new_common(this));
   }catch (Exception& e) {
     error(bTRACE, e.message() + "++++\n");
     assert(!has_model());

@@ -36,6 +36,7 @@ protected:
   explicit EVAL_BM_TABLE(const EVAL_BM_TABLE& p);
 public:
   explicit EVAL_BM_TABLE(int c=0);
+           EVAL_BM_TABLE(const EVAL_BM_ACTION_BASE *a);
   ~EVAL_BM_TABLE() {}
 private: // override virtual
   bool		operator==(const COMMON_COMPONENT&)const;
@@ -67,6 +68,7 @@ private: // override virtual
   std::string dev_type()const		{return "table";}
   void  precalc_first();
   COMMON_COMPONENT* new_common()const	{return new EVAL_BM_TABLE;}
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE *a )const	{return new EVAL_BM_TABLE(a);}
   CARD* clone()const			{return new MODEL_TABLE(*this);}
 
   bool use_obsolete_callback_print()const {return true;}
@@ -92,6 +94,11 @@ EVAL_BM_TABLE::EVAL_BM_TABLE(int c)
 /*--------------------------------------------------------------------------*/
 EVAL_BM_TABLE::EVAL_BM_TABLE(const EVAL_BM_TABLE& p)
   :EVAL_BM_ACTION_BASE(p)
+{
+}
+/*--------------------------------------------------------------------------*/
+EVAL_BM_TABLE::EVAL_BM_TABLE(const EVAL_BM_ACTION_BASE* a)
+  :EVAL_BM_ACTION_BASE(*a)
 {
 }
 /*--------------------------------------------------------------------------*/

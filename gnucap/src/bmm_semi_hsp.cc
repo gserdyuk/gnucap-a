@@ -197,6 +197,7 @@ EVAL_BM_SEMI_CAPACITOR, MODEL_BM_SEMI_CAPACITOR coinside yet, but will be change
 With time those classed will be renames nbot to confuse them with classes in bmm_semi.cc
 
 */
+
 /*--------------------------------------------------------------------------*/
 class EVAL_BM_SEMI_BASE : public EVAL_BM_ACTION_BASE {
 protected:
@@ -209,6 +210,11 @@ private:
   static double const _default_value;
 protected:
   explicit EVAL_BM_SEMI_BASE(const EVAL_BM_SEMI_BASE& p);
+           EVAL_BM_SEMI_BASE(const EVAL_BM_ACTION_BASE *a);   // constructor used to take parameters from EVAL_BM_MODEL 
+           // (which is daugther from EVAM_BM_ACTION_BASE) 
+           //  pointer originated from EVAL_BM_MODEL::expand() 
+           // EVAL_BM_ACTIOIN_BASE* have choosen over EVAL_BM_MODEL - because this is basic class for TABLE SEMI... and MODEL itself
+           // and would be good common denominator.
   explicit EVAL_BM_SEMI_BASE(int c=0);
   ~EVAL_BM_SEMI_BASE() {}
 protected: // override virtual
@@ -231,6 +237,8 @@ private:
 public:
   explicit EVAL_BM_SEMI_CAPACITOR(int c=0)
     :EVAL_BM_SEMI_BASE(c) {}
+           EVAL_BM_SEMI_CAPACITOR(const EVAL_BM_ACTION_BASE *a)
+    :EVAL_BM_SEMI_BASE(a) {}
   ~EVAL_BM_SEMI_CAPACITOR() {}
 private: // override virtual
   bool		operator==(const COMMON_COMPONENT&)const;
@@ -253,14 +261,14 @@ private:
   static double const _default_tc2;
   static double const _default_res_ac;
 private:
-  explicit EVAL_BM_SEMI_RESISTOR(const EVAL_BM_SEMI_RESISTOR& p);
-  
+  explicit EVAL_BM_SEMI_RESISTOR(const EVAL_BM_SEMI_RESISTOR& p);  
 public:
   explicit EVAL_BM_SEMI_RESISTOR(int c=0);
+           EVAL_BM_SEMI_RESISTOR(const EVAL_BM_ACTION_BASE* a);
   ~EVAL_BM_SEMI_RESISTOR() {}
 private: // override virtual
   bool		operator==(const COMMON_COMPONENT&)const;
-  COMMON_COMPONENT* clone()const {return new EVAL_BM_SEMI_RESISTOR(*this);}
+  COMMON_COMPONENT* clone()const {return new EVAL_BM_SEMI_RESISTOR(*this);}  
   void		print_common_obsolete_callback(OMSTREAM&, LANGUAGE*)const;
   void  	expand(const COMPONENT*);
   void		precalc_last(const CARD_LIST*);
@@ -336,7 +344,8 @@ private: // override virtual
   std::string dev_type()const		{return "c";}
   void  precalc_first();
   //void  precalc_last();
-  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_CAPACITOR;}
+  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_CAPACITOR;}   // not used any more
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_CAPACITOR;}
   CARD* clone()const		{return new MODEL_SEMI_CAPACITOR(*this);}
   void		set_param_by_index(int, std::string&, int);
   bool		param_is_printable(int)const;
@@ -371,7 +380,8 @@ private: // override virtual
   std::string dev_type()const		{return "r";}
   void  precalc_first();
   //void  precalc_last();
-  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_RESISTOR;}
+  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_RESISTOR;}   // not used any more
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_RESISTOR (a);}
   CARD* clone()const		{return new MODEL_SEMI_RESISTOR(*this);}
   void		set_param_by_index(int, std::string&, int);
   bool		param_is_printable(int)const;
@@ -406,6 +416,14 @@ EVAL_BM_SEMI_BASE::EVAL_BM_SEMI_BASE(const EVAL_BM_SEMI_BASE& p)
    _length(p._length),
    _width(p._width),
    _value(p._value)
+{
+}
+/*--------------------------------------------------------------------------*/
+EVAL_BM_SEMI_BASE::EVAL_BM_SEMI_BASE(const EVAL_BM_ACTION_BASE* a)
+  :EVAL_BM_ACTION_BASE(*a),
+   _length(_default_length),
+   _width(_default_width),
+   _value(_default_value)
 {
 }
 /*--------------------------------------------------------------------------*/
@@ -547,6 +565,18 @@ EVAL_BM_SEMI_RESISTOR::EVAL_BM_SEMI_RESISTOR(const EVAL_BM_SEMI_RESISTOR& p)
 {
 }
 /*--------------------------------------------------------------------------*/
+
+EVAL_BM_SEMI_RESISTOR::EVAL_BM_SEMI_RESISTOR(const EVAL_BM_ACTION_BASE* a)
+  :EVAL_BM_SEMI_BASE(a),  // SIC##
+   _resistance(_default_resistance),
+   _capacitance(_default_capacitance),
+   _tc1(_default_tc1),
+   _tc2(_default_tc2),
+   _res_ac(_default_res_ac)
+{
+}
+
+/*--------------------------------------------------------------------------*/
 bool EVAL_BM_SEMI_RESISTOR::operator==(const COMMON_COMPONENT& x)const
 {
   const EVAL_BM_SEMI_RESISTOR* p = dynamic_cast<const EVAL_BM_SEMI_RESISTOR*>(&x);
@@ -682,8 +712,8 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
  */  
 //  std::cout<<" _value="<<_value<<"\n";
   double tempdiff = (_temp_c - m->_tnom_c); 
-/*
-  std::cout<<
+
+/*  std::cout<<
   "Res \n"<<
   " _temp_c   ="<<_temp_c<<"\n"<<
   " m->tnom_c ="<<m->_tnom_c<<"\n"<<
@@ -1213,11 +1243,11 @@ Done list:
 
 2) watch for param_count() method - it should return correct value
 
-3) understand process of transformation of model-containing common_component (bm_model) to proper class.
-   a) usually any component, which has model is created as bm_model
+3) understand process of transformation of model-containing common_component (bm_model) to proper class (EVAL_ACTION_BM_BASE hierarchy).
+   a) usually any component (upd: some of them), which has model is created as bm_model
    b) during elaboration process, at expansion stage, component, which cotains bm_model (in form of common_component *) 
       calls bm_model->expand()
-   c) in that moment member common_component::_model already has known type of the .model statement. and when called
+   c) in that moment member common_component::_model already has known type of the related ".model" statement. and when calls
       model()->new_common() which creates new  correspondent common_component
    
       for example. 
@@ -1240,25 +1270,37 @@ Done list:
            which creates EVAL_BM_SEMI_RESISTOR for MODEL_SEMI_RESISTOR - 
            see bmm_semi(_hsp).cc for example
       ISSUE:
-      EVAL_BM_MODEL passed precalc_first and its temperature was set
+      EVAL_BM_MODEL already passed precalc_first and its temperature was set
       meanwhile EVAL_SEMI_RESISTOR - does not, so it has to be properly initialized.   
       
     What happends further:
     d) new common, created at step "c" (call it "c") is attached to EVAL_BM_MODLE::_func
     as I understand _func is special storate for it
     then we return from expand() and expect deflation of eval_bm_expand
-    e)      
+    
+    fixed - new constriuctors added, now "this" is passed to new_common and available parameters passed to 
+    newly created common_component.      
+
+4) understand how COMMON_COMPONENT passes data to COMPONENT - for example resistance
+   Answer: _value is passed from COMMON_COMPONENT (namely - from EVAL_BM_ACTION_BASE) to containing device using metho
+   EVAL_BM_ACTION_BASE::tr_finish_tdv
+   it is called both in OP and AC:
+   ac_eval -> tr_eval -> tr_finish_tdv
+
+5) fix in bmm_semi.cc
+   done
    
 Todo list
-2) Understand all temp coeficients - how, when and what to calculate
 
-3) understand how COMMON_COMPONENT passes data to COMPONENT - for example resistance
+1) Understand all temp coeficients - how, when and what to calculate
 
-5) write tests - step 1
+2) - param.2a param.2a-1, etc - make a w/o "'" calculated
 
+3) write tests - step 1
 
-6) complete capacitances - step 2
+4) complete capacitances -                  step 2
 
-7) complete RAC - resistance for AC mode step 2
+5) complete RAC - resistance for AC mode    step 2
 
 */
+

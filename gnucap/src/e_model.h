@@ -29,6 +29,7 @@
 /*--------------------------------------------------------------------------*/
 // external
 class COMPONENT;
+class EVAL_BM_ACTION_BASE;
 /*--------------------------------------------------------------------------*/
 class SDP_CARD {
 private:
@@ -63,6 +64,7 @@ public:
   virtual void	tr_eval(COMPONENT*)const{unreachable();}
   virtual void	ac_eval(COMPONENT*)const{unreachable();}
   virtual COMMON_COMPONENT* new_common()const {return 0;}
+  virtual COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE *)const {return 0;}
   virtual SDP_CARD* new_sdp(COMMON_COMPONENT*)const {unreachable();return 0;};
   virtual bool parse_params_obsolete_callback(CS&) {unreachable(); return false;}
   virtual bool is_valid(const COMPONENT*)const {return true;}

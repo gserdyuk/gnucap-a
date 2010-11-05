@@ -28,3 +28,6 @@ gnucap/src/.deps
 
 gnucap/stamp-h1
 
+*.cc.print*
+*.cc.orig*
+*.cc.keep*

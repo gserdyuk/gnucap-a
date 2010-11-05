@@ -38,6 +38,7 @@ private:
   static double const _default_value;
 protected:
   explicit EVAL_BM_SEMI_BASE(const EVAL_BM_SEMI_BASE& p);
+           EVAL_BM_SEMI_BASE(const EVAL_BM_ACTION_BASE *a);   // constructor used to take parameters from EVAL_BM_MODEL
   explicit EVAL_BM_SEMI_BASE(int c=0);
   ~EVAL_BM_SEMI_BASE() {}
 protected: // override virtual
@@ -60,6 +61,8 @@ private:
 public:
   explicit EVAL_BM_SEMI_CAPACITOR(int c=0)
     :EVAL_BM_SEMI_BASE(c) {}
+           EVAL_BM_SEMI_CAPACITOR(const EVAL_BM_ACTION_BASE *a)
+    :EVAL_BM_SEMI_BASE(a) {}
   ~EVAL_BM_SEMI_CAPACITOR() {}
 private: // override virtual
   bool		operator==(const COMMON_COMPONENT&)const;
@@ -75,6 +78,8 @@ private:
 public:
   explicit EVAL_BM_SEMI_RESISTOR(int c=0)
     :EVAL_BM_SEMI_BASE(c) {}
+           EVAL_BM_SEMI_RESISTOR(const EVAL_BM_ACTION_BASE* a)
+    :EVAL_BM_SEMI_BASE(a) {}
   ~EVAL_BM_SEMI_RESISTOR() {}
 private: // override virtual
   bool		operator==(const COMMON_COMPONENT&)const;
@@ -125,7 +130,8 @@ private: // override virtual
   std::string dev_type()const		{return "c";}
   void  precalc_first();
   //void  precalc_last();
-  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_CAPACITOR;}
+  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_CAPACITOR;}   // not used any more 
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_CAPACITOR;}
   CARD* clone()const		{return new MODEL_SEMI_CAPACITOR(*this);}
   void		set_param_by_index(int, std::string&, int);
   bool		param_is_printable(int)const;
@@ -148,7 +154,8 @@ private: // override virtual
   std::string dev_type()const		{return "r";}
   void  precalc_first();
   //void  precalc_last();
-  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_RESISTOR;}
+  COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_RESISTOR;}   // not used any more
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_RESISTOR (a);}
   CARD* clone()const		{return new MODEL_SEMI_RESISTOR(*this);}
   void		set_param_by_index(int, std::string&, int);
   bool		param_is_printable(int)const;
@@ -181,6 +188,14 @@ EVAL_BM_SEMI_BASE::EVAL_BM_SEMI_BASE(const EVAL_BM_SEMI_BASE& p)
    _length(p._length),
    _width(p._width),
    _value(p._value)
+{
+}
+/*--------------------------------------------------------------------------*/
+EVAL_BM_SEMI_BASE::EVAL_BM_SEMI_BASE(const EVAL_BM_ACTION_BASE* a)
+  :EVAL_BM_ACTION_BASE(*a),
+   _length(_default_length),
+   _width(_default_width),
+   _value(_default_value)
 {
 }
 /*--------------------------------------------------------------------------*/
