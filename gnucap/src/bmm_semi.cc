@@ -131,7 +131,7 @@ private: // override virtual
   void  precalc_first();
   //void  precalc_last();
   COMMON_COMPONENT* new_common()const {return new EVAL_BM_SEMI_CAPACITOR;}   // not used any more 
-  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_CAPACITOR;}
+  COMMON_COMPONENT* new_common(EVAL_BM_ACTION_BASE* a)const {return new EVAL_BM_SEMI_CAPACITOR(a);}
   CARD* clone()const		{return new MODEL_SEMI_CAPACITOR(*this);}
   void		set_param_by_index(int, std::string&, int);
   bool		param_is_printable(int)const;
