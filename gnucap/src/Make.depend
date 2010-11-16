@@ -220,7 +220,7 @@ bmm_table.o: bmm_table.cc u_lang.h u_opt.h mode.h io_.h l_lib.h md.h \
  l_compar.h m_matrix.h l_stlextra.h e_base.h m_cpoly.h l_denoise.h \
  e_compon.h u_time_pair.h u_parameter.h globals.h l_dispatcher.h ap.h \
  m_expression.h m_base.h e_cardlist.h e_card.h m_spline.h e_model.h bm.h
-bmm_semi_hsp.o: bmm_semi_hsp.cc u_lang.h u_opt.h mode.h io_.h l_lib.h md.h \
+bmm_semi.o: bmm_semi.cc u_lang.h u_opt.h mode.h io_.h l_lib.h md.h \
  io_trace.h io_error.h e_model.h u_parameter.h globals.h l_dispatcher.h \
  l_stlextra.h ap.h m_expression.h m_base.h constant.h e_cardlist.h \
  e_card.h e_base.h bm.h e_compon.h u_sim_data.h l_compar.h m_matrix.h \
