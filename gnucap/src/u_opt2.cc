@@ -187,7 +187,8 @@ bool OPT::set_values(CS& cmd)
       || Get(cmd, "loadpath",    &loadpath)   
       || Get(cmd, "scalm", &scalm)    
       || Get(cmd, "scale", &scale)    
-      || Get(cmd, "gmax", &gmax) 
+      || (Get(cmd, "gmax", &gmax) 
+         && ( shortckt=1./(gmax*1000), true) )         // there is relation between minres = shortckt=1/(gmax*1000*M)  
       || (cmd.check(bWARNING, "what's this?"), cmd.skiparg());
 
     if (!cmd.stuck(&here)) {
@@ -207,7 +208,6 @@ bool OPT::set_values(CS& cmd)
     lowlim = 1 - reltol;
     uplim  = 1 + reltol;
     numdgt = to_range(3, numdgt, 20);
-    shortckt=1./(gmax*1000);  // there is relation between minres = shortckt=1/(gmax*1000*M)  
   }
   return changed;
 }

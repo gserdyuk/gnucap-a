@@ -52,7 +52,7 @@ std::string USERDEF_FUNCTION::eval(CS& fact_args, const CARD_LIST* Scope)const
         pl->addParameter(_args[i],x[i]);
 
 // create new command to evaluate
-    CS::CS cm(CS::_STRING,_value);  // creates command with expression (_value is "1+3+a" - rhs of function) 
+    CS cm(CS::_STRING,_value);  // creates command with expression (_value is "1+3+a" - rhs of function) 
        
     Expression e(cm);             // Create expression
     //cm.check(bDanger, "expression syntax error");  // tbd   
