@@ -19,6 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
+ * Modification made by Gennadiy Serdyuk < gserdyuk@gserdyuk.com >
+ * (c) 2010
+ *------------------------------------------------------------------
+ * 
  * behavioral modeling
  *  hspice/msim/whatever compatible "semiconductor resistor and capacitor"
  *
@@ -39,7 +43,7 @@
  *  DI               0         n      relative dielectric const
  *  DLR      m       0         n      Diff between drawn and actual length DLReff=DLR*SCALM
  *  DW       m       0         n      difference between drawn and actual width DWeff=DW*SCALM
- *  L        m       0         y      defualt length of wire; Lscaled=L*SRINK*SCALM
+ *  L        m       0         y      defualt length of wire; Lscaled=L*SHRINK*SCALM
  *  LEVEL                      n      model selector (not used)
  *  RAC      Ohm               n      defualt AC redsistance (RACeff=Reff)
  *  RES      Ohm     0         n      default resistance
@@ -135,9 +139,9 @@
  * <C=>                     capacitance
  * <TC1=>   val             val             EVAL_BM_ACTION_BASE
  * <TC2=>   val             val             EVAL_BM_ACTION_BASE
- * SCALE    val             val             EVAL_BM_ACTION_BASE
+ * SCALE    val             val             EVAL_BM_ACTION_BASE    - implemented
  * IC                       val             EVAL_BM_ACTION_BASE
- * M        val             val             COMMON_COMPONENT
+ * M        val             val             COMMON_COMPONENT       - implemented
  * AC       val                             EVAL_BM_SEMI_RESISTOR
  * DTEMP    val             val             COMMON_COMPONENT
  * L        val             val             EVAL_BM_SEMI_BASE
@@ -251,14 +255,14 @@ class EVAL_BM_SEMI_RESISTOR : public EVAL_BM_SEMI_BASE {
 protected:
   PARAMETER<double> _resistance;
   PARAMETER<double> _capacitance;
-  PARAMETER<double> _tc1;
-  PARAMETER<double> _tc2;
+//  PARAMETER<double> _tc1;  - masks already implemented EVAL_BM_ACTION_BASE::_tc1
+//  PARAMETER<double> _tc2;  - same
   PARAMETER<double> _res_ac;
 private:
   static double const _default_resistance;
   static double const _default_capacitance;
-  static double const _default_tc1;
-  static double const _default_tc2;
+//  static double const _default_tc1;
+//  static double const _default_tc2;
   static double const _default_res_ac;
 private:
   explicit EVAL_BM_SEMI_RESISTOR(const EVAL_BM_SEMI_RESISTOR& p);  
@@ -296,7 +300,7 @@ public:
 
   PARAMETER<double> _scalm;
 
-private:
+protected:
   static double const _default_narrow;
   static double const _default_defw;
   static double const _default_tc1;
@@ -540,8 +544,8 @@ void EVAL_BM_SEMI_CAPACITOR::precalc_last(const CARD_LIST* Scope)
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 double const EVAL_BM_SEMI_RESISTOR::_default_resistance = NOT_INPUT;
-double const EVAL_BM_SEMI_RESISTOR::_default_tc1 = NOT_INPUT;
-double const EVAL_BM_SEMI_RESISTOR::_default_tc2 = NOT_INPUT;
+//double const EVAL_BM_SEMI_RESISTOR::_default_tc1 = NOT_INPUT;
+//double const EVAL_BM_SEMI_RESISTOR::_default_tc2 = NOT_INPUT;
 double const EVAL_BM_SEMI_RESISTOR::_default_capacitance = NOT_INPUT;
 double const EVAL_BM_SEMI_RESISTOR::_default_res_ac = NOT_INPUT;
 /*--------------------------------------------------------------------------*/
@@ -549,8 +553,8 @@ EVAL_BM_SEMI_RESISTOR::EVAL_BM_SEMI_RESISTOR(int c)
   :EVAL_BM_SEMI_BASE(c),
    _resistance(_default_resistance),
    _capacitance(_default_capacitance),
-   _tc1(_default_tc1),
-   _tc2(_default_tc2),
+//   _tc1(_default_tc1),
+//   _tc2(_default_tc2),
    _res_ac(_default_res_ac)
 {
 }
@@ -559,8 +563,8 @@ EVAL_BM_SEMI_RESISTOR::EVAL_BM_SEMI_RESISTOR(const EVAL_BM_SEMI_RESISTOR& p)
   :EVAL_BM_SEMI_BASE(p),
    _resistance(p._resistance),
    _capacitance(p._capacitance),
-   _tc1(p._tc1),
-   _tc2(p._tc2),
+//   _tc1(p._tc1),
+//   _tc2(p._tc2),
    _res_ac(p._res_ac)
 {
 }
@@ -570,8 +574,8 @@ EVAL_BM_SEMI_RESISTOR::EVAL_BM_SEMI_RESISTOR(const EVAL_BM_ACTION_BASE* a)
   :EVAL_BM_SEMI_BASE(a),  // SIC##
    _resistance(_default_resistance),
    _capacitance(_default_capacitance),
-   _tc1(_default_tc1),
-   _tc2(_default_tc2),
+//   _tc1(_default_tc1),
+//   _tc2(_default_tc2),
    _res_ac(_default_res_ac)
 {
 }
@@ -583,8 +587,8 @@ bool EVAL_BM_SEMI_RESISTOR::operator==(const COMMON_COMPONENT& x)const
   bool rv = p
     && _resistance  == p->_resistance
     && _capacitance == p->_capacitance
-    && _tc1         == p->_tc1
-    && _tc2         == p->_tc2
+//    && _tc1         == p->_tc1
+//    && _tc2         == p->_tc2
     && _res_ac      == p->_res_ac
     && EVAL_BM_SEMI_BASE::operator==(x);
   if (rv) {
@@ -614,15 +618,22 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
   assert(Scope);
   EVAL_BM_SEMI_BASE::precalc_last(Scope);
   _resistance.e_val(_default_resistance, Scope);
-  _tc1.e_val(_default_tc1, Scope);
-  _tc2.e_val(_default_tc2, Scope);
+//  _tc1.e_val(_default_tc1, Scope);
+//  _tc2.e_val(_default_tc2, Scope);
   _capacitance.e_val(_default_capacitance, Scope);
   _res_ac.e_val(_default_capacitance, Scope);
 
   const MODEL_SEMI_RESISTOR* m = prechecked_cast<const MODEL_SEMI_RESISTOR*>(model());
 
+  // if tc is not set in device - use model
+  /*
   double tc1= (_tc1 == NOT_INPUT ) ? m->_tc1: _tc1;
   double tc2= (_tc2 == NOT_INPUT ) ? m->_tc2: _tc2;
+  */
+
+  _tc1= (_tc1 == NOT_INPUT ) ? m->_tc1: _tc1;  // redefined _tc1 and _tc2 in device, will be executed only once.
+  _tc2= (_tc2 == NOT_INPUT ) ? m->_tc2: _tc2;
+  // tc1 and tc2 will be actually used in EVAL_BM_ACTION_BASE::temp_adjust
 
   double eff_width;
   double eff_length;   
@@ -662,42 +673,28 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
  
   bool rescalc_warning=false; 
   if (_resistance != NOT_INPUT) {               //resistance is specified
-    _value=_resistance * _scale/ _mfactor;      // done - asssured that _scale !=0 , _m != 0 - 
-
-/*  std::cout<<" precalc_last: branch 1"<<"\n"
-    " _value="<<_value<<"\n";
-*/    
+    _value=_resistance /* *_scale / _mfactor   */;    
+                    // done - asssured that _scale !=0 , _m != 0; 
+                    // note SCALE/MFACTOR : _scale is adjusted in EVAL_BM_ACTION_BASE::temp_adjust() 
+                    // _mfactor is adjusted using method COMPONENT::mfactor()
+                    // todo - move check of _scale and _mfactor to proper place
+                    // todo - check for _scalm !=0
     }
   else {
-//  std::cout<<" precalc_last: branch 2 \n";
 
     double width    = (_width == NOT_INPUT)    ? m->_defw : _width;    
     width           = width * m->_shrink * m->_scalm;              // w_scaled
     eff_width       = width - m->_dw * m->_scalm;                  // w_eff = w_scaled-dw_eff, dw_eff=dw*scalm
 
-/*    std::cout<<
-    " _length    ="<<_length<<"\n"<<
-    " m->_defl     ="<<m->_defl<<"\n";
-*/
     double length   = (_length == NOT_INPUT)  ? m->_defl : _length;    
     length          = length * m->_shrink * m->_scalm;             // l_scaled
-    eff_length      = length - m->_dlr * m->_scalm;               // l_eff = l_scaled-dlr_eff, dlr_eff=dlr*scalm
+    eff_length      = length - m->_dlr * m->_scalm;                // l_eff = l_scaled-dlr_eff, dlr_eff=dlr*scalm
     
-/*    std::cout<<" precalc_last: branch2"<<"\n"<<
-    " eff_width ="<<eff_width<<"\n"<<
-    " eff_length="<<eff_length<<"\n"<<
-    " m->_rsh   ="<<m->_rsh<<"\n"<<
-    " m->_shrink="<<m->_shrink<<"\n"<<
-    " m->_scalm ="<<m->_scalm<<"\n"<<
-    " m->_dw    ="<<m->_dw<<"\n"<<
-    " m->_dlr   ="<<m->_dlr<<"\n";
-*/
-
     if (eff_width * eff_length * m->_rsh > 0.) {
-      _value = m->_rsh * eff_length / eff_width * _scale / _mfactor;
+      _value = m->_rsh * eff_length / eff_width  /* * _scale / _mfactor */ ;   // see note SCALE/MFACTOR
       }
     else if ( eff_width * eff_length * m->_rsh == 0.)  {
-      _value = m->_res *  _scale / _mfactor;
+      _value = m->_res  /* *  _scale / _mfactor */ ;                            // see note SCALE/MFACTOR
       }
     else{
       rescalc_warning=true;
@@ -705,26 +702,10 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
       }
     
    }
-   
- /*  todo - here - think which temperatures to use
-    we have a lot of different tref (device and model) and tnom.
-    
- */  
-//  std::cout<<" _value="<<_value<<"\n";
-  double tempdiff = (_temp_c - m->_tnom_c); 
-
-/*  std::cout<<
-  "Res \n"<<
-  " _temp_c   ="<<_temp_c<<"\n"<<
-  " m->tnom_c ="<<m->_tnom_c<<"\n"<<
-  " tempdiff  ="<<tempdiff<<"\n"<<
-  " tc1       ="<<tc1<<"\n"<<
-  " tc2       ="<<tc2<<"\n"<<
-  "\n";
+/*   
+    double tempdiff = (_temp_c - m->_tnom_c);                                            
+   _value *= 1 + tc1*tempdiff + tc2*tempdiff*tempdiff;   - do not change value here -  temp handling is moved to EVAL_BM_ACTION_BASE::temp_adjust()
 */
-                                            
-  _value *= 1 + tc1*tempdiff + tc2*tempdiff*tempdiff;
-//  std::cout<<" tempdiff: _value="<<_value<<"\n";
 
   bool resmin_warning=false;
   if ( _value < resmin){
@@ -733,15 +714,7 @@ void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
     }
   else{
     }
-/*
-  std::cout<<
-  "  resmin_warning = " << resmin_warning  <<
-  "  scale_warning  = " << scale_warning   <<
-  "  mfactor_warning= " << mfactor_warning <<
-  "  rescalc_warning= " << rescalc_warning <<
-  "  _value="           << _value<<
-  "\n";
-*/  
+
   if (resmin_warning || scale_warning || mfactor_warning ||  rescalc_warning){
     std::string exception_msg="";
     if (resmin_warning)
@@ -1231,7 +1204,12 @@ void MODEL_SEMI_RESISTOR::precalc_first()
   _res.e_val (_default_res,  par_scope);
   _tc1r.e_val(_default_tc1r, par_scope);
   _tc2r.e_val(_default_tc2r, par_scope);
-  
+
+// special case - if  dw and dlr are not set but narrow is set 
+  if (_dw==_default_dw && _dlr==_default_dlr && _narrow != _default_narrow){
+    _dw=_narrow;  
+    _dlr=_narrow;
+    }
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -1290,17 +1268,55 @@ Done list:
 5) fix in bmm_semi.cc
    done
    
+6) temp coeficients - done
+
+7) even if one simulation (.op) - precalc_last called twice, first time with _temp_c=0
+
+first time precalc_last is called from 
+   CMD_PRINT::do_it
+      do_probe
+         _sim->init()   - SIM_DATA::init first branch
+   
+   then 
+   
+   OP::do_it
+      SIM::command_base()
+         SIMD_DATA::init() -  SIM_DATA::init second branch
+   
+   
+     void SIM_DATA::init()
+    {
+    if (is_first_expand()) {
+      ...
+      CARD_LIST::card_list.expand();
+      CARD_LIST::card_list.precalc_last();
+      ...
+    }else{
+      CARD_LIST::card_list.precalc_first();
+      CARD_LIST::card_list.precalc_last();
+    }
+    }
+
+It is strange - not consistent in first branch (called only precalc_last, no precalc_first). 
+
+8) tests written - done
+
+9)  param.2a param.2a-1, etc - make a w/o "'" calculated
+  done - in bm_cond.cc  "&& !is_source" added - so "dc a ac b" in source is treated as values not model
+
+  tests are written to cover this point
+
 Todo list
+---------
 
-1) Understand all temp coeficients - how, when and what to calculate
+1) write unit tests 
 
-2) - param.2a param.2a-1, etc - make a w/o "'" calculated
+2) complete capacitances, write tests for them   
 
-3) write tests - step 1
+3) complete RAC - resistance for AC mode
 
-4) complete capacitances -                  step 2
-
-5) complete RAC - resistance for AC mode    step 2
-
+4) move as separate plugin     - DO NOT KNOW HOW - SEEMS NO MECHANISM NOW.
+    - postponed
+    - decided to include old resistor fully (done, new model covers old model functionality too)
+    
 */
-
