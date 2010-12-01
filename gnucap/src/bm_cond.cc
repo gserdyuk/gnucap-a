@@ -126,10 +126,13 @@ void EVAL_BM_COND::parse_common_obsolete_callback(CS& cmd) //used
     if (!c) {
       // no match for func_type
       if (cmd.more()) {
-	if (!cmd.match1("\"'{")) {
+	if (!cmd.match1("\"'{") && !is_source ) {		// GS - !is_source added
 	  // quoted means it is a parameter or expression
 	  // otherwise assume it's a "model", for now
 	  // it might not be, but we fix later
+      //
+      // GS - added " && !is_source" - if no match for func_type and it is_source - so it is DC or AC 
+      // - and this parsing item shall be eval_bm_value
 	  c = bm_dispatcher.clone("eval_bm_model");
 	}else{
 	}
