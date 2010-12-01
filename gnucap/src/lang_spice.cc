@@ -1084,6 +1084,7 @@ public:
 } p99;
 DISPATCHER<CMD>::INSTALL d99(&command_dispatcher, ".control", &p99);
 /*--------------------------------------------------------------------------*/
+/* moving out
 class CMD_ECHO : public CMD {
         
 public:
@@ -1097,7 +1098,9 @@ public:
   }
 } p1001;
 DISPATCHER<CMD>::INSTALL d1001(&command_dispatcher, ".echo", &p1001);
+*/
 /*--------------------------------------------------------------------------*/
+/* moving out
 class CMD_PRINTPARAM : public CMD {
         
 public:
@@ -1123,6 +1126,7 @@ public:
   }
 } p1002;
 DISPATCHER<CMD>::INSTALL d1002(&command_dispatcher, ".printparam", &p1002);
+*/
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 }
