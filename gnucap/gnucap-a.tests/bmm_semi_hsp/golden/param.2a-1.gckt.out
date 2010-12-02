@@ -1,0 +1,17 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* parameters of V1 w/o quotes 
+ a= 1. b= 2. c= 3. d= 4.
+#           v(1)       v(2)      
+ 27.        1.         0.57143   
+#Freq       v(1)       v(2)      
+ 1.         2.         1.1429    
+ 3.1623     2.         1.1429    
+ 10.        2.         1.1429    

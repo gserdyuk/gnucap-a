@@ -1,0 +1,14 @@
+'trunc error check
+.param a=1 b=2
+V1   1  0  ac a dc b pwl 0 0 1p 1
+r1   1  0 50k
+
+.list
+
+.print op v(1) i(v1)
+.op
+
+.print ac v(1) i(v1)
+.ac dec 2 1 10
+
+.end

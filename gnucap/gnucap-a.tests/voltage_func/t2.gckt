@@ -1,0 +1,22 @@
+*a1 is  not used
+
+.param a1='1+abs(v(1))'
+
+
+x1 1 0 sub1 voltage=45
+r1 1 0 10k
+
+
+.subckt sub1 n1 n2 volt=voltage scale=1 
+
+v1 n1 n2 dc volt
+.ends
+
+
+
+.print op v(1)
+.op
+
+.end
+
+

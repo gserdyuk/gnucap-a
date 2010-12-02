@@ -1,0 +1,28 @@
+* test b6 - model with rsh, l, w;  element with resistance; bmm_semi_hsp
+
+.param rval=10 rsheet=10 wi=2 le=4
+
+R1  1 0 rmodel rval 
+.model rmodel r rsh=rsheet w=wi l=le
+* expected that rval will not be parsed and finally
+* r=10 * 4 /2 = 20, so I=1/20 = 0.05
+v1  1 0 dc 1
+
+* r=10; i=0.1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end
+
+
+* to handle such constructions "r1 1 0 rmodel rval" w/o quotes need to change parser completely
+* new parser has to separate syntactical and semantical processing
+* during firts pass - it shall just read resistor "R1" with nodes "1 0" and with additional parameters "rmodel rval"
+* during second pass (or rather - traversing the parsed tree) - traverser has to check:
+* - if model with name "rmodel" is present - so use that mode
+* - if not - may be .param rmodel =xxx is set - then use parameter
+* - same with rval - if rval is param - ok - use it
+* - may be that is name of parameter to pass inside the model - like R or DTEMP or alike
+* such two-sate processing much more powerful comparing to one-stage
+

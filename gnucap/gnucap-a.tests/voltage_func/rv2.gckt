@@ -1,0 +1,19 @@
+* usage of v() in ac
+
+.param a1='0.5+abs(v(1))'
+
+v1 1 0 dc 2.1 ac 1
+r1 1 0 10k
+v2 2 0 dc 1 ac 'a1'
+r2 2 0 10k
+
+
+.print op v(1) v(2)
+.op
+.print ac v(1) v(2)
+.ac dec 2 10 10K
+
+
+.end
+
+

@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -7,21 +7,18 @@ This is free software, and you are welcome
 to redistribute it under the terms of 
 the GNU General Public License, version 3 or later.
 See the file "COPYING" for details.
-param in subckt 
  p1= 1.p p2= 2.
-param in top 
  dummy1= 1.
-circuit list 
-* comment 1 
 .subckt module ( a b )
 v1 ( a b )  DC  1.
 r1 ( a c )  1.K
 d1 ( c b )  dio NA( 1.)
 .model dio d ( tnom=NA( 27.) is=p1 rs=NA( 0.) n=NA( 1.) tt=NA( 0.) cjo=NA( NA) pb=NA( NA) mj=NA( 0.5) egap=NA( 1.11) xti=NA( 3.) fc=NA( 0.5))
 r2 ( a c )  10.K
-* comment 2 
+*  param in subckt 
 .ends module
 X1 ( 1 0 )  module 
-solution 
+*  param in top 
+*  circuit list 
 #           v(1)      
  27.        1.        

@@ -1,0 +1,14 @@
+* test e13 - model with rsh, l, w;  element with dw and dlr, no shrink; bmm_semi_hsp
+
+
+R1  1 0 rmodel L=8 
+.model rmodel r rsh=10 w=2 l=4 shrink=1 dlr= 1 dw =1
+* r= (8-1) / (2-1) * 10 = 7 /1 * 10 = 70, 1/70=0.014285714
+* if shrink=0.9
+* r= (8*0.9-1) /(2*0.9-1) * 10 = (7.2-1)/(1.8-1) * 10 = 6.2/0.8 * 10 = 7.75 * 10 = 77.5; 1/77.5=0.012903226 
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

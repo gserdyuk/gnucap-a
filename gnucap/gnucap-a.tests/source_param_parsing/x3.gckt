@@ -1,0 +1,18 @@
+* sources with dc, ac and pwl, ids without quotes; ac at the end
+
+.param a=1 b=2
+v1 1 0 dc a pwl 0 0 10ns 5 15ns 2.5 ac b
+
+r1 1 0 10k
+
+
+.print op v(*) i(V*)
+.op
+
+.print ac v(*) i(V*)
+.ac dec 2 1 10
+
+.print tran v(*) i(V*)
+.tran 0 20ns 1ns
+
+.end

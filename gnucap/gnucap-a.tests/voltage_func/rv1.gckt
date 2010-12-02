@@ -1,0 +1,16 @@
+* a1 = f(v1)) is used in dc
+
+.param a1='1+abs(v(1))'
+.param a2='2.1+abs(v(2,1))'
+
+v1 1 0 dc 'a2'
+r1 1 0 10k
+v2 2 0 dc 'a1'
+r2 2 0 10k
+
+.print op v(1) v(2) 
+.op
+
+.end
+
+

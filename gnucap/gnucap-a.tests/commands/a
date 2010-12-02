@@ -1,0 +1,5 @@
+#!/bin/bash
+GNUCAP=../../
+PLUGIN=$GNUCAP/small-plugins/commands/commands_1.so
+SIM=$GNUCAP/src/gnucap 
+$SIM -a $PLUGIN -b $1

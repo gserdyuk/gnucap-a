@@ -1,0 +1,3 @@
+#!/bin/bash
+#make soft link to ../src called Gnucap
+ln -s ../src Gnucap

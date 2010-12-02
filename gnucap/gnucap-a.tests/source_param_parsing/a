@@ -1,0 +1,5 @@
+#!/bin/bash
+#rollback
+GNUCAP_R=~/gnucap/g-plus.master/g-plus/gnucap-a/gnucap
+SIM=$GNUCAP_R/src/gnucap 
+$SIM -b $1

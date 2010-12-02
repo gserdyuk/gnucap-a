@@ -1,0 +1,25 @@
+* a1 is used via parhier=local
+
+.param a1='1.1+abs(v(1))'
+.option parhier=local
+
+x1 1 0 sub1 voltage=45
+r1 1 0 10k
+
+
+.subckt sub1 n1 n2 volt=voltage scale=1 
+* due to parhier= local, a1 will be taken from upper level
+v1 n1 n2 ac a1 dc volt
+.ends
+
+
+
+.print op v(1)
+.op
+.print ac v(1)
+.ac dec 2 1 10
+
+
+.end
+
+

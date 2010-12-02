@@ -1,0 +1,6 @@
+#!/bin/bash
+
+list=`ls *.gckt`
+for file in $list; do
+./a  $file     |tee $file.out
+done

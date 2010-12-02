@@ -1,0 +1,10 @@
+* v source with dc , number
+
+
+v1 1 0 dc 1  
+r1 1 0 10k
+
+.print op v(*) i(V*)
+.op
+
+.end

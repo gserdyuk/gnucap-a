@@ -1,4 +1,4 @@
-Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-04-09
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
 The Gnu Circuit Analysis Package
 Never trust any version less than 1.0
 Copyright 1982-2009, Albert Davis
@@ -31,7 +31,7 @@ VSS ( 11 0 )  DC -5.
 *.plot ac vdb(5) vp(5) 
 #           v(1)       v(3)       v(4)       v(5)       v(8)       v(9)       v(10)      v(11)      v(12)     
  0.         0.         0.         0.         0.         0.         0.         0.         0.         0.        
--1.         5.        -15.397p   -15.397p   -15.397p    4.19Meg    0.        -4.031     -5.         0.        
+-1.         5.        -15.398p   -15.398p   -15.398p    4.19Meg    0.        -4.031     -5.         0.        
 -2.         5.         3.7462     1.235     -237.55    -3.0407     0.        -287.16    -5.         0.        
 -3.         5.        -64.311    -35.995     26.218    -3.2728     0.        -4.5495    -5.         0.        
 -4.         5.        -5.111     -4.9702     4.4986    -3.3371     0.        -4.0121    -5.         0.        

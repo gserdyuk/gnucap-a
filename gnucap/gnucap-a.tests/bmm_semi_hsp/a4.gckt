@@ -1,0 +1,13 @@
+spice
+* test a1 - empty model, element with resistance, scale used; bmm_semi_hsp
+
+
+R1  1 0 rmodel 10 scale=2
+.model rmodel r
+* r = 10 *2; i = 1/20 = 0.05 
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

@@ -1,0 +1,53 @@
+* realistic subckt for resistor
+
+
+.options parhier=local
+
+*******************************************************
+.param gaussval     = AGAUSS(0,1,1)
+.param r_rpp        = 400           rend_rpp        = 90.0u
+.param dw_rpp       = 0             dl_rpp          = 0
+
+.param temper = 27
+
+
+*******************************************************
+.subckt rpp n1 n2 l=length w=width  scale=1 mf=1 aa_switch=0
+
+.param topo ='1/sqrt(mf*l*scale*w*scale*1e12)'
+
+.param factor_m='0.01*topo*gaussval*aa_switch'
+
+.param Rsh      = 'r_rpp*(1+factor_m)'
+.param Rend     = 'rend_rpp*(1+factor_m)'
+.param dw = '0.07e-6 + dw_rpp'  dl = '0 + dl_rpp'  
+
+.param vc_p1 =  1.00E-03  vc_p2 = -3.00E-05   vc_p3 = 3        
+.param tc_p1 = -2.00E-04  tc_p2 =  1.00E-06   
+
+.param vc_e1 =  1.00E-02  vc_e2 = -7.00       vc_e3 = 2.E-01   
+.param tc_e1 = -8.00E-04  tc_e2 = -5.00E-06   
+
+.param v_temp='temper'
+
+.param tfactor_e='1.0+tc_e1*(v_temp-25.0)+tc_e2*(v_temp-25.0)*(v_temp-25.0)'
+.param tfactor_p='1.0+tc_p1*(v_temp-25.0)+tc_p2*(v_temp-25.0)*(v_temp-25.0)'
+
+Rend1 n1 3    'Rend/mf/(w*scale-dw)             *tfactor_e*(1+vc_e1*(tanh(vc_e2*abs(v(n1,3))            +vc_e3)-tanh(vc_e3)))'
+Rp 3 4 Rppoly 'Rsh /mf*(l*scale-dl)/(w*scale-dw)*tfactor_p*(1+vc_p1*(tanh(vc_p2*abs(v(3,4)/(l*scale-dl))+vc_p3)-tanh(vc_p3)))'
+Rend2 4 n2    'Rend/mf/(w*scale-dw)             *tfactor_e*(1+vc_e1*(tanh(vc_e2*abs(v(4,n2))            +vc_e3)-tanh(vc_e3)))'
+
+.model Rppoly r L='(l-dl)/1' W='mf*(w-dw)' 
+
+.ends rpp
+
+*******************************************************
+Xr1 1 0 rpp length=380e-6 width=400e-9 
+v1  1 0 dc 1
+
+*******************************************************
+.print op  v(1) i(v1) v(Xr1.Rend1) v(Xr1.Rend2) v(Xr1.Rp)
+.op 
+
+
+.end

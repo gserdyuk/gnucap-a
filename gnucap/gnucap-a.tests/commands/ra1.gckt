@@ -1,0 +1,18 @@
+*
+
+.param a1='1+abs(1)'
+
+v1 1 0 dc 2.1
+r1 1 0 10k
+
+.echo message
+.printparam 'a1'
+.printparam 238.e-3
+.printparam 'a1+2.22'
+
+.print op v(1)
+.op
+
+.end
+
+

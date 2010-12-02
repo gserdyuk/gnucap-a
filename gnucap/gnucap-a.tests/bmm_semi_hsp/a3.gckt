@@ -1,0 +1,16 @@
+spice
+* test a1 - empty model, element with resistance tc1 nd tc2 w/o names, dtemp used; bmm_semi_hsp
+
+
+
+R1  1 0 rmodel 10 0.025 0 dtemp=10
+.model rmodel r 
+# 10 * (1 + 0.025 * 10) = 12.5; 1/12.5 = 0.08
+
+v1  1 0 dc 1
+
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

@@ -1,0 +1,18 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+'trunc error check 
+V1 ( 1 0 ) pwl( 0., 0.  1.p, 1. )  DC b  AC a
+r1 ( 1 0 )  50.K
+#           v(1)       i(V1)     
+ 27.        2.        -40.u      
+#Freq       v(1)       i(V1)     
+ 1.         1.         20.u      
+ 3.1623     1.         20.u      
+ 10.        1.         20.u      

@@ -1,0 +1,13 @@
+* v source with dc and ac, ac with 1 parameter, identifiers without "'"
+* works well, this is trick - it shall not work
+.param a=1 b=2
+v1 1 0 dc a ac b 
+r1 1 0 10k
+
+.print op v(*) i(V*)
+.op
+
+.print ac v(*) i(V*)
+.ac dec 2 1 10
+
+.end

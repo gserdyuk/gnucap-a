@@ -1,0 +1,12 @@
+* test b8 - model with rsh, l, w;  element with L ; bmm_semi_hsp
+
+
+R1  1 0 rmodel l=8
+.model rmodel r rsh=10 w=2 l=4
+* resistance 10 * 8 /2 = 40, current = 0.025
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

@@ -1,0 +1,10 @@
+* v source with dc, identifier without "'"
+
+.param a=1 b=2
+v1 1 0 dc a  
+r1 1 0 10k
+
+.print op v(*) i(V*)
+.op
+
+.end

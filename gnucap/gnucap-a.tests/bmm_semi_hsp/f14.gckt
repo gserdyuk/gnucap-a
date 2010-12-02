@@ -1,0 +1,14 @@
+* test f14 - model with rsh, l, w; L - too small so GMAX is used;  bmm_semi_hsp
+
+
+R1  1 0 rmodel L=1.e-12
+.model rmodel r rsh=10 w=2 l=4 
+* r= 1.e-12 / 2 * 10 = 5.e-12; resmin=1/1000/gmin; i=1/resmin = 1.e5
+* indeed, as R(v1) also = 1.e-5, so total current = 50e-3 and V(1) =0.5
+
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

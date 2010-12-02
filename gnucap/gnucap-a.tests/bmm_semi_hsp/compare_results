@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source ../compare_results.inc
+   
+FILES=`ls *.out`
+
+for file in $FILES; do
+  mydiff $file "./golden" >>../diffs
+  printresult1 "resistor tests: $file" $?
+  done
+
+echo   
+echo - Historical notes -   
+echo - a3-1.gckt - expected to fail, that is about .temp statement, have to fix yet

@@ -1,0 +1,85 @@
+tests for semiconductor resistor
+
+compatible with hspice
+
+Tests:
+= element always contains model 
+
+A) empty model
++1) element with resistance,                             a1
++2) element with R=resistance,                           a2
++3) elememnt with resistance tc1 and tc2, dtemp=10       a3
+-3-1) element with resistance tc1 tc2, use tnom and .temp   a31  -- ISSUE
++3-2) like 3, but use tc1 tc2 named values: tc1=, tc2=
++3-3) like 3-1, but tc1 tc2 - first unnamed, then named
+     shows how tc1 and tc2 are overridden in the model by later definition
++3-4) tc1 = 10
++4) element with resistance, use SCALE                   a4
++5) elememnt with resistance, use M                      a5
+
+B) Model with RSH, L, W
++6) eleemmnt with resistance                              b6
++7) element with L and W                                  b7
++8) element with L only                                   b8
++9) element with W only                                   b9
++10) element without W and L (check both default)         b10
+
+C) model with RES
++11) element w/o resistance L=0  (use default)             c11
++11-1)  W=0                                                c11-1
++11-2)  RSH=0                                              c11-2
+
+D) model with tc1r tc2r
++12) element with resistance, diff temp (use tc1, tc2 from the model)   d12
+
+E) use model with RSH, W, L
++13) use elememt with dw, dl and shrink = 1                e13
++13-1) same , but shrink=0.9                               e13-1  
+
+F) use model with RSH, W, L                             
++14) element with too short L - so RESMIN is used           f14
+
+G) todo - scalm tests
++15) use scalm - scalm does not influence to value RSH * (L*SCALM)/(W*scalm)                    
+                                                           g15
+H)
+non-resistor tests
++1) param.2a.gckt    - v1 1 0 dc a ac b                        param.2a.gckt
++2) param.2a-1.gckt  - same, but with both dc and ac analysis  param.2a-1.gckt 
++3) param.2a-2.gckt  - dc 'a' ac 'b' - taken in quotes         param.2a-2.gckt
++4)  h4.gckt - ac a dc b pwl ...                               h4.gckt.
++5)  h5.gckt - dc a ac b pwl ...                               h5.gckt
+
+I) tests with identifiers instead of numbers
++1) model with RSH, L, W - but use .param, first parameter of R in quotes  i1.gckt
++2) same, but first parameter w/o quotes - does not work, default used     i2.gckt  
+
+
+K)test from realistic library
+1) realistic subcircuit for resistors					  k1.gckt
+
+
+
+
+Spice about temperature:
+------------------------
+1) model reference temp specified in .model statement using the 
+TREF param (or TEMP or TNOM for some models).
+for resistor - TREF, default value = TNOM
+
+2) TNOM value is set in .OPTION statement. Default TNOM  has to be 25 
+(gnucap  has 27 - why?)
+HSPICE uses option SPICE which sets default TNOM to 27.
+
+3) circuit temperature is defiend using .temp statement
+default ckt temperature = TNOM
+to modify temperature for partiucular element DTEMP has to be used
+
+4) individual element temp is circuit temperature + dtemp
+
+
+1) .temp statememnt 
+sets the circuit temperature, compared to tnom temperature, set by 
+.options tnom=xxxx
+statement
+2) options tnom

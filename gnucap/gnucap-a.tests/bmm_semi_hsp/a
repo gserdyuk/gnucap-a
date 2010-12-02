@@ -1,0 +1,5 @@
+#!/bin/bash
+GNUCAP=../../
+#PLUGIN=$GNUCAP/small-plugins/bmm_semi_hsp/bmm_semi_hsp.so
+SIM=$GNUCAP/src/gnucap 
+$SIM -b $1

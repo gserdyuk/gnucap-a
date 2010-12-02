@@ -1,0 +1,30 @@
+small-plugins readme
+
+I. Intro 
+--------
+Ths directory contains small plugins for gnucap-a
+
+II. Installation
+----------------
+1) put small-plugins directory below gnucap
+gnucap
+    src
+    ...
+    small-plugins
+or make a link
+    
+2) >cd small-plugins
+
+3) create a link to gnucap sources (need to compile library)
+   >ln -s ../src Gnucap 
+
+4) make 
+   >make
+
+libraries (*.so) will be created in subdirectories
+
+
+II. bmm_semi_hsp
+------------------
+THis file contains semiconductor resistor and semiconductor capacitor, compatible with *spice
+

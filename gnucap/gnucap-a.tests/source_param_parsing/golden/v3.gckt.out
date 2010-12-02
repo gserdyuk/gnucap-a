@@ -1,0 +1,38 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+* sources with dc, ac and pwl, ids without quotes 
+#           v(1)       v(v1)      v(r1)      i(v1)     
+ 27.        1.         1.         1.        -100.u     
+#Freq       v(1)       v(v1)      v(r1)      i(v1)     
+ 1.         2.         2.         2.         200.u     
+ 3.1623     2.         2.         2.         200.u     
+ 10.        2.         2.         2.         200.u     
+#Time       v(1)       v(v1)      v(r1)      i(v1)     
+ 0.         0.         0.         0.         0.        
+ 1.n        0.5        0.5        0.5       -50.u      
+ 2.n        1.         1.         1.        -100.u     
+ 3.n        1.5        1.5        1.5       -150.u     
+ 4.n        2.         2.         2.        -200.u     
+ 5.n        2.5        2.5        2.5       -250.u     
+ 6.n        3.         3.         3.        -300.u     
+ 7.n        3.5        3.5        3.5       -350.u     
+ 8.n        4.         4.         4.        -400.u     
+ 9.n        4.5        4.5        4.5       -450.u     
+ 10.n       5.         5.         5.        -500.u     
+ 11.n       4.5        4.5        4.5       -450.u     
+ 12.n       4.         4.         4.        -400.u     
+ 13.n       3.5        3.5        3.5       -350.u     
+ 14.n       3.         3.         3.        -300.u     
+ 15.n       2.5        2.5        2.5       -250.u     
+ 16.n       2.5        2.5        2.5       -250.u     
+ 17.n       2.5        2.5        2.5       -250.u     
+ 18.n       2.5        2.5        2.5       -250.u     
+ 19.n       2.5        2.5        2.5       -250.u     
+ 20.n       2.5        2.5        2.5       -250.u     

@@ -1,0 +1,12 @@
+* v source with dc and pwl, dc with id without "'" quote, pwl with numbers
+.param a=1 b=2
+v1 1 0 dc a pwl 0 0 10ns 5 
+r1 1 0 10k
+
+.print op v(*) i(V*)
+.op
+
+.print tran v(*) i(V*)
+.tran 0 20ns 1ns
+
+.end

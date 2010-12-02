@@ -1,0 +1,13 @@
+* v source with dc and ac, ac with 1 parameter, numbers
+
+
+v1 1 0 dc 1 ac 2 
+r1 1 0 10k
+
+.print op v(*) i(V*)
+.op
+
+.print ac v(*) i(V*)
+.ac dec 2 1 10
+
+.end

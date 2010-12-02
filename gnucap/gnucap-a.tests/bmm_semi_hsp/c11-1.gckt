@@ -1,0 +1,12 @@
+* test c11-1 - model with rsh, l, w;  element with W=0 ; bmm_semi_hsp
+
+
+R1  1 0 rmodel W=0
+.model rmodel r rsh=10 w=2 l=4 res=5
+* resistance res=5 , current = 0.2
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

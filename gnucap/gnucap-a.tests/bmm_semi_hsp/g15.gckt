@@ -1,0 +1,13 @@
+* test g15 - model with rsh, l, w; l, scalm used;  bmm_semi_hsp
+
+
+R1  1 0 rmodel L=16
+.model rmodel r rsh=10 w=2 l=4 
+* r= 16 * scalm / (2 * scalm) * 10  = 80; i = 1/80 = 0.0125
+
+v1  1 0 dc 1
+
+.print op  v(r1) I(v1) 
+.op 
+
+.end

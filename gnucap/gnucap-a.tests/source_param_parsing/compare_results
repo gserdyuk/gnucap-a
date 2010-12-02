@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ../compare_results.inc
+   
+FILES=`ls *.out`
+
+for file in $FILES; do
+  mydiff $file "./golden" >>../diffs
+  printresult1 "resistor tests: $file" $?
+  done
+
+echo   
+echo - Historical notes -   
+echo - w1, w2, w3.gckt - expected to fail, that is about ac with two parameters - ac 1 90
+echo - x1, x2, x3.gckt - expected to fail, taht is related to ac ath the end: dc 1 pwl .... ac 2

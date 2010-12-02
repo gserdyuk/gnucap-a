@@ -2,7 +2,6 @@
 spice
 .options parhier=local
 .param dummy1=1
-* comment 1
 
 .subckt module a b
 
@@ -13,8 +12,8 @@ r1 a c 1k
 d1 c b dio 
 
 .include 'test6-2.inc'
-* comment 2
-.echo param in subckt
+
+*  param in subckt
 .param 
 
 .ends
@@ -22,14 +21,15 @@ d1 c b dio
 
 X1 1 0 module
 
-.echo param in top
+*  param in top
 .param 
 
-.echo circuit list
+*  circuit list
 .list
 
 .print op v(1)
-.echo solution
+
+*  solution
 .op
 
 .end
