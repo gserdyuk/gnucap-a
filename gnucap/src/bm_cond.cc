@@ -126,13 +126,20 @@ void EVAL_BM_COND::parse_common_obsolete_callback(CS& cmd) //used
     if (!c) {
       // no match for func_type
       if (cmd.more()) {
-	if (!cmd.match1("\"'{") && !is_source ) {		// GS - !is_source added
+	if (!cmd.match1("\"'{") && ! (is_source && (mode==s_AC || mode==s_DC)) ) {		// GS - !is_source added
 	  // quoted means it is a parameter or expression
 	  // otherwise assume it's a "model", for now
 	  // it might not be, but we fix later
       //
-      // GS - added " && !is_source" - if no match for func_type and it is_source - so it is DC or AC 
-      // - and this parsing item shall be eval_bm_value
+      // GS - added " && ! (is_source && (mode==s_AC || mode==s_DC))" 
+      // meaning of the is teh following:
+      // if current element is source and just before current tocken processing "mode" was set to s_DC or s_AC
+      // means we just processed "dc" or "ac" token and next one shall be the value.
+      // this covers v1 1 0 dc val1 ac val2 ... construction and 
+      // filters out "v1 1 0 t1", where ".model t1 table ....."
+      // indeed - such construction "v1 1 0 t1" shall be treated as  "v1 1 0 't1'" but now it implememnt table model
+      // [todo ]possibly need to be fixed.
+      
 	  c = bm_dispatcher.clone("eval_bm_model");
 	}else{
 	}
