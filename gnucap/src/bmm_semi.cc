@@ -40,14 +40,14 @@
  *  CAPSW    F/m     0         n      sidewall fringing cap
  *  COX      F/m^2   0         n      bottomwall cap
  *  DI               0         n      relative dielectric const
- *  DLR      m       0         n      Diff between drawn and actual length DLReff=DLR*SCALM
- *  DW       m       0         n      difference between drawn and actual width DWeff=DW*SCALM
+ *  DLR      m       0         y      Diff between drawn and actual length DLReff=DLR*SCALM
+ *  DW       m       0         y      difference between drawn and actual width DWeff=DW*SCALM
  *  L        m       0         y      defualt length of wire; Lscaled=L*SHRINK*SCALM
- *  LEVEL                      n      model selector (not used)
+ *  LEVEL                      y      model selector (not used)
  *  RAC      Ohm               n      defualt AC redsistance (RACeff=Reff)
- *  RES      Ohm     0         n      default resistance
+ *  RES      Ohm     0         y      default resistance
  *  RSH              0         y      sheet resistance
- *  SHRINK           1         n      shrink factor
+ *  SHRINK           1         y      shrink factor
  *  TC1C     1/deg   0         n      1st order tem coef for cap
  *  TC2C     1/deg^2 0         n      2nd order tem coef for cap
  *  TC1R     1/deg   0         y      1st order tem coef for res
@@ -91,18 +91,19 @@
  *  CAP      F       0         n      default capcaitance
  *  CAPSW    F/m     0         n      sidewall fringing cap
  *  COX      F/m^2   0         n      bottomwall cap
- *  DEL      m       0         n      diff between drawn  and actual width/length DELeff=DEL*SCALM
+ *  DEL      m       0         y      diff between drawn  and actual width/length DELeff=DEL*SCALM
  *  DI               0         n      relative dielectric const
- *  DLR      m       0         n      Diff between drawn and actual length DLReff=DLR*SCALM
  *  L        m       0         n      defualt length of cap
  *  SHRINK           1         n      shrink factor
- *  TC1C     1/deg   0         n      1st order tem coef for cap
- *  TC2C     1/deg^2 0         n      2nd order tem coef for cap
- *  THICK    m       0         n      diel thinkness
- *  TREF     C       TNOM      n      reference temperature
- *  W        m       0         n      Default width Wscaled=W*shrink*scalm
+ *  TC1C     1/deg   0         y      1st order tem coef for cap    *) as tc1, tc2
+ *  TC2C     1/deg^2 0         y      2nd order tem coef for cap
+ *  THICK    m       0         n      diel thinkness                
+ *  TREF     C       TNOM      y      reference temperature         *) as TNOM
+ *  W        m       0         n      Default width Wscaled=W*shrink*scalm   
  *  scale            1         n      description - see ablove
- *
+ *  NOW Implemented:
+ *  cj
+ *  cjsw
  * 
  * common parameters for the model
  *  par     R   C   both 
@@ -112,7 +113,7 @@
  *  COX     +   +   +
  *  DEL         +
  *  DI      +   +   +
- *  DLR     +   +   +
+ *  DLR     +   -   -           // DLR was implemented for R and C but has to R only
  *  DW      +
  *  L       +   +   +
  *  LEVEL   +
@@ -124,11 +125,16 @@
  *  TC2C    +   +   +
  *  TC1R    +
  *  TC2R    +
+ *                      - note - now implemented tc1 tc2 - for R they are TC1R TC2R, for C - TC1C, TC2C
  *  THICK   +   +   +
  *  TREF    +   +   +
  *  W       +   +   +
  *  scalm   +   +   +   description - see above 
- *
+ *  narrow  +   +   +   kept from old implementation, 
+ *                          in case of resistor - narrow redefines dlr and dw
+ *                          in case of cap      - narrow     
+ * 
+ * 
  * common parameters for the devices  - distribution in hierarchy
  *  COMMON_COMPONENT <-- EVAL_BM_BASE <-- EVAL_BM_ACTION_BASE <-- EVAL_BM_SEMI_BASE<-- EVAL_BM_SEMI_RESISTOR
  *                                                                                   - EVAL_BM_SEMI_CAPACITOR
@@ -168,7 +174,7 @@
  *  COX     +   +   +                       MODEL_SEMI_BASE
  *  DEL         +
  *  DI      +   +   +                       MODEL_SEMI_BASE
- *  DLR     +   +   +                       MODEL_SEMI_BASE
+ *  DLR     +   -   -                           MODEL_SEMI_RESISTOR  - was MODEL_SEMI_BASE 
  *  DW      +                                   MODEL_SEMI_RESISTOR
  *  L       +   +   +                       MODEL_SEMI_BASE
  *  LEVEL   +                                   MODEL_SEMI_RESISTOR
@@ -181,9 +187,12 @@
  *  TC1R    +                                   MODEL_SEMI_RESISTOR
  *  TC2R    +                                   MODEL_SEMI_RESISTOR
  *  THICK   +   +   +                       MODEL_SEMI_BASE
- *  TREF    +   +   +                   MODEL_CARD
+ *  TREF    +   +   +                   MODEL_CARD              named as TNOM
  *  W       +   +   +                       MODEL_SEMI_BASE
  *  scalm   +   +   +                       MODEL_SEMI_BASE     - may be has to be moved upper  - but so far kept here
+ *  tc1   - now, for resistor tc1 means tc1r
+ *  tc2   - tc2 for resistor means tc2r
+ *  [TBD] clean thsi up
  *
  */
 //
@@ -292,10 +301,10 @@ public:
   PARAMETER<double> _capsw;
   PARAMETER<double> _cox;
   PARAMETER<double> _di;
-  PARAMETER<double> _dlr;
+//  PARAMETER<double> _dlr;  - move to MODEL_SEMI_RESISTOR
   PARAMETER<double> _shrink;
   PARAMETER<double> _thick;
-  PARAMETER<double> _tref;
+//  PARAMETER<double> _tref;  implemented as TNOM in MODEL_CARD - refer to it
 
   PARAMETER<double> _scalm;
 
@@ -310,10 +319,10 @@ protected:
   static double const _default_capsw;
   static double const _default_cox;
   static double const _default_di;
-  static double const _default_dlr;
+//  static double const _default_dlr;
   static double const _default_shrink;
   static double const _default_thick;
-  static double const _default_tref;
+//  static double const _default_tref;
 
   static double const _default_scalm;
 
@@ -329,16 +338,18 @@ protected: // override virtual
   std::string	param_name(int)const;
   std::string	param_name(int,int)const;
   std::string	param_value(int)const;
-  int param_count()const {return (16 + MODEL_CARD::param_count());}
+  int param_count()const {return (15 + MODEL_CARD::param_count());}    // was 16, now removed dlr - moved to resistor
 };
 /*--------------------------------------------------------------------------*/
 class MODEL_SEMI_CAPACITOR : public MODEL_SEMI_BASE {
 public:
   PARAMETER<double> _cj;
   PARAMETER<double> _cjsw;
+  PARAMETER<double> _del;
 private:
   static double const _default_cj;
   static double const _default_cjsw;
+  static double const _default_del;
 private:
   explicit MODEL_SEMI_CAPACITOR(const MODEL_SEMI_CAPACITOR& p);
 public:
@@ -355,7 +366,7 @@ private: // override virtual
   std::string	param_name(int)const;
   std::string	param_name(int,int)const;
   std::string	param_value(int)const;
-  int param_count()const {return (2 + MODEL_SEMI_BASE::param_count());} 
+  int param_count()const {return (3 + MODEL_SEMI_BASE::param_count());}   // cj, cjsw, del
 };
 /*--------------------------------------------------------------------------*/
 class MODEL_SEMI_RESISTOR : public MODEL_SEMI_BASE {
@@ -365,16 +376,18 @@ public:
   PARAMETER<double> _rac;
   PARAMETER<int>    _level;
   PARAMETER<double> _dw;
-  PARAMETER<double> _tc1r;
-  PARAMETER<double> _tc2r;
+  PARAMETER<double> _tc1c;
+  PARAMETER<double> _tc2c;
+  PARAMETER<double> _dlr;  
 private:
   static double const _default_rsh;
   static double const _default_res;
   static double const _default_rac;
   // static int const _default_level; // do not need it
   static double const _default_dw;
-  static double const _default_tc1r;
-  static double const _default_tc2r;
+  static double const _default_tc1c;
+  static double const _default_tc2c;
+  static double const _default_dlr;
 private:
   explicit MODEL_SEMI_RESISTOR(const MODEL_SEMI_RESISTOR& p);
 public:
@@ -391,7 +404,7 @@ private: // override virtual
   std::string	param_name(int)const;
   std::string	param_name(int,int)const;
   std::string	param_value(int)const;
-  int param_count()const {return (7 + MODEL_SEMI_BASE::param_count());}
+  int param_count()const {return (8 + MODEL_SEMI_BASE::param_count());}   // added 1 for _dlr
 };
 /*--------------------------------------------------------------------------*/
 double const EVAL_BM_SEMI_BASE::_default_length = NOT_INPUT;
@@ -516,20 +529,12 @@ void EVAL_BM_SEMI_CAPACITOR::precalc_last(const CARD_LIST* Scope)
   const MODEL_SEMI_CAPACITOR* m = prechecked_cast<const MODEL_SEMI_CAPACITOR*>(model());
 
   double width = (_width == NOT_INPUT) ? m->_defw : _width;
-  double eff_width = width - m->_narrow;
+  double eff_width = width - m->_del;
   //
-  double eff_length = _length - m->_narrow;
+  double eff_length = _length - m->_del;
   _value = m->_cj * eff_length * eff_width + 2. * m->_cjsw * (eff_length + eff_width);
-  double tempdiff = (_temp_c - m->_tnom_c);
-/*
-  std::cout<<
-  " CAP \n"<<
-  " _temp_c   ="<<_temp_c<<"\n"<<
-  " m->tnom_c ="<<m->_tnom_c<<"\n"<<
-  " tempdiff  ="<<tempdiff<<"\n"<<
-  "\n";
-*/
-  _value *= 1 + m->_tc1*tempdiff + m->_tc2*tempdiff*tempdiff;
+ // double tempdiff = (_temp_c - m->_tnom_c);
+ //  _value *= 1 + m->_tc1*tempdiff + m->_tc2*tempdiff*tempdiff;   temp correction is made in EVAL_BM_ACTION_BASE, ass for resistor
 
   if (eff_width <= 0.) {untested();
     throw Exception_Precalc(modelname() + ": effective width is negative or zero\n");
@@ -612,8 +617,6 @@ void EVAL_BM_SEMI_RESISTOR::expand(const COMPONENT* d)
 /*--------------------------------------------------------------------------*/
 void EVAL_BM_SEMI_RESISTOR::precalc_last(const CARD_LIST* Scope)
 {
-
-//  std::cout<<"EVAL_BM_SEMI_RESISTOR::precalc_last "<<modelname()<<"\n";
   assert(Scope);
   EVAL_BM_SEMI_BASE::precalc_last(Scope);
   _resistance.e_val(_default_resistance, Scope);
@@ -752,10 +755,10 @@ void EVAL_BM_SEMI_RESISTOR::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE
   assert(lang);
   EVAL_BM_SEMI_BASE::print_common_obsolete_callback(o, lang);
   //o << modelname();
-  print_pair(o, lang, "r", _resistance);
+  print_pair(o, lang, "r", _resistance, _resistance.has_hard_value());
   print_pair(o, lang, "c", _capacitance,_capacitance.has_hard_value());
-  print_pair(o, lang, "tc1", _tc1,      _tc1.has_hard_value());
-  print_pair(o, lang, "tc2", _tc2,      _tc2.has_hard_value());
+  //print_pair(o, lang, "tc1", _tc1,      _tc1.has_hard_value());
+  //print_pair(o, lang, "tc2", _tc2,      _tc2.has_hard_value());
   print_pair(o, lang, "rac", _res_ac,   _res_ac.has_hard_value());
   
 }
@@ -772,7 +775,7 @@ void EVAL_BM_SEMI_RESISTOR::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE
  *  COX     +   +   +           7
  *  DEL         +               - 
  *  DI      +   +   +           8
- *  DLR     +   +   +           9
+ *  DLR     +   -   -           was 9, removing
  *  DW      +                   -
  *  L       +   +   +           4
  *  LEVEL   +                   -
@@ -790,7 +793,8 @@ void EVAL_BM_SEMI_RESISTOR::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE
  *  scalm   +   +   +           15
  --------
  * narrow
-* add names "defl" and "defw" in addition to "W" and "L" :
+ *
+ * add names "defl" and "defw" in addition to "W" and "L" :
  * defl                         13
  * defw                         14
 
@@ -799,9 +803,9 @@ void EVAL_BM_SEMI_RESISTOR::print_common_obsolete_callback(OMSTREAM& o, LANGUAGE
  *  CAP     +   +   +                       MODEL_SEMI_BASE
  *  CAPSW   +   +   +                       MODEL_SEMI_BASE
  *  COX     +   +   +                       MODEL_SEMI_BASE
- *  DEL         +
+ *  DEL         +                               MODEL_SEMI_CAPACITOR
  *  DI      +   +   +                       MODEL_SEMI_BASE
- *  DLR     +   +   +                       MODEL_SEMI_BASE
+ *  DLR     +   -   -                       MODEL_SEMI_RESISTOR        - was MODEL_SEMI_BASE
  *  DW      +                                   MODEL_SEMI_RESISTOR
  *  L       +   +   +                       MODEL_SEMI_BASE
  *  LEVEL   +                                   MODEL_SEMI_RESISTOR
@@ -830,7 +834,7 @@ double const MODEL_SEMI_BASE::_default_cap = 0.;
 double const MODEL_SEMI_BASE::_default_capsw = 0.;
 double const MODEL_SEMI_BASE::_default_cox = 0.;
 double const MODEL_SEMI_BASE::_default_di = 0.;
-double const MODEL_SEMI_BASE::_default_dlr = 0.;
+// double const MODEL_SEMI_BASE::_default_dlr = 0.;
 double const MODEL_SEMI_BASE::_default_shrink = 1.;
 double const MODEL_SEMI_BASE::_default_thick = 0.;
 // double const MODEL_SEMI_BASE::_default_tref = NOT_INPUT;  // done - no need it
@@ -849,10 +853,10 @@ MODEL_SEMI_BASE::MODEL_SEMI_BASE()
    _capsw(_default_capsw),
    _cox(_default_cox),
    _di(_default_di),
-   _dlr(_default_dlr),
+//   _dlr(_default_dlr),
    _shrink(_default_shrink),
    _thick(_default_thick),
-   _tref(OPT::tnom_c),      // instead of _default_tref
+//   _tref(OPT::tnom_c),      // instead of _default_tref  -- tref is implementd as MODEL_CARD::_tnom_c
    
    _scalm(OPT::scalm)       // instead of _default_scalm
 {
@@ -870,10 +874,10 @@ MODEL_SEMI_BASE::MODEL_SEMI_BASE(const MODEL_SEMI_BASE& p)
   _capsw(p._capsw),
   _cox  (p._cox),
   _di   (p._di),
-  _dlr  (p._dlr),
+//  _dlr  (p._dlr),
   _shrink(p._shrink),
   _thick(p._thick),
-  _tref (p._tref),
+//  _tref (p._tref),
 
    _scalm(p._scalm)
 {
@@ -892,15 +896,16 @@ void MODEL_SEMI_BASE::set_param_by_index(int i, std::string& value, int offset)
   case 6: _capsw = value; break;
   case 7: _cox  = value; break;
   case 8: _di   = value; break;
-  case 9: _dlr  = value; break;
-  case 10: _shrink = value; break;
-  case 11: _thick  = value; break;
-  case 12: _tref   = value; break;
+//  case 9: _dlr  = value; break;
+  case 9: _shrink = value; break;
+  case 10: _thick  = value; break;
+  
+  case 11: _tnom_c = value; break;   // tref
 
-  case 13: _defw   = value; break;
-  case 14: _defl   = value; break;
+  case 12: _defw   = value; break;
+  case 13: _defl   = value; break;
 
-  case 15: _scalm = value; break;
+  case 14: _scalm = value; break;
     
   default: MODEL_CARD::set_param_by_index(i, value, offset); break;
   }
@@ -909,26 +914,27 @@ void MODEL_SEMI_BASE::set_param_by_index(int i, std::string& value, int offset)
 bool MODEL_SEMI_BASE::param_is_printable(int i)const
 {
   switch (MODEL_SEMI_BASE::param_count() - 1 - i) {
-  case 0: 
-  case 1: 
-  case 2: 
-  case 3:
-  case 4: 
+  case 0:   return false;   // narrow
+  case 1:                   // w
+  case 2:                   // tc1
+  case 3:                   // tc2
+  case 4:   return true;    // l
   
-  case 5: 
-  case 6: 
-  case 7: 
-  case 8: 
-  case 9: 
-  case 10: 
-  case 11: 
-  case 12: 
+  case 5:                   // cap
+  case 6:                   // capsw
+  case 7:                   // cox
+  case 8:   return false;   // di
+  //case 9:   return true;    // dlr
+  case 9:  return true;    // shrink
+  case 10:  return false;   // thick
+  
+  case 11:  return false;    // tref - MODEL_CARD::_tnom_c will be printed
 
-  case 13: 
-  case 14: 
+  case 12:                  // defw
+  case 13:  return false;   // defl
 
-  case 15: 
-  return true;
+  case 14:  return true;    // scalm
+  
   default: return MODEL_CARD::param_is_printable(i);
   }
 }
@@ -946,15 +952,16 @@ std::string MODEL_SEMI_BASE::param_name(int i)const
   case 6: return "capsw";
   case 7: return "cox";
   case 8: return "di";
-  case 9: return "dlr";
-  case 10: return "shrink";
-  case 11: return "thick";
-  case 12: return "tref";
+  //case 9: return "dlr";
+  case 9: return "shrink";
+  case 10: return "thick";
+  
+  case 11: return "tref";
 
-  case 13: return "defw";
-  case 14: return "defl";
+  case 12: return "defw";
+  case 13: return "defl";
 
-  case 15: return "scalm";
+  case 14: return "scalm";
   default: return MODEL_CARD::param_name(i);
   }
 }
@@ -983,15 +990,15 @@ std::string MODEL_SEMI_BASE::param_value(int i)const
   case 6: return _capsw.string();
   case 7: return _cox.string();
   case 8: return _di.string();
-  case 9: return _dlr.string();
-  case 10: return _shrink.string();
-  case 11: return _thick.string();
-  case 12: return _tref.string();
+  //case 9: return _dlr.string();
+  case 9: return _shrink.string();
+  case 10: return _thick.string();
+  case 11: return _tnom_c.string();
 
-  case 13: return _defw.string();
-  case 14: return _defl.string();
+  case 12: return _defw.string();
+  case 13: return _defl.string();
 
-  case 15: return _scalm.string(); 
+  case 14: return _scalm.string(); 
   default: return MODEL_CARD::param_value(i);
   }
 }
@@ -1013,36 +1020,40 @@ void MODEL_SEMI_BASE::precalc_first()
   _capsw.e_val(_default_capsw,s);
   _cox.e_val(_default_cox,s);
   _di.e_val(_default_di,s);
-  _dlr.e_val(_default_dlr,s);
+  //_dlr.e_val(_default_dlr,s);
   _shrink.e_val(_default_shrink,s);
   _thick.e_val(_default_thick, s);
-  _tref.e_val(OPT::tnom_c,s);  // OPT::tnom_c is default for it
+  // _tref.e_val(OPT::tnom_c,s);  // OPT::tnom_c is default for it
   _scalm.e_val(OPT::scalm,s);  // OPT::scalm is default for it
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 double const MODEL_SEMI_CAPACITOR::_default_cj = 0.;
 double const MODEL_SEMI_CAPACITOR::_default_cjsw = 0.;
+double const MODEL_SEMI_CAPACITOR::_default_del = 0.;
 /*--------------------------------------------------------------------------*/
 MODEL_SEMI_CAPACITOR::MODEL_SEMI_CAPACITOR()
   :MODEL_SEMI_BASE(),
    _cj(_default_cj),
-   _cjsw(_default_cjsw)
+   _cjsw(_default_cjsw),
+   _del(_default_del)
 {
 }
 /*--------------------------------------------------------------------------*/
 MODEL_SEMI_CAPACITOR::MODEL_SEMI_CAPACITOR(const MODEL_SEMI_CAPACITOR& p)
   :MODEL_SEMI_BASE(p),
    _cj(p._cj),
-   _cjsw(p._cjsw)
+   _cjsw(p._cjsw),
+   _del(p._del)
 {
 }
 /*--------------------------------------------------------------------------*/
 void MODEL_SEMI_CAPACITOR::set_param_by_index(int i, std::string& value, int offset)
 {
   switch (MODEL_SEMI_CAPACITOR::param_count() - 1 - i) {
-  case 0: _cj = value; break;
+  case 0: _cj = value;   break;
   case 1: _cjsw = value; break;
+  case 2: _del  = value; break;
   default: MODEL_SEMI_BASE::set_param_by_index(i, value, offset); break;
   }
 }
@@ -1050,8 +1061,9 @@ void MODEL_SEMI_CAPACITOR::set_param_by_index(int i, std::string& value, int off
 bool MODEL_SEMI_CAPACITOR::param_is_printable(int i)const
 {
   switch (MODEL_SEMI_CAPACITOR::param_count() - 1 - i) {
-  case 0: 
-  case 1: return true;
+  case 0:                   // cj
+  case 1:                   // cjsw
+  case 2: return true;      // del
   default: return MODEL_SEMI_BASE::param_is_printable(i);
   }
 }
@@ -1061,6 +1073,7 @@ std::string MODEL_SEMI_CAPACITOR::param_name(int i)const
   switch (MODEL_SEMI_CAPACITOR::param_count() - 1 - i) {
   case 0: return "cj";
   case 1: return "cjsw";
+  case 2: return "del"; 
   default: return MODEL_SEMI_BASE::param_name(i);
   }
 }
@@ -1081,6 +1094,7 @@ std::string MODEL_SEMI_CAPACITOR::param_value(int i)const
   switch (MODEL_SEMI_CAPACITOR::param_count() - 1 - i) {
   case 0: return _cj.string();
   case 1: return _cjsw.string();
+  case 2: return _del.string();
   default: return MODEL_SEMI_BASE::param_value(i);
   }
 }
@@ -1094,6 +1108,14 @@ void MODEL_SEMI_CAPACITOR::precalc_first()
 
   _cj.e_val(_default_cj, s);
   _cjsw.e_val(_default_cjsw, s);
+  _del.e_val(_default_del, s);
+
+  if (_del==_default_del && _narrow != _default_narrow){ // id del is not modified but narrow is modified - set del=narrow
+    _del=_narrow;  
+    }
+  else {
+    }
+
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -1101,8 +1123,9 @@ double const MODEL_SEMI_RESISTOR::_default_rsh  = 0;
 double const MODEL_SEMI_RESISTOR::_default_dw   = 0;
 double const MODEL_SEMI_RESISTOR::_default_rac  = 0;
 double const MODEL_SEMI_RESISTOR::_default_res  = 0;
-double const MODEL_SEMI_RESISTOR::_default_tc1r = 0;
-double const MODEL_SEMI_RESISTOR::_default_tc2r = 0;
+double const MODEL_SEMI_RESISTOR::_default_tc1c = 0;
+double const MODEL_SEMI_RESISTOR::_default_tc2c = 0;
+double const MODEL_SEMI_RESISTOR::_default_dlr  = 0;
 /*--------------------------------------------------------------------------*/
 MODEL_SEMI_RESISTOR::MODEL_SEMI_RESISTOR()
   :MODEL_SEMI_BASE(),
@@ -1110,9 +1133,10 @@ MODEL_SEMI_RESISTOR::MODEL_SEMI_RESISTOR()
    _dw(_default_dw),
    _rac(_default_rac),
    _res(_default_res),
-   _tc1r(_default_tc1r),
-   _tc2r(_default_tc2r),
-   _level(0)            // not used
+   _tc1c(_default_tc1c),
+   _tc2c(_default_tc2c),
+   _level(0),            // not used
+   _dlr(_default_dlr)
 {
 }
 /*--------------------------------------------------------------------------*/
@@ -1122,9 +1146,11 @@ MODEL_SEMI_RESISTOR::MODEL_SEMI_RESISTOR(const MODEL_SEMI_RESISTOR& p)
    _dw(p._dw),
    _rac(p._rac),
    _res(p._res),
-   _tc1r(p._tc1r),
-   _tc2r(p._tc2r),
-   _level(p._level)
+   _tc1c(p._tc1c),
+   _tc2c(p._tc2c),
+   _level(p._level),
+   _dlr(p._dlr)
+   
 {
 }
 /*--------------------------------------------------------------------------*/
@@ -1136,9 +1162,10 @@ void MODEL_SEMI_RESISTOR::set_param_by_index(int i, std::string& value, int offs
   case 2: _level = value; break;
   case 3: _rac   = value; break;
   case 4: _res   = value; break;
-  case 5: _tc1r  = value; break;
-  case 6: _tc2r  = value; break;
-
+  case 5: _tc1c  = value; break;
+  case 6: _tc2c  = value; break;
+  case 7: _dlr   = value; break;
+ 
   default: MODEL_SEMI_BASE::set_param_by_index(i, value, offset); break;
   }
 }
@@ -1146,7 +1173,15 @@ void MODEL_SEMI_RESISTOR::set_param_by_index(int i, std::string& value, int offs
 bool MODEL_SEMI_RESISTOR::param_is_printable(int i)const
 {
   switch (MODEL_SEMI_RESISTOR::param_count() - 1 - i) {
-  case 0: case 1: case 2: case 3: case 4: case 5: case 6: return true;
+  case 0:                       // rsh
+  case 1:       return true;    // dw
+  case 2:       return false;   // level
+  case 3:                       // rac
+  case 4:       return true;    // res
+  case 5:       return false;   // tc1c
+  case 6:       return false;   // tc2c
+  case 7:       return true;    // dlr
+  
   default: return MODEL_SEMI_BASE::param_is_printable(i);
   }
 }
@@ -1159,8 +1194,9 @@ std::string MODEL_SEMI_RESISTOR::param_name(int i)const
   case 2: return "level";
   case 3: return "rac";
   case 4: return "res";
-  case 5: return "tc1r";
-  case 6: return "tc2r";
+  case 5: return "tc1c";
+  case 6: return "tc2c";
+  case 7: return "dlr";
   default: return MODEL_SEMI_BASE::param_name(i);
   }
 }
@@ -1184,8 +1220,9 @@ std::string MODEL_SEMI_RESISTOR::param_value(int i)const
   case 2: return _level.string();
   case 3: return _rac.string();
   case 4: return _res.string();
-  case 5: return _tc1r.string();
-  case 6: return _tc2r.string();
+  case 5: return _tc1c.string();
+  case 6: return _tc2c.string();
+  case 7: return _dlr.string();  
   default: return MODEL_SEMI_BASE::param_value(i);
   }
 }
@@ -1201,14 +1238,17 @@ void MODEL_SEMI_RESISTOR::precalc_first()
   _dw.e_val  (_default_dw,   par_scope);
   _rac.e_val (_default_rac,  par_scope);
   _res.e_val (_default_res,  par_scope);
-  _tc1r.e_val(_default_tc1r, par_scope);
-  _tc2r.e_val(_default_tc2r, par_scope);
+  _tc1c.e_val(_default_tc1c, par_scope);
+  _tc2c.e_val(_default_tc2c, par_scope);
+  _dlr.e_val (_default_dlr,  par_scope);
 
 // special case - if  dw and dlr are not set but narrow is set 
   if (_dw==_default_dw && _dlr==_default_dlr && _narrow != _default_narrow){
     _dw=_narrow;  
     _dlr=_narrow;
     }
+  else {
+  }
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
@@ -1310,7 +1350,7 @@ Todo list
 
 1) write unit tests 
 
-2) complete capacitances, write tests for them   
+2) complete capacitances, write tests for them   NB - cxapacitance now in old form!
 
 3) complete RAC - resistance for AC mode
 
