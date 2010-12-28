@@ -1083,52 +1083,34 @@ public:
   }
 } p99;
 DISPATCHER<CMD>::INSTALL d99(&command_dispatcher, ".control", &p99);
-/*--------------------------------------------------------------------------*/
-/* moving out
-class CMD_ECHO : public CMD {
-        
-public:
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
-    IO::mstdout<<".echo ";
-    std::string msg;
-    while (cmd >> msg)
-          IO::mstdout<<msg<<" ";
-  IO::mstdout<<"\n";
-  }
-} p1001;
-DISPATCHER<CMD>::INSTALL d1001(&command_dispatcher, ".echo", &p1001);
-*/
-/*--------------------------------------------------------------------------*/
-/* moving out
-class CMD_PRINTPARAM : public CMD {
-        
-public:
-  void do_it(CS& cmd, CARD_LIST* Scope)
-  {
-    PARAMETER<double> param;
-    std::string value;
-    
-    IO::mstdout<<".printparam ";
-    while (! cmd.is_end()) {
-        if (cmd.is_float()) {		// simple unnamed value
-            cmd >> value;
-        }
-        else {	// another value
-            cmd >> value; // strips off the quotes
-            value = '{' + value + '}'; // put them back
-        }
-        IO::mstdout<<value<<"= ";
-        param=value;
-        IO::mstdout<<param.e_val(NOT_INPUT, Scope)<<" \n";
-    }
-    IO::mstdout<<"";
-  }
-} p1002;
-DISPATCHER<CMD>::INSTALL d1002(&command_dispatcher, ".printparam", &p1002);
-*/
-/*--------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------*/
+
 }
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+/*
+GS, 28-dec-2010:
+
+items which we wish to export out of this module and make available for 
+commands implemented in other files.
+
+At the moment I see two ways - export the whole class declaration or
+export only needed things. So far decided to follow second way - export only 
+some operations.
+
+for the time being ony one operation is nneded - getmerge with NO_HEADER
+to keep HEADER inside namespace - new function was made
+
+*/
+namespace LANG_SPICE {
+
+void getmerge_noheader(CS& cmd, CARD_LIST* Scope){
+    getmerge(cmd, NO_HEADER, Scope);
+    return;
+}
+
+}
+
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
