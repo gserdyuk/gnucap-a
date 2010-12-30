@@ -290,14 +290,14 @@ void COMMON_COMPONENT::precalc_first(const CARD_LIST* Scope)
 
 void COMMON_COMPONENT::precalc_last(const CARD_LIST* Scope)
 {
-  assert(Scope);
+//  assert(Scope);
 // std::cout<< "COMMON_COMPONENT::precalc_last  "<<modelname()<<" _temp_c="<<_temp_c<<"\n";
 
 }
 
 void COMMON_COMPONENT::expand(const COMPONENT* d)
 {
-  assert(Scope);
+//  assert(Scope);
 //  std::cout<< "COMMON_COMPONENT::expand  "<<modelname()<<" _temp_c="<<_temp_c<<"\n";
 
 }
