@@ -1,3 +1,5 @@
 #!/bin/bash
-export CXXFLAGS="-g -O0"
+export CXXFLAGS="-g -O0";
+export CXX=g++44;
+export CC=gcc44;
 ./configure
