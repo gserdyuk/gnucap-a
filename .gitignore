@@ -32,5 +32,6 @@ gnucap/stamp-h1
 *.cc.orig*
 *.cc.keep*
 *.h.keep*
+
 Make*.*.keep*
 Make*.keep*
