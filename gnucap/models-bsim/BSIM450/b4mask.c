@@ -2245,6 +2245,12 @@ IFvalue *value;
         case BSIM4_MOD_KF:
             value->rValue = model->BSIM4kf;
             return(OK);
+            
+        case BSIM4_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
+        case BSIM4_MOD_PMOS:
+            value->iValue = model->BSIM4type;
+            return(OK);
+            
         default:
             return(E_BADPARM);
     }

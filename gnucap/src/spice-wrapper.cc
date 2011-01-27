@@ -1424,7 +1424,20 @@ double DEV_SPICE::tr_probe_num(const std::string& x)const
       if (datatype & IF_ASK && Umatch(x, std::string(Parms.keyword) + ' ')) {
 	IFvalue v;
 	int ok = info.DEVask(ckt(), &_spice_instance, Parms.id, &v, NULL);
-	if (ok == OK) {
+
+	if (ok == OK) {            
+    
+#ifdef BSIM4  
+       // modify returned value (s) here - for BSIM450 
+      if ( Parms.id == BSIM4_CD) {  
+        IFvalue v2;
+        int ok2 = info.DEVmodAsk(ckt(), &(_spice_model->_gen), BSIM4_MOD_PMOS, &v2);  // for PMOS multiplier=-1
+        if (ok2 == OK && v2.iValue == -1){
+            v.rValue *= (-1);             // if it is PMOS _ it will return -1
+            }
+        }
+#endif
+
 	  switch (datatype & 0xff) {
 	  case IF_FLAG:
 	  case IF_INTEGER:
