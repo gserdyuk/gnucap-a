@@ -1,0 +1,28 @@
+--- b3soiask.c.orig	2011-01-26 14:26:55.000000000 +0200
++++ b3soiask.c	2011-01-29 01:49:02.000000000 +0200
+@@ -164,9 +164,9 @@
+         case B3SOI_VDS:
+             value->rValue = *(ckt->CKTstate0 + here->B3SOIvds);
+             return(OK);
+         case B3SOI_CD:
+-            value->rValue = here->B3SOIcd; 
++            value->rValue = here->B3SOIcd * here->B3SOImode; 
+             return(OK);
+         case B3SOI_CBS:
+             value->rValue = here->B3SOIcjs; 
+             return(OK);
+--- b3soimask.c.orig	2011-01-26 14:26:55.000000000 +0200
++++ b3soimask.c	2011-01-29 01:50:54.000000000 +0200
+@@ -570,8 +570,12 @@
+         case B3SOI_MOD_BGIDL:
+             value->rValue = model->B3SOIbgidl;
+             return(OK);
+ 
++         case B3SOI_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
++         case B3SOI_MOD_PMOS:
++             value->iValue = model->B3SOItype;
++             return(OK);
+ 
+         default:
+             return(E_BADPARM);
+     }

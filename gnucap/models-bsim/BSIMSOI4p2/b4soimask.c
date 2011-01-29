@@ -2795,6 +2795,11 @@ IFvalue *value;
             return(OK); /* v3.2 */
 /* Added for binning - END */
 
+         case B4SOI_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
+         case B4SOI_MOD_PMOS:
+             value->iValue = model->B4SOItype;
+             return(OK);
+
         default:
             return(E_BADPARM);
     }

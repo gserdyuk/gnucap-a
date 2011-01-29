@@ -169,7 +169,7 @@ BSIM4instance *here = (BSIM4instance*)inst;
             value->rValue = *(ckt->CKTstate0 + here->BSIM4vds);
             return(OK);
         case BSIM4_CD:
-            value->rValue = here->BSIM4cd; 
+            value->rValue = here->BSIM4cd * here->BSIM4mode; 
             return(OK);
         case BSIM4_CBS:
             value->rValue = here->BSIM4cbs; 

@@ -102,7 +102,7 @@ BSIM3instance *here = (BSIM3instance*)inst;
             value->rValue = *(ckt->CKTstate0 + here->BSIM3vds);
             return(OK);
         case BSIM3_CD:
-            value->rValue = here->BSIM3cd; 
+            value->rValue = here->BSIM3cd * here->BSIM3mode; 
             return(OK);
         case BSIM3_CBS:
             value->rValue = here->BSIM3cbs; 

@@ -270,7 +270,7 @@ B4SOIinstance *here = (B4SOIinstance*)inst;
             value->rValue = *(ckt->CKTstate0 + here->B4SOIvds);
             return(OK);
         case B4SOI_CD:
-            value->rValue = here->B4SOIcdrain; 
+            value->rValue = here->B4SOIcdrain * here->B4SOImode; 
             return(OK);
         case B4SOI_IBS:
             value->rValue = here->B4SOIibs;

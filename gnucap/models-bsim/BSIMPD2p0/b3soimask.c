@@ -571,6 +571,10 @@ IFvalue *value;
             value->rValue = model->B3SOIbgidl;
             return(OK);
 
+         case B3SOI_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
+         case B3SOI_MOD_PMOS:
+             value->iValue = model->B3SOItype;
+             return(OK);
 
         default:
             return(E_BADPARM);

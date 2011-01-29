@@ -1,0 +1,32 @@
+diff --exclude='*.o' -U4 /home/gserdyuk/gnucap/gnucap-work.github/gnucap-a/gnucap/models-bsim/BSIM450/b4ask.c ./BSIM450/b4ask.c
+--- /home/gserdyuk/gnucap/gnucap-work.github/gnucap-a/gnucap/models-bsim/BSIM450/b4ask.c	2011-01-19 22:52:04.000000000 +0200
++++ ./BSIM450/b4ask.c	2011-01-26 15:27:45.000000000 +0200
+@@ -191,9 +191,9 @@
+         case BSIM4_VDS:
+             value->rValue = *(ckt->CKTstate0 + here->BSIM4vds);
+             return(OK);
+         case BSIM4_CD:
+-            value->rValue = here->BSIM4cd; 
++            value->rValue = here->BSIM4cd * here->BSIM4mode; 
+             return(OK);
+         case BSIM4_CBS:
+             value->rValue = here->BSIM4cbs; 
+             return(OK);
+diff --exclude='*.o' -U4 /home/gserdyuk/gnucap/gnucap-work.github/gnucap-a/gnucap/models-bsim/BSIM450/b4mask.c ./BSIM450/b4mask.c
+--- /home/gserdyuk/gnucap/gnucap-work.github/gnucap-a/gnucap/models-bsim/BSIM450/b4mask.c	2011-01-19 22:52:04.000000000 +0200
++++ ./BSIM450/b4mask.c	2011-01-27 02:18:35.000000000 +0200
+@@ -2244,8 +2244,14 @@
+             return(OK);
+         case BSIM4_MOD_KF:
+             value->rValue = model->BSIM4kf;
+             return(OK);
++            
++        case BSIM4_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
++        case BSIM4_MOD_PMOS:
++            value->iValue = model->BSIM4type;
++            return(OK);
++            
+         default:
+             return(E_BADPARM);
+     }
+     /* NOTREACHED */

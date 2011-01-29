@@ -1,0 +1,31 @@
+diff --exclude='*.o' -U4 /home/gserdyuk/gnucap/gnucap-work.new/gnucap-a/gnucap/models-bsim/BSIMDD2p1/b3soiask.c ./b3soiask.c
+--- /home/gserdyuk/gnucap/gnucap-work.new/gnucap-a/gnucap/models-bsim/BSIMDD2p1/b3soiask.c	2011-01-09 00:13:19.000000000 +0200
++++ ./b3soiask.c	2011-01-29 01:16:27.000000000 +0200
+@@ -135,9 +135,9 @@
+         case B3SOI_VDS:
+             value->rValue = *(ckt->CKTstate0 + here->B3SOIvds);
+             return(OK);
+         case B3SOI_CD:
+-            value->rValue = here->B3SOIcd; 
++            value->rValue = here->B3SOIcd * here->B3SOImode; 
+             return(OK);
+         case B3SOI_CBS:
+             value->rValue = here->B3SOIcjs; 
+             return(OK);
+diff --exclude='*.o' -U4 /home/gserdyuk/gnucap/gnucap-work.new/gnucap-a/gnucap/models-bsim/BSIMDD2p1/b3soimask.c ./b3soimask.c
+--- /home/gserdyuk/gnucap/gnucap-work.new/gnucap-a/gnucap/models-bsim/BSIMDD2p1/b3soimask.c	2011-01-09 00:13:19.000000000 +0200
++++ ./b3soimask.c	2011-01-29 01:18:33.000000000 +0200
+@@ -1206,8 +1206,13 @@
+         case B3SOI_MOD_PVSDTH:
+             value->rValue = model->B3SOIpvsdth;
+             return(OK);
+ /* Added for binning - END */
++            
++        case B3SOI_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
++        case B3SOI_MOD_PMOS:
++            value->iValue = model->B3SOItype;
++            return(OK);
+ 
+         default:
+             return(E_BADPARM);
+     }

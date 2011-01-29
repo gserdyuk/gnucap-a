@@ -1234,6 +1234,12 @@ IFvalue *value;
         case BSIM3_MOD_KF:
             value->rValue = model->BSIM3kf;
             return(OK);
+            
+        case BSIM3_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
+        case BSIM3_MOD_PMOS:
+            value->iValue = model->BSIM3type;
+            return(OK);
+            
         default:
             return(E_BADPARM);
     }

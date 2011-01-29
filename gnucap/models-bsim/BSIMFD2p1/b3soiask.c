@@ -135,7 +135,7 @@ B3SOIinstance *here = (B3SOIinstance*)inst;
             value->rValue = *(ckt->CKTstate0 + here->B3SOIvds);
             return(OK);
         case B3SOI_CD:
-            value->rValue = here->B3SOIcd; 
+            value->rValue = here->B3SOIcd * here->B3SOImode; 
             return(OK);
         case B3SOI_CBS:
             value->rValue = here->B3SOIcjs; 

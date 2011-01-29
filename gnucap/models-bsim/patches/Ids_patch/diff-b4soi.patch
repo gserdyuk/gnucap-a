@@ -1,0 +1,29 @@
+--- b4soiask.c.orig	2011-01-29 02:02:51.000000000 +0200
++++ b4soiask.c	2011-01-29 01:58:49.000000000 +0200
+@@ -164,9 +164,9 @@
+         case B4SOI_VDS:
+             value->rValue = *(ckt->CKTstate0 + here->B4SOIvds);
+             return(OK);
+         case B4SOI_CD:
+-            value->rValue = here->B4SOIcdrain; 
++            value->rValue = here->B4SOIcdrain * here->B4SOImode; 
+             return(OK);
+         case B4SOI_IBS:
+             value->rValue = here->B4SOIibs; 
+             return(OK);
+--- b4soimask.c.orig	2011-01-29 02:00:17.000000000 +0200
++++ b4soimask.c	2011-01-29 01:59:26.000000000 +0200
+@@ -1383,8 +1383,13 @@
+             value->rValue = model->B4SOIpmoin;
+             return(OK);
+ /* Added for binning - END */
+ 
++         case B4SOI_MOD_NMOS:            /*added to return device type  NMOS=1, PMOS=-1*/
++         case B4SOI_MOD_PMOS:
++             value->iValue = model->B4SOItype;
++             return(OK);
++
+         default:
+             return(E_BADPARM);
+     }
+     /* NOTREACHED */
