@@ -1087,30 +1087,3 @@ DISPATCHER<CMD>::INSTALL d99(&command_dispatcher, ".control", &p99);
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-
-/*
-GS, 28-dec-2010:
-
-items which we wish to export out of this module and make available for 
-commands implemented in other files.
-
-At the moment I see two ways - export the whole class declaration or
-export only needed things. So far decided to follow second way - export only 
-some operations.
-
-for the time being ony one operation is nneded - getmerge with NO_HEADER
-to keep HEADER inside namespace - new function was made
-
-*/
-namespace LANG_SPICE {
-
-void getmerge_noheader(CS& cmd, CARD_LIST* Scope){
-    getmerge(cmd, NO_HEADER, Scope);
-    return;
-}
-
-}
-
-
-/*--------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------*/
