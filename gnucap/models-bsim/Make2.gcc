@@ -6,7 +6,7 @@ SPICE_INCLUDE = ../Include
 GNUCAP_INCLUDE = ../Gnucap
 VPATH = .:$(SPICE_INCLUDE):$(GNUCAP_INCLUDE)
 
-C_SRCS = $(CFILES) devsup.c
+C_SRCS = $(CFILES) devsup.c nevalsrc.c
 CC_SRCS = spice-wrapper.cc
 
 OBJS = ${CC_SRCS:.cc=.o} ${C_SRCS:.c=.o}
