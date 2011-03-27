@@ -35,3 +35,7 @@ gnucap/stamp-h1
 
 Make*.*.keep*
 Make*.keep*
+
+*.old
+*.orig
+*.rej
