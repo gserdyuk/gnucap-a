@@ -128,6 +128,7 @@ public:
   CARD_LIST& ac_begin();
   CARD_LIST& do_ac();
   CARD_LIST& ac_load();
+  CARD_LIST& do_noise(double&, COMPLEX*);
 
   NODE_MAP*   nodes()const {assert(_nm); return _nm;}
   PARAM_LIST* params();

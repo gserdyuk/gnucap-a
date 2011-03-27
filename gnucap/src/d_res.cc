@@ -25,6 +25,7 @@
  */
 //testing=script,complete 2006.07.17
 #include "e_elemnt.h"
+
 /*--------------------------------------------------------------------------*/
 namespace {
 /*--------------------------------------------------------------------------*/
@@ -58,6 +59,7 @@ private: // override virtual
   void     ac_begin()           {_ev = _y[0].f1; _acg = 1. / _ev;} 
   void	   do_ac();
   void	   ac_load()		{ac_load_passive();}
+  virtual void	 do_noise(double&, COMPLEX*);
   COMPLEX  ac_involts()const	{return ac_outvolts();}
 
   std::string port_name(int i)const {itested();
@@ -134,6 +136,34 @@ void DEV_RESISTANCE::do_ac()
     assert(has_tr_eval() || _ev == double(value()) || _ev == OPT::shortckt);
   }
 }
+/*--------------------------------------------------------------------------*/
+
+void DEV_RESISTANCE::do_noise(double & opower, COMPLEX * noise_ac)
+{
+
+// Assumed that everything is evaluated as AC was called just before
+// invariant ?? :
+  assert(_ev == double(value()));
+  assert(_ev == _y[0].f1);
+  assert(_acg == 1./_ev);
+   
+  const double BOLTZ_CONST=1.3806503e-23;
+  const double T_KELV=273.15;
+
+  double temp=OPT::temp_c+T_KELV;   // 300.15;
+  double g=real(_acg);
+  double i_noise_r=sqrt(4*BOLTZ_CONST*temp*mfactor()*g);
+  int n1=_n[OUT1].m_();
+  int n2=_n[OUT2].m_();
+  COMPLEX v=noise_ac[n1]-noise_ac[n2];
+  double noisepow=abs(v*i_noise_r);
+  noisepow*=noisepow;	
+
+  opower=noisepow;
+
+  return;
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 DEV_RESISTANCE p1;

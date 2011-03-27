@@ -64,6 +64,8 @@ protected: // override virtual
   void	  ac_begin()	{assert(subckt()); subckt()->ac_begin();}
   void	  do_ac()	{assert(subckt()); subckt()->do_ac();}
   void	  ac_load()	{assert(subckt()); subckt()->ac_load();}
+  void	  do_noise(double & p, COMPLEX* NACV)	{assert(subckt()); subckt()->do_noise(p, NACV);} // NACV - Noise AC Volatge
+  
 };
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
