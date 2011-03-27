@@ -35,6 +35,7 @@ class CARD_LIST;
 class PARAM_LIST;
 class LANGUAGE;
 class TIME_PAIR;
+class SIM;
 /*--------------------------------------------------------------------------*/
 class INTERFACE CARD : public CKT_BASE {
 private:
@@ -93,6 +94,7 @@ public:	// ac
   virtual void	 ac_begin()		{}
   virtual void	 do_ac()		{}
   virtual void	 ac_load()		{}
+  virtual void	 do_noise(double& p, COMPLEX*){p=0;} // return zero noise power density  
   //--------------------------------------------------------------------
 public:	// state, aux data
   virtual char id_letter()const	{unreachable(); return '\0';}

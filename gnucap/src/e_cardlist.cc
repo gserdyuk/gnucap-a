@@ -424,6 +424,19 @@ CARD_LIST& CARD_LIST::ac_load()
   return *this;
 }
 /*--------------------------------------------------------------------------*/
+//GS - 
+CARD_LIST& CARD_LIST::do_noise(double & o_power, COMPLEX* noise_ac)
+{
+  o_power=0;
+  for (iterator ci=begin(); ci!=end(); ++ci) {
+    trace_func_comp();   // TODO GS - what is that ?
+      double o_p=0;
+      (**ci).do_noise(o_p, noise_ac);
+      o_power+=o_p;
+  }
+  return *this;
+}
+/*--------------------------------------------------------------------------*/
 void CARD_LIST::attach_params(PARAM_LIST* p, const CARD_LIST* scope)
 {
   if (p) {

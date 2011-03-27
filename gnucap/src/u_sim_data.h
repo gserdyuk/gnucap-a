@@ -130,6 +130,7 @@ struct INTERFACE SIM_DATA {
   void set_command_op()	  {_mode = s_OP;}
   void set_command_tran() {_mode = s_TRAN;}
   void set_command_fourier() {_mode = s_FOURIER;}
+  void set_command_noise() {_mode = s_NOISE;}   // GS - noise cmd  
   SIM_MODE sim_mode()	   {return _mode;}
   bool command_is_ac()	   {return _mode == s_AC;}
   bool command_is_dc()	   {return _mode == s_DC;}

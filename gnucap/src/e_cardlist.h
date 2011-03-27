@@ -35,6 +35,7 @@ class PARAM_LIST;
 class NODE_MAP;
 class LANGUAGE;
 class TIME_PAIR;
+class SIM;
 /*--------------------------------------------------------------------------*/
 class INTERFACE CARD_LIST {
 private:
@@ -128,6 +129,7 @@ public:
   CARD_LIST& ac_begin();
   CARD_LIST& do_ac();
   CARD_LIST& ac_load();
+  CARD_LIST& do_noise(double&, COMPLEX*);
 
   NODE_MAP*   nodes()const {assert(_nm); return _nm;}
   PARAM_LIST* params();

@@ -169,6 +169,7 @@ public:
   void		lu_decomp();
   void		fbsub(T* v) const;
   void		fbsub(T* x, const T* b, T* c = NULL) const;
+  void		fbsubt(T* v) const;
 };
 /*--------------------------------------------------------------------------*/
 // private implementations
@@ -734,6 +735,36 @@ void BSMATRIX<T>::fbsub(T* x, const T* b, T* c) const
   }
   x[0] = 0.;
   //BUG// some things don't work unless there is a zero here.
+}
+/*--------------------------------------------------------------------------*/
+/* fbsubt: forward and back substitution with implicitly transposed matrix Ut Lt x = v
+ * v = right side vector, changed in place to solution vector
+ * GS: 
+ * this method s used to solve system A_t X = B (_t - transposed)
+ * which corresponds to adjoint system
+ * (LU)_t then transforms to U_t L_t
+ *  added: Gennadiy Serdyuk <gserdyuk@gserdyuk.com>
+ */
+template <class T>
+void BSMATRIX<T>::fbsubt(T* v) const
+{
+  assert(_lownode);
+  assert(v);
+
+  for (int ii = 1; ii <= size(); ++ii) {	// forward substitution 
+    for (int jj = _lownode[ii]; jj < ii; ++jj) {
+      v[ii] -= u(jj,ii) * v [jj];	     	
+    }
+  }
+  
+  for (int jj = size(); jj > 1; --jj) {		// back substitution    
+	v[jj] /= d(jj,jj);
+    for (int ii = _lownode[jj]; ii < jj; ++ii) {
+      v[ii] -= l(jj,ii) * v[jj];			
+    }
+  }
+  v[1]/=d(1,1);
+  
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

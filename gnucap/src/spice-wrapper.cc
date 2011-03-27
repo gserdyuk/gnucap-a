@@ -39,6 +39,9 @@ extern "C" {
   #include "inpdefs.h"
   #include "tskdefs.h"
 #endif
+
+  #include "noisedef.h"   // GS
+
   #undef main
   #undef bool
   #undef public
@@ -251,6 +254,9 @@ protected: // override virtual
   COMPLEX ac_amps()const	{unreachable();return NOT_VALID;}
   XPROBE  ac_probe_ext(const std::string&)const {itested(); return XPROBE(NOT_VALID, mtNONE);}
   int	  tail_size()const	{return TAIL_SIZE;}
+// GS:
+  void    do_noise(double &, COMPLEX *);
+
 public:	// type
   void set_dev_type(const std::string& nt);
   std::string dev_type()const	{return _modelname;}
@@ -1575,6 +1581,179 @@ void DEV_SPICE::ac_load()
   }
 }
 /*--------------------------------------------------------------------------*/
+void DEV_SPICE::do_noise    (double& op, COMPLEX *V)
+{
+/*
+fprintf(stdout,"do_noise ---------------------------\n");
+*/  if (info.DEVnoise) {
+    assert_instance();
+    assert(_num_states >= 0);
+
+    assert_model_unlocalized();
+    _spice_model->_gen.GENinstances = &_spice_instance;
+    assert_model_localized();
+
+    localize_ckt();
+    
+    /*
+    example of fill in
+      { // copy in
+    int* node = spice_nodes();
+    assert(ckt()->CKTrhsOld == _v1);
+    std::fill_n(_v1, matrix_nodes()+OFFSET, 0);
+    for (int ii = 0; ii < matrix_nodes(); ++ii) {
+      if (node[ii] != SPICE_INVALID_NODE) {
+	_v1[node[ii]] = _n[ii].v0();
+      }else{
+       }
+     }
+    }
+    
+    CKT rhs - real noise volt
+    CKT irhs - imag noise volt
+    
+     */
+     
+    { // copy in noise volt
+    int* node = spice_nodes();
+    assert(ckt()->CKTrhs  == _i0);
+    assert(ckt()->CKTirhs == _i1);
+    
+    std::fill_n(_i0, matrix_nodes()+OFFSET, 0);
+    std::fill_n(_i1, matrix_nodes()+OFFSET, 0);
+    
+    for (int ii = 0; ii < matrix_nodes(); ++ii) {
+      if (node[ii] != SPICE_INVALID_NODE) {
+	      /*
+          printf(" ii= %d, node[ii]= %d  _n[ii].m_() = %d\n", ii, node[ii], _n[ii].m_() );
+          */  
+        _i0[node[ii]] = real(V[ _n[ii].m_() ] );
+        _i1[node[ii]] = imag(V[ _n[ii].m_() ] );
+        
+      }else{
+       }
+     }
+    }
+        
+    ckt()->CKTmode = MODEAC;
+    ckt()->CKTomega = _sim->_jomega.imag();
+
+    double OnDens=0;
+    
+/* structure used to carry information between subparts of the noise analysis code 
+typedef struct {
+    double freq;            need, can take from simulation
+    double lstFreq;         need, same
+    double delFreq;        may neglect, set to 0
+    double outNoiz;        may neglect so far *)  / * integrated output noise as of the last frequency point 
+    double inNoise;        may neglect so far *)  / * integrated input noise as of the last frequency point 
+    double GainSqInv;      may neglect so far *)
+    double lnGainInv;      may neglect so far *)
+    double lnFreq;         neglect - do not see where is used 
+    double lnLastFreq;     neglect - do not see where is used  
+    double delLnFreq;      neglect - do not see where is used 
+    int outNumber;         max - <DEV>NSRC                                          / * keeps track of the current output variable 
+    int numPlots;          ? ignore so far **)                                      / * keeps track of the number of active plots so we can close them in  a do loop. 
+    unsigned int prtSummary;   may set to 0 so far
+    double *outpVector;        if prtSummary==0 - outpVector will not be used       / * pointer to our array of noise outputs 
+    GENERIC *NplotPtr;                                                              / * the plot pointer 
+    IFuid *namelist;      ? ignore so far **)                                       / * list of plot names 
+} Ndata;
+*/
+
+    Ndata* ndata=new (Ndata);
+    ndata->freq     =  _sim->_freq;  // freq on current step - take from _sim
+    ndata->lstFreq  =  BIGBIG;       // is not used in models
+    ndata->delFreq  =  0.0;          //  freq-lstFreq; if delFreq - tehn do not integrate. AS we integrate by ourselves - so keep it 0.
+    ndata->prtSummary= 0;  // or allocate ndata->outpVector[DIONSRCS]
+
+    
+    int operation= N_CALC;
+    int mode = N_DENS;
+    
+/*
+    / * structure used to describe an noise analysis 
+typedef struct {
+    int JOBtype;
+    JOB *JOBnextJob;        / * pointer to next thing to do 
+    char *JOBname;          / * name of this job 
+    IFnode output;          / * noise output summation node 
+    IFnode outputRef;       / * noise output reference node 
+    IFuid input;            / * name of the AC source used as input reference 
+    double NstartFreq;
+    double NstopFreq;
+    double NfreqDelta;      / * multiplier for decade/octave stepping, step for linear steps. 
+    double NsavFstp;        / * frequency step at which we stopped last time 
+    double NsavOnoise;      / * integrated output noise when we left off last time 
+    double NsavInoise;      / * integrated input noise when we left off last time 
+    int NstpType;           / * values described below 
+    int NnumSteps;
+    int NStpsSm;            / * number of steps before we output a noise summary report 
+} NOISEAN;
+
+*/    
+    NOISEAN *noisean=new NOISEAN;
+#ifndef JSPICE3
+    noisean->NstartFreq = BIGBIG;    // a) will manifestate if used; b) != noisean->freq; 
+    noisean->NstopFreq  = BIGBIG;     // a) will manifestate if used
+    noisean->NfreqDelta = BIGBIG;    // a) will manifestate if used
+    noisean->NStpsSm=0;
+#else
+    (noisean->AC).fstart  = BIGBIG;    // a) will manifestate if used; b) != noisean->freq; 
+    (noisean->AC).fstop   = BIGBIG;     // a) will manifestate if used
+    (noisean->AC).fsave   = BIGBIG;    // a) will manifestate if used
+    (noisean->AC).NnumSteps=0;
+    
+#endif
+    
+    ckt()->CKTcurJob=reinterpret_cast<JOB*>(noisean);
+    
+    
+    // mode - clear, set right 
+    // operation - clear, set right 
+    // _spice_model->_gen   - unclear, assume set right 
+    // ckt()                - unclear, 
+    // ndata     - clear, set right 
+    // OnDens    - clear set right 
+    
+    /* interesting where allocated and initialized inst->DIOnVar
+       genmodel=&(_spice_model->_gen)
+       firstModel=(DIOmodel*) genmodel;
+       model = firstModel; 
+       inst=model->DIOinstances; 
+      it is _spice_instance;
+    */
+    
+    /* about ckt()
+    
+    
+    fprintf(stdout, "MATRIX_NODES, OFFSET= %d %d \n", MATRIX_NODES, OFFSET);
+    for(int i=0; i<MATRIX_NODES+OFFSET; i++){
+        fprintf(stdout,"i = %d, CKTrhs, CKTirhs %e %e \n",i, ckt()->CKTrhs[i], ckt()->CKTirhs[i]);
+    }
+    */
+    if (info.DEVnoise) {
+      // DIOnoise(mode, operation,genmodel ,ckt, data, OnDens);
+      info.DEVnoise(mode, operation, &(_spice_model->_gen) ,ckt(), ndata, &OnDens);
+      //                             reinterpret_cast<SPcomplex*>(&_sim->_jomega));
+    }else{unreachable();
+      // nothing
+    }
+    //fprintf(stdout,"spice-wrapper - OnDens= %e \n", OnDens);
+
+    assert_model_localized();
+    _spice_model->_gen.GENinstances = NULL;
+    assert_model_unlocalized();
+
+    delete ndata;
+    delete noisean;
+    op=OnDens;
+  
+  }else{untested();  
+    // no DEVnoise - do nothing. may be warning
+  }
+}
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 extern "C" {
   // needed to satisfy references.  Supposedly unreachable.  Stubs.
@@ -1653,7 +1832,7 @@ extern "C" {
 #else
   double Nintegrate(double, double, double, Ndata*) {incomplete(); return NOT_VALID;} //DEVnoise
 #endif
-  void NevalSrc(double*, double*, CKTcircuit*, int, int, int, double) {incomplete();} //DEVnoise
+  // void NevalSrc(double*, double*, CKTcircuit*, int, int, int, double) {incomplete();} //DEVnoise
   void NevalSrc2(double*, double*, CKTcircuit*, int, int, int, double, double) {incomplete();}
   //------------------------------------------------
   // should be constants, but spice wants them to be variables.

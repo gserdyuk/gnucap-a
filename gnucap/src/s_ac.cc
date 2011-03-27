@@ -1,6 +1,6 @@
-/*$Id: s_ac.cc,v 26.133 2009/11/26 04:58:04 al Exp $ -*- C++ -*-
- * Copyright (C) 2001 Albert Davis
- * Author: Albert Davis <aldavis@gnu.org>
+/*$Id$ -*- C++ -*-
+ * Copyright (C) 2008 Albert Davis
+ * Author: Albert Davis
  *
  * This file is part of "Gnucap", the Gnu Circuit Analysis Package
  *
@@ -19,16 +19,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  *------------------------------------------------------------------
- * ac analysis top
+ * GS: ac analysis header, moved out of s_ac.cc to allow NOISE inheritance from AC
  */
 //testing=script 2008.08.06
-#include "u_sim_data.h"
-#include "u_status.h"
+
+
 #include "u_parameter.h"
+#include "globals.h"
 #include "u_prblst.h"
 #include "s__.h"
+
+#include "u_sim_data.h"
+#include "u_status.h"
+
 /*--------------------------------------------------------------------------*/
-namespace {
+namespace  {
+/*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 class AC : public SIM {
 public:
@@ -48,12 +54,13 @@ public:
   ~AC() {}
 private:
   explicit AC(const AC&):SIM() {unreachable(); incomplete();}
-  void	sweep();
-  void	first();
-  bool	next();
-  void	solve();
-  void	clear();
-  void	setup(CS&);
+protected:
+virtual void	sweep();
+virtual void	first();
+virtual bool	next();
+        void	solve();
+        void	clear();
+virtual void	setup(CS&);
 private:
   PARAMETER<double> _start;	// sweep start frequency
   PARAMETER<double> _stop;	// sweep stop frequency
@@ -63,6 +70,7 @@ private:
   bool	_prevopppoint;  	// flag: use previous op point
   enum {ONE_PT, LIN_STEP, LIN_PTS, TIMES, OCTAVE, DECADE} _stepmode;
 };
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void AC::do_it(CS& Cmd, CARD_LIST* Scope)

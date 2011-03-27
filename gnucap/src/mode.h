@@ -40,14 +40,15 @@ enum SIM_MODE { // simulation types
   s_OP,  	/* op command					*/
   s_DC,  	/* dc sweep command				*/
   s_TRAN,	/* transient command				*/
-  s_FOURIER	/* fourier command				*/
+  s_FOURIER,/* fourier command				*/
+  s_NOISE   /* GS: noise command  */
 };
 const int sSTART = s_NONE;
 const int sCOUNT = s_FOURIER + 1;
 inline OMSTREAM& operator<<(OMSTREAM& o, SIM_MODE t) {
-  const std::string s[] = {"ALL", "AC", "OP", "DC", "TRAN", "FOURIER"};
+  const std::string s[] = {"ALL", "AC", "OP", "DC", "TRAN", "FOURIER", "NOISE"};
   assert(t >= int(s_NONE));
-  assert(t <= int(s_FOURIER));
+  assert(t <= int(s_NOISE));
   return (o << s[t]);
 }
 

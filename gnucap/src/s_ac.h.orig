@@ -1,0 +1,77 @@
+/*$Id$ -*- C++ -*-
+ * Copyright (C) 2008 Albert Davis
+ * Author: Albert Davis
+ *
+ * This file is part of "Gnucap", the Gnu Circuit Analysis Package
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *------------------------------------------------------------------
+ * GS: ac analysis header, moved out of s_ac.cc to allow NOISE inheritance from AC
+ */
+//
+
+#ifndef AC__HH
+#define AC__HH
+
+#include "u_parameter.h"
+#include "globals.h"
+#include "u_prblst.h"
+#include "s__.h"
+
+/*--------------------------------------------------------------------------*/
+namespace AC_SIM {
+/*--------------------------------------------------------------------------*/
+class AC : public SIM {
+public:
+  void	do_it(CS&, CARD_LIST*);
+
+  explicit AC():
+    SIM(),
+    _start(),
+    _stop(),
+    _step_in(),
+    _step(0.),
+    _linswp(false),
+    _prevopppoint(false),
+    _stepmode(ONE_PT)
+  {}
+
+  ~AC() {}
+private:
+  explicit AC(const AC&):SIM() {unreachable(); incomplete();}
+protected:
+  virtual void	sweep();
+  virtual void	first();
+  virtual bool	next();
+  		  void	solve();
+  		  void	clear();
+  virtual void	setup(CS&);
+private:
+  PARAMETER<double> _start;	// sweep start frequency
+  PARAMETER<double> _stop;	// sweep stop frequency
+  PARAMETER<double> _step_in;	// step size, as input
+  double _step;			// printed step size
+  bool	_linswp;		// flag: use linear sweep (vs log sweep)
+  bool	_prevopppoint;  	// flag: use previous op point
+  enum {ONE_PT, LIN_STEP, LIN_PTS, TIMES, OCTAVE, DECADE} _stepmode;
+protected:
+  PARAMETER<double> & start() {return _start;}  // GS - for noise
+  PARAMETER<double> & stop() {return _stop;}    // GS - for noise
+};
+};
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+#endif
