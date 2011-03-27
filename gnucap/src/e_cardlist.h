@@ -35,7 +35,6 @@ class PARAM_LIST;
 class NODE_MAP;
 class LANGUAGE;
 class TIME_PAIR;
-class SIM;
 /*--------------------------------------------------------------------------*/
 class INTERFACE CARD_LIST {
 private:

@@ -25,7 +25,6 @@
 
 
 #include "u_parameter.h"
-#include "globals.h"
 #include "u_prblst.h"
 #include "s__.h"
 
