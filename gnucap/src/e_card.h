@@ -35,7 +35,6 @@ class CARD_LIST;
 class PARAM_LIST;
 class LANGUAGE;
 class TIME_PAIR;
-class SIM;
 /*--------------------------------------------------------------------------*/
 class INTERFACE CARD : public CKT_BASE {
 private:
