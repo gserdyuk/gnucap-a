@@ -1,0 +1,693 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit 1 
+#           v(1)       i(R1)      polarity(A3)
+==== loop beginning,  iter=0
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=0
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 -1.75238e+308
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 0
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 0
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0
+ tr_eval_Yj model admitta=0
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 0
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =0
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0-0*0=0
+ DEV_ADMITTANCE::do_tr()   _m0.c0 0
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 1e-12 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with all.tr_load 
+      ^^ CARD_LIST::tr_load
+        ^^ NOT is_inc_mode
+        ^^ brh->long_label()=
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=R1
+ ELEMENT::tr_load_passive()   long_label    R1
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.001
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.001
+ ELEMENT::tr_load_passive()   diff=         0.001
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.001
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    R1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  0
+ ELEMENT::tr_load_source()   _m1.c0 (was)  0
+ ELEMENT::tr_load_source()   diff=         0
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=I1
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 -0.001
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  0
+ ELEMENT::tr_load_source()   diff=         -0.001
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+        ^^ brh->long_label()=A3
+      ^^ CARD_LIST::tr_load
+        ^^ NOT is_inc_mode
+        ^^ brh->long_label()=A3.Yj
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0
+ ELEMENT::tr_load_passive()   diff=         0
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  0
+ ELEMENT::tr_load_source()   _m1.c0 (was)  0
+ ELEMENT::tr_load_source()   diff=         0
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+        ^^ brh->long_label()=amodel1
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.001 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+==== loop beginning,  iter=1
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 0
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 0
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.001
+ tr_eval_Yj model admitta=0.003
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.001
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 0
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.002
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.001-1*0.003=-0.002
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.002
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.003
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.001 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+    =# work with loadq 
+    =# device queue=A3.Yj ->tr_load()
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.003
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0
+ ELEMENT::tr_load_passive()   diff=         0.003
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.003
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 -0.002
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.002
+ ELEMENT::tr_load_source()   _m1.c0 (was)  0
+ ELEMENT::tr_load_source()   diff=         -0.002
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+    =# device queue=I1 ->tr_load()
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         0
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.004 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.75
+==== loop beginning,  iter=2
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.001
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.002
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.00025
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.002
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000421875
+ tr_eval_Yj model admitta=0.0016875
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000421875
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.002
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.00084375
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000421875-0.75*0.0016875=-0.00084375
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.00084375
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.0016875
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.75
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.004 | 
+ === solve: set_damp 
+ setting damp to 0.5 
+ set_damp;  _sim->_damp=0.5
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.003
+    =# work with loadq 
+    =# device queue=A3.Yj ->tr_load()
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.00234375
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.003
+ ELEMENT::tr_load_passive()   diff=         -0.00065625
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 -0.00065625
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0.000578125
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.00142187
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.002
+ ELEMENT::tr_load_source()   diff=         0.000578125
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+    =# device queue=I1 ->tr_load()
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         0
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.75
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00334375 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.724299
+==== loop beginning,  iter=3
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.000421875
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.00142187
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.000275701
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.00142187
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000379974
+ tr_eval_Yj model admitta=0.00157383
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000379974
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.00142187
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.000759948
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000379974-0.724299*0.00157383=-0.000759948
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.000759948
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.00157383
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.724299
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00334375 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00242187
+    =# work with loadq 
+    =# device queue=A3.Yj ->tr_load()
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.00157383
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.00234375
+ ELEMENT::tr_load_passive()   diff=         -0.000769923
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 -0.000769923
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0.000661927
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.000759948
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.00142187
+ ELEMENT::tr_load_source()   diff=         0.000661927
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+    =# device queue=I1 ->tr_load()
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         0
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.724299
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00257383 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.683786
+==== loop beginning,  iter=4
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.000379974
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.000759948
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.000316214
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.000759948
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000319714
+ tr_eval_Yj model admitta=0.00140269
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000319714
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.000759948
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.000639427
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000319714-0.683786*0.00140269=-0.000639427
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.000639427
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.00140269
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.683786
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00257383 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00175995
+    =# work with loadq 
+    =# device queue=A3.Yj ->tr_load()
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.00140269
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.00157383
+ ELEMENT::tr_load_passive()   diff=         -0.000171136
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 -0.000171136
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0.000120521
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.000639427
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.000759948
+ ELEMENT::tr_load_source()   diff=         0.000120521
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+    =# device queue=I1 ->tr_load()
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         0
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.683786
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00240269 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.68233
+==== loop beginning,  iter=5
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.000319714
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.000639427
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.00031767
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.000639427
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000317675
+ tr_eval_Yj model admitta=0.00139672
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000317675
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.000639427
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.000635349
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000317675-0.68233*0.00139672=-0.000635349
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.000635349
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.00139672
+    =* converged=0
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.68233
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00240269 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163943
+    =# work with loadq 
+    =# device queue=A3.Yj ->tr_load()
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.00139672
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.00140269
+ ELEMENT::tr_load_passive()   diff=         -5.96982e-06
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 -5.96982e-06
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 4.07773e-06
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.000635349
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.000639427
+ ELEMENT::tr_load_source()   diff=         4.07773e-06
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163535
+    =# device queue=I1 ->tr_load()
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         0
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163535
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163535
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.68233
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00239672 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163535
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.682328
+==== loop beginning,  iter=6
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.000317675
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.000635349
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.000317672
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.000635349
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000317672
+ tr_eval_Yj model admitta=0.00139671
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000317672
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.000635349
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.000635344
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000317672-0.682328*0.00139671=-0.000635344
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.000635344
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.00139671
+    =* converged=1
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.682328
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 1e-12 | 
+ === solve: set_damp 
+ set_damp;  _sim->_damp=1
+ === solve: load_matrix 
+  ===# load_matrix entered 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with all.tr_load 
+      ^^ CARD_LIST::tr_load
+        ^^ NOT is_inc_mode
+        ^^ brh->long_label()=
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=R1
+ ELEMENT::tr_load_passive()   long_label    R1
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.001
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.001
+ ELEMENT::tr_load_passive()   diff=         0.001
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.001
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 0
+ ELEMENT::tr_load_source()   long_label    R1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  0
+ ELEMENT::tr_load_source()   _m1.c0 (was)  0
+ ELEMENT::tr_load_source()   diff=         0
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+        ^^ brh->long_label()=I1
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 -0.001
+ ELEMENT::tr_load_source()   long_label    I1
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.001
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.001
+ ELEMENT::tr_load_source()   diff=         -0.001
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+        ^^ brh->long_label()=A3
+      ^^ CARD_LIST::tr_load
+        ^^ NOT is_inc_mode
+        ^^ brh->long_label()=A3.Yj
+ ELEMENT::tr_load_passive()   long_label    A3.Yj
+ ELEMENT::tr_load_passive()   _m0.c1 (new)  0.00139671
+ ELEMENT::tr_load_passive()   _m1.c1 (was)  0.00139672
+ ELEMENT::tr_load_passive()   diff=         0.00139671
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.00139671
+ ELEMENT::tr_load_source()  OUT2, OUT1, d =0 1 -0.000635344
+ ELEMENT::tr_load_source()   long_label    A3.Yj
+ ELEMENT::tr_load_source()   _m0.c0 (new)  -0.000635344
+ ELEMENT::tr_load_source()   _m1.c0 (was)  -0.000635349
+ ELEMENT::tr_load_source()   diff=         -0.000635344
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+        ^^ brh->long_label()=amodel1
+ CRAD_LIST::tr_load
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.682328
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00239671 | 
+ === solve: solve_equations 
+    == in solve_equations: 
+
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.682328
+==== loop beginning,  iter=7
+ === solve: evaluate_models 
+    =* OPT::bypass == true
+    =* converged=1
+    =* device queue1=I1 ->do_tr
+ tr_eval goes to common_tr_eval() 
+    =* converged=1
+    =* device queue1=A3.Yj ->do_tr
+ ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 0.000317672
+ ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 -0.000635344
+ ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 0.000317672
+ ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 -0.000635344
+ tr_eval goes to common_tr_eval() 
+ tr_eval_Yj model current=0.000317672
+ tr_eval_Yj model admitta=0.00139671
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 0.000317672
+ ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 -0.000635344
+ ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 =-0.000635344
+ ##                 _y[0].f0 - _y[0].x * _y[0].f1 =0.000317672-0.682328*0.00139671=-0.000635344
+ DEV_ADMITTANCE::do_tr()   _m0.c0 -0.000635344
+ DEV_ADMITTANCE::do_tr()   _m0.c1 0.00139671
+    =* converged=1
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00163534
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0.682328
+ evaluate_models
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.00239671 | 
+ 27.        0.68233    682.33u    ??        

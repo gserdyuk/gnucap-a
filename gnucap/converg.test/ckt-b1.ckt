@@ -1,0 +1,9 @@
+circuit 1
+
+R1 1 0 1k
+I1 1 0 dc 0.001
+
+.print op v(1) i(R1)
+.op
+
+.end

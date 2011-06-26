@@ -1,0 +1,14 @@
+circuit 1
+
+V1 1 0 dc 1
+
+R1 1 2 5k
+d1 2 0 dio1
+
+.model dio1 d is 1.e-12
+
+.print op v(1) i(R1)
+
+.op
+
+.end

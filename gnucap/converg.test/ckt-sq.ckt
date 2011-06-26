@@ -1,0 +1,17 @@
+circuit 1 
+
+*.options dampmax=1.0
+*.options dampmin=0.5
+
+R1 1 0 1k
+I1 1 0 dc -0.001
+
+R2 1 2 5k
+A3 2 0 amodel1 0.001
+
+.model amodel1 A 
+
+.print op v(1) v(2) i(R2)
+.op
+
+.end
