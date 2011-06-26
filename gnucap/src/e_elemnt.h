@@ -234,8 +234,13 @@ inline void ELEMENT::tr_load_source()
   assert(_loaditer != _sim->iteration_tag()); // double load
   _loaditer = _sim->iteration_tag();
 #endif
-
+  
   double d = dampdiff(&_m0.c0, _m1.c0);
+  std::cout<<" ELEMENT::tr_load_source()  OUT2, OUT1, d ="<<_n[OUT2].m_()<<" "<<_n[OUT1].m_()<<" "<<d<<"\n";
+  std::cout<<" ELEMENT::tr_load_source()   long_label    "<<long_label() <<"\n";
+  std::cout<<" ELEMENT::tr_load_source()   _m0.c0 (new)  "<<_m0.c0 <<"\n";
+  std::cout<<" ELEMENT::tr_load_source()   _m1.c0 (was)  "<<_m1.c0 <<"\n";
+  std::cout<<" ELEMENT::tr_load_source()   diff=         "<<d <<"\n";
   if (d != 0.) {
     if (_n[OUT2].m_() != 0) {
       _n[OUT2].i() += d;
@@ -294,6 +299,12 @@ inline void ELEMENT::ac_load_couple()
 inline void ELEMENT::tr_load_passive()
 {
   double d = dampdiff(&_m0.c1, _m1.c1);
+
+  std::cout<<" ELEMENT::tr_load_passive()   long_label    "<<long_label() <<"\n";
+  std::cout<<" ELEMENT::tr_load_passive()   _m0.c1 (new)  "<<_m0.c1 <<"\n";
+  std::cout<<" ELEMENT::tr_load_passive()   _m1.c1 (was)  "<<_m1.c1 <<"\n";
+  std::cout<<" ELEMENT::tr_load_passive()   diff=         "<<d <<"\n";
+
   if (d != 0.) {
     _sim->_aa.load_symmetric(_n[OUT1].m_(), _n[OUT2].m_(), d);
   }else{
@@ -441,8 +452,10 @@ inline bool ELEMENT::using_ac_eval()const
 inline void ELEMENT::tr_eval()
 {
   if (has_tr_eval()) {
+  std::cout<<" tr_eval goes to common_tr_eval() \n";
     common()->tr_eval(this);
   }else{
+  std::cout<<" tr_eval() evaluates y[0] directly \n";
     // can get here if a simple device has probes
     _y[0].f1 = value();
     _y[0].f0 = _y[0].x * _y[0].f1;

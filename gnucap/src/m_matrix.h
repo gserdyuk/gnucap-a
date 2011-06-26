@@ -157,7 +157,9 @@ private:
   T&	u(int r, int c);
   T&	l(int r, int c);
   T&	m(int r, int c);
-  //T&	s(int r, int c);
+//GS
+public:
+  T&	s(int r, int c);
 public:
   void		load_diagonal_point(int i, T value);
   void		load_point(int i, int j, T value);
@@ -170,6 +172,7 @@ public:
   void		fbsub(T* v) const;
   void		fbsub(T* x, const T* b, T* c = NULL) const;
   void		fbsubt(T* v) const;
+  void      printm(void);
 };
 /*--------------------------------------------------------------------------*/
 // private implementations
@@ -458,7 +461,7 @@ T& BSMATRIX<T>::m(int r, int c)
  *   Writing to trash is allowed and encouraged,
  *   but reading it gives a number not useful for anything.
  */
-#if 0
+#if 1
 template <class T>
 T& BSMATRIX<T>::s(int row, int col)
 {untested();
@@ -491,6 +494,7 @@ T& BSMATRIX<T>::s(int row, int col)
   }
   unreachable();
 }
+
 #endif
 /*--------------------------------------------------------------------------*/
 template <class T>
@@ -539,6 +543,8 @@ void BSMATRIX<T>::load_couple(int i, int j, T value)
 template <class T>
 void BSMATRIX<T>::load_symmetric(int i, int j, T value)
 {
+
+std::cout<<"BSMATRIX<T>::load_symmetric i, j, + val: "<<i<<" "<<j<<" "<<value<<"\n";
   if (j > 0) {
     set_changed(j);
     d(j,j) += value;
@@ -766,6 +772,19 @@ void BSMATRIX<T>::fbsubt(T* v) const
   v[1]/=d(1,1);
   
 }
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+template <class T>
+void BSMATRIX<T>::printm(void){
+  for (int i=0; i<=size(); i++) {    
+     std::cout<< " | "; 
+      for (int j=0; j<=size(); j++) {
+        std::cout<< s(i,j)<<" | ";        // s row col
+        }
+        std::cout<<"\n";
+  }
+}
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 #endif

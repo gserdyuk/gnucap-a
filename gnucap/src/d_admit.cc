@@ -127,12 +127,26 @@ bool DEV_ADMITTANCE::do_tr()
 {
   if (using_tr_eval()) {
     _y[0].x = _m0.x = tr_involts_limited();
+ 
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() BEFORE:  _y[0].f0 "<<_y[0].f0 <<"\n";
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() BEFORE     _m0.c0 "<<_m0.c0 <<"\n";
     _y[0].f0 = _m0.c1 * _m0.x + _m0.c0;	//BUG//  patch for diode
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() AFTER:  _y[0].f0 "<<_y[0].f0 <<"\n";
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() AFTER:    _m0.c0 "<<_m0.c0 <<"\n";
+
     tr_eval();
     assert(_y[0].f0 != LINEAR);
     store_values();
     q_load();
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _y[0].f0 "<<_y[0].f0 <<"\n";
+   std::cout<<" ## DEV_ADMITTANCE::do_tr() AFTER q_load:  _m0.c0 "<<_m0.c0 <<"\n";
+   std::cout<<" ## DEV_ADMITTANCE:: in FPOLY -> CPOLY:    _m0.c0 ="<<_y[0].f0-_y[0].x*_y[0].f1<< "\n";
+   std::cout<<" ##                 _y[0].f0 - _y[0].x * _y[0].f1 ="<<_y[0].f0 << "-" << _y[0].x << "*" <<_y[0].f1<< "="<<_y[0].f0-_y[0].x*_y[0].f1<<"\n";
+    
     _m0 = CPOLY1(_y[0]);
+  std::cout<<" DEV_ADMITTANCE::do_tr()   _m0.c0 "<<_m0.c0 <<"\n";
+  std::cout<<" DEV_ADMITTANCE::do_tr()   _m0.c1 "<<_m0.c1 <<"\n";
+
   }else{
     assert(_y[0].f0 == LINEAR);
     assert(_y[0].f1 == value());

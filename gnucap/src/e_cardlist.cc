@@ -325,22 +325,31 @@ bool CARD_LIST::do_tr()
  */
 CARD_LIST& CARD_LIST::tr_load()
 {
+  std::cout<<"      ^^ CARD_LIST::tr_load\n";
   if (CKT_BASE::_sim->is_inc_mode()) {itested();
+    std::cout<<"        ^^ is_inc_mode\n";    
     assert(!OPT::traceload);
     for (iterator ci=begin(); ci!=end(); ++ci) {itested();
       trace_func_comp();
       CARD* brh = *ci;
       if (!brh->is_constant()) {itested();
+    std::cout<<"        ^^ brh->long_label()="<<brh->long_label()<<"\n";
 	brh->tr_load();
+    // print matrix and free vector
+    print_rhs(brh, " CRAD_LIST::tr_load\n"); 
       }else{itested();
       }
     }
   }else{
+    std::cout<<"        ^^ NOT is_inc_mode\n";    
     for (iterator ci=begin(); ci!=end(); ++ci) {
       trace_func_comp();
       CARD* brh = *ci;
+      std::cout<<"        ^^ brh->long_label()="<<brh->long_label()<<"\n";    
       brh->tr_load();
-    }
+      // print matrix and free vector
+      print_rhs(brh, " CRAD_LIST::tr_load\n"); 
+      }
   }
   return *this;
 }

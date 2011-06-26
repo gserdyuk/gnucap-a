@@ -52,7 +52,8 @@ am__objects_2 = d_mos1.$(OBJEXT) d_mos2.$(OBJEXT) d_mos3.$(OBJEXT) \
 	d_mos4.$(OBJEXT) d_mos5.$(OBJEXT) d_mos6.$(OBJEXT) \
 	d_mos7.$(OBJEXT) d_mos8.$(OBJEXT) d_mos123.$(OBJEXT) \
 	d_mos_base.$(OBJEXT) d_mos.$(OBJEXT) d_bjt.$(OBJEXT) \
-	d_diode.$(OBJEXT)
+	d_diode.$(OBJEXT) \
+	d_square.$(OBJEXT)
 am__objects_3 = $(am__objects_2) $(am__objects_1)
 am__objects_4 = d_admit.$(OBJEXT) d_cap.$(OBJEXT) d_cccs.$(OBJEXT) \
 	d_ccvs.$(OBJEXT) d_coil.$(OBJEXT) d_cs.$(OBJEXT) \
@@ -214,7 +215,8 @@ MODELS = \
 d_mos1.model d_mos2.model d_mos3.model \
 d_mos4.model d_mos5.model d_mos6.model d_mos7.model d_mos8.model \
 d_mos123.model d_mos_base.model d_mos.model \
-d_bjt.model d_diode.model
+d_bjt.model d_diode.model \
+d_square.model
 
 
 # device models hand coded in C++
@@ -426,6 +428,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_coil.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_cs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_diode.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_square.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_logic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_logicmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/d_meter2.Po@am__quote@

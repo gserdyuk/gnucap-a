@@ -70,4 +70,9 @@ public: // label
 inline bool exists(const CKT_BASE* c) {return c!=0;}
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+// GS tmp
+void print_rhs(CKT_BASE* s, std::string a="");
+void print_sol(CKT_BASE* s, std::string a="");
+void print_matr(CKT_BASE* s, std::string a="");
+
 #endif

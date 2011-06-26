@@ -202,6 +202,10 @@ void SIM_DATA::alloc_vectors()
   std::fill_n(_i,  _total_nodes+1, 0);
   std::fill_n(_v0, _total_nodes+1, 0);
   std::fill_n(_vt1,_total_nodes+1, 0);
+  // GS - additional array
+  _v0_prev = new double[_total_nodes+1];
+  std::fill_n(_v0_prev,_total_nodes+1, 0);
+  
 }
 /*--------------------------------------------------------------------------*/
 void SIM_DATA::unalloc_vectors()
@@ -216,6 +220,10 @@ void SIM_DATA::unalloc_vectors()
   _vt1 = NULL;
   delete [] _ac;
   _ac = NULL;
+  // GS- additional array
+  delete [] _v0_prev;
+  _v0_prev = NULL;
+  
 }
 /*--------------------------------------------------------------------------*/
 /* uninit: undo all the allocation associated with any simulation

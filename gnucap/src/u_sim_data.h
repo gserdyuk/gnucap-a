@@ -63,6 +63,7 @@ struct INTERFACE SIM_DATA {
   int	*_nm;		/* node map (external to internal)	*/
   double *_i;		/* dc-tran current (i) vector		*/
   double *_v0;		/* dc-tran voltage, new			*/
+  double *_v0_prev;   /* GS */ /* dc-tran voltage at previous iteration, at the ne dof ityeration _v0_prev[..]=_v0[..]  */ 
   double *_vt1;		/* dc-tran voltage, 1 time ago		*/
 			/*  used to restore after rejected step	*/
   COMPLEX *_ac;		/* ac right side			*/
