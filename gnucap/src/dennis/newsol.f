@@ -69,7 +69,6 @@ C  the following 3 lines - for LINEQ1
       ic_func=0
       ic_jac=0
 	  ICODE_RETURN=0
-C ÈHÈ„ÈAÏÈ˙A„ÈÒ
 c initialization
       IRANG=N
       IRANG1 =IRANG+1
@@ -78,10 +77,10 @@ c initialization
       TLS=1.D0
       TERMCD=0
 
-C  B˘˛ÈCÏEHÈE MACHEPS --  calculate machine epsilon
+C   calculate machine epsilon
       CALL MACHEP(EPSIM)
 	  print *, 'epsim=', epsim
-C  ˙A‰AHÈE È POBEPKA BXO‰HOÍ ÈHÊOPMA„ÈÈ --  set and check input information
+C  set and check input information
       CALL NEINCK(N,EPSIM,IRANG,SF,SX,U,TERMCD,
      +            EPSSOL,EPSDU,EPSMIN,MAXDU,LIMIT)
 	  ICODE_RETURN=TERMCD
@@ -129,7 +128,6 @@ C F <- FN
       F(I)=FN(I)
 	  END DO
 
-C ÈTEPA„ÈÈ
 C iterations
  1000 IF(TERMCD.NE.0)GOTO 1100
       call flush
@@ -142,7 +140,6 @@ C prints
 
 C ********************************************
 
-C  PE˚EHÈE AÊÊÈHOÍ MO‰EÏÈ
 C  solve affine model
 
 *      print *, 'F before LINEQ1 ******', F
@@ -191,7 +188,6 @@ C  COS(GAMMA)
       IF(KPRSOL.GE.2) PRINT    2004, ESTIM
  2004 FORMAT(' ** LOWER ESTIM. JACOBIAN CONDIT. NUMBER =',E14.7)
 
-C .2. ÏÈHEÍH˘Í OÈCK.
 C .2. linear search
 *      print*, 'LSEARCH ENTERED *******'
 *	  print *,(Y(I),I=1,N)
@@ -223,7 +219,6 @@ C    gradient:
 *      print *, 'gradient: ..'
 *	  print *, GR
 
-C  PBEPKA ıCÏOBÈÍ OCTAHOBA
 C  check stop conditions
 
       CALL STOP(N,U,Y,FN,FNORN,GR,SX,SF, IRETCD,ITER, 
@@ -232,7 +227,6 @@ C  check stop conditions
 	  ICODE_RETURN=TERMCD
       IF(KPRSOL.GE.3) PRINT 2, (U(I),I=1,N)
 
-C  È E˝E E˛AT¯
 C  and more prints
       IF(KPRSOL.GE.3) PRINT 4, FNOR,TS,TLS
     5 FORMAT(2X,'ITERATION ',I4)
