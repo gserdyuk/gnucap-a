@@ -1,0 +1,4 @@
+#!/bin/bash
+
+GNUCAP=../gnucap
+$GNUCAP -b $1  

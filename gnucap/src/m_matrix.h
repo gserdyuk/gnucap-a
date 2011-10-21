@@ -173,6 +173,10 @@ public:
   void		fbsub(T* x, const T* b, T* c = NULL) const;
   void		fbsubt(T* v) const;
   void      printm(void);
+  
+  void const gradient  (const T* F, const T* SF, T* GR);
+  void const mult      (const T* F, T* R);
+
 };
 /*--------------------------------------------------------------------------*/
 // private implementations
@@ -774,7 +778,7 @@ void BSMATRIX<T>::fbsubt(T* v) const
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-/*
+
 template <class T>
 void BSMATRIX<T>::printm(void){
   for (int i=0; i<=size(); i++) {    
@@ -785,8 +789,52 @@ void BSMATRIX<T>::printm(void){
         std::cout<<"\n";
   }
 }
-*/
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+
+//  calculate gradient from Jacobian and vector of residuals F
+//  using F scales vector SF
+// All vectors are allocated 
+// BSMATRIX<T>* DJ
+template <class T>
+void const BSMATRIX<T>::gradient (const T* F, const T* SF, T* GR){
+// naive suboptimal implementation      
+    assert(F);
+    assert(SF);
+    assert(GR);
+    
+    int N=size();
+    std::cout<<" N="<<N<<"\n";
+    for (int i=0; i<=N; i++) { // i=0 is ground, do not use in computations
+        GR[i]=0.;
+        for ( int j=0; j<=N; j++) {
+            GR[i]+=s(j,i)*F[j]*SF[j]*SF[j];
+            std::cout<<"j="<<j<<" i="<<i<<" GR[i]="<<GR[i]<<" s ij="<<s(j,i)<<" fj="<<F[j]<<" sfj="<<SF[j]<<"\n";
+            }
+        }
+    }
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+//  calculate mult of matrix and vector F
+template <class T>
+void const BSMATRIX<T>::mult (const T* F, T* R){
+// naive suboptimal implementation      
+    assert(F);
+    assert(R);
+    
+    int N=size();
+    for (int i=0; i<N; i++) { // i=0 is ground, do not use in computations
+        R[i]=0.;
+        for ( int j=0; j<N; j++) {
+            R[i]=R[i]+s(j,i)*F[j];
+            }
+        }
+    }
+    
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
 #endif
 

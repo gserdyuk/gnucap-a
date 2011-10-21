@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP=~/gnucap/gnucap-work.orig/gnucap-a/gnucap/src/gnucap
+DSQUARE=d_square_1.so
+$GNUCAP -a ./$DSQUARE -b ckt-d2.ckt  

@@ -2,4 +2,5 @@
 export CXXFLAGS="-g -O0";
 export CXX=g++44;
 export CC=gcc44;
+export G77=gfortran44;
 ./configure

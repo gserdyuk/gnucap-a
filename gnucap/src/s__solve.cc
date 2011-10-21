@@ -23,10 +23,12 @@
  */
 //testing=script 2006.07.14
 #include <vector>
+#include <gsl/gsl_cblas.h>
+#include "s__.h"
 #include "e_cardlist.h"
 #include "u_status.h"
 #include "e_node.h"
-#include "s__.h"
+
 /*--------------------------------------------------------------------------*/
 //	bool	SIM::solve(int,int);
 //	void	SIM::finish_building_evalq();
@@ -38,7 +40,7 @@
 //	void	SIM::load_matrix();
 //	void	SIM::solve_equations();
 /*--------------------------------------------------------------------------*/
-static bool converged = false;
+static bool converged = false;     // GS - refactor ? sttaic is a bad style
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
 void print_rhs(CKT_BASE* s, std::string a){
@@ -58,21 +60,97 @@ void print_matr(SIM* s, std::string a){
   std::cout<<"    == _sim->_aa: \n";
   (s->_sim->_aa).printm();
 }
+void print_vect(int N, double* x, std::string a){
+  std::cout<<a<<"\n";
+  for (int ii = 0; ii<N; ii++) 
+    std::cout<<"     x["<<ii<<"]="<<x[ii]<<"\n";
+}
 /*--------------------------------------------------------------------------*/
-void error_func(SIM *s, F){
-    int N = s->_sim->_total_nodes;
+/*
+ friend int conv_check_4stop(int* N, double* xc, double* xp, double* fplus, double* fplus_norm, 
+                              double* grad, double* sx, double* sf,
+                              int* retcode,
+                              double* fvectol, double* steptol, int* itncount, 
+                              int *itnlimit, 
+                              bool *maxtaken, 
+                              int* analjac,
+                              int * analjac,
+                              int*cheapF,
+                              double* mintol)
+{ 
+   int termcode=0;   
+   //
+   //0 -  nothing happened
+   //1 -  scaled norm of function is < of fvectol
+   //2 -  scaled norm of step is smaller than steptol - probably solution
+   //3 -  at last globalization step can not decrease |F| significantly. may be bad jacobian
+   //4 -  iteration limit is exceeded
+   //5 -  5 steps MAXSTEP is made - likley function asymptotivcally approaches to end value
+   //6 -  xc probably is local minimum, which is not root, or mintol is too small
     
-    std::fill_n(F, N+1, 0);
+    if (*retcode == 1 ) {
+        teremcode = 3;
+        }
+    else if (                          
+                              
+}
+*/
 
-    for (int j=0; j<=N; j++)
-        F[j]=-s->_sim->_i[j];
+extern "C"  {
+
+void stop_(int* N, double* X, double *DX, double* F, double* FNOR, 
+        double* GR, double* SX, double* SF,
+        int* IRETCD,int* ITER, int* MAXTKN,
+        int * KMAXDU, int* TERMCD, 
+        double* EPSSOL, double* EPSDU, double* EPSMIN, double* MAXDU,
+        int* LIMIT);        
+}
+
+/*------------------------------------------------------------------------- */
+/*
+J = dN/dX + Y
+Fg= dN/dX * X - N - I
+
+F = N + I + Y*Xc 
+
+F = - (dN/dX * X - N - I) + ( dN/dX + Y ) * X = 
+    - dN/dX * X  + N+ I + dN/dX * X + Y *X = 
+    = Y * X + N + I
+
+F = J* Xc - Fg
+
+*/
+void calc_error_func(SIM *s, double* F){
+    int N = s->_sim->_total_nodes+1;
+    
+    std::fill_n(F, N, 0);
+    
+    std::cout<<" F cleaned: \n";
+    for (int k = 0; k<N; k++) 
+      std::cout<<"     F["<<k<<"]="<<F[k]<<"\n";
+
+    std::cout<<" V0 : \n";
+    for (int k = 0; k<N; k++) 
+      std::cout<<"     _v0["<<k<<"]="<<s->_sim->_v0[k]<<"\n";
+
         
-    for (int j=0; j<=N; j++){
+    for (int j=0; j<N; j++){
         double sum=0;
-        for (int k=0; k<=N; k++)
+        for (int k=0; k<N; k++)
             sum+= s->_sim->_aa.s(j,k) * s->_sim->_v0[k];
         F[j]+=sum;
         }
+
+    std::cout<<" F =J*Xc: \n";
+    for (int k = 0; k<N; k++) 
+      std::cout<<"     F["<<k<<"]="<<F[k]<<"\n";
+
+    for (int j=0; j<N; j++)
+        F[j] -= s->_sim->_i[j];
+
+    std::cout<<" F =J*Xc - Fg: \n";
+    for (int k = 0; k<N; k++) 
+      std::cout<<"     F["<<k<<"]="<<F[k]<<"\n";
 
 /*
     std::cout<<"\n";
@@ -84,24 +162,120 @@ void error_func(SIM *s, F){
 }
 
 /*--------------------------------------------------------------------------*/
+
+typedef void (*ErrorFunction_TYPE) (int* N, double* XN, double* FN, int* IFLAG, double* SF,
+                        double* FNOR1, void* ADD_DATA);
+                        
+
+void calc_circuit (int* nn, double* x, double* f, int* iflag, double* sf,
+                        double* fnor, void* add_data){
+    std::cout<<" +++++++++++++++ calc_circuit entering +\n";
+    int  N=*nn;
+    for (int i=0; i<N; i++)
+        std::cout<<" x["<<i<<"]="<<x[i]<<"\n";
+    std::cout<<"--\n";
+    SIM  *simobject = (SIM*) add_data; 
+                        
+    std::cout<<"    ---------- copy X to _sim->_v0 \n";    
+    cblas_dcopy(N, x , 1, simobject->_sim->_v0, 1);
+    
+    // TMP - clean _sim->_i and _aa
+     //std::fill_n(simobject->_sim->_i,N, 0);
+     simobject->clear_arrays();
+         
+    // simobject->finish_building_evalq();   ?
+    std::cout<<"    ---------- evaluate_models \n";    
+    simobject->evaluate_models();
+    std::cout<<"    ---------- load_matrix \n";
+    simobject->load_matrix();
+    
+    print_rhs(simobject, " matrix loaded");
+    print_matr(simobject, " matrix loaded");
+    
+    
+    std::cout<<"    ---------- calc_error_func \\n";
+    calc_error_func(simobject, f);
+    std::cout<<"    ---------- results f[] \n";
+    for (int i=0; i<N; i++)
+        std::cout<<" f["<<i<<"]="<<f[i]<<"\n";
+    std::cout<<"--\n";   
+    
+    *iflag=0;
+
+    for (int i=0; i<N; i++)         // scale
+        f[i]*=sf[i];
+        
+    *fnor= cblas_ddot(N,f,1,f,1) / 2;  // fnor = F^2 / 2; fnor'=2F/2=F
+    
+    std::cout<<" +++++++++++++++ calc_circuit returning- fnor="<<*fnor<<"\n";
+    
+ }
+ 
+extern "C"  {
+
+void lsearch_(
+        int* N, double* X, double* FNOR, 
+        double* GR, double* Y, double* SX, double* SF,
+        int* IRETCD,int* MAXTKN,
+        double* XN, double* FN, 
+        double* FNORN, 
+        double* TLS, 
+        ErrorFunction_TYPE FUNCT,
+        double* EPSSOL, double* EPSDU, double* EPSMIN, double* MAXDU,
+        int* LIMIT, 
+        void* add_data);        
+}
+
+
 bool SIM::solve(OPT::ITL itl, TRACE trace)
 {
 
-  double *v0_prev;  // dc-tran voltage at previous iteration, at the end of ityeration _v0_prev[..]=_sim->_v0[..]  
-  double *f, *fn;   // dc-tran error function, previous and new. 
+  std::cout<<"==== SIM::solve/ linserach_solve \n";
+  
+  int N = this->_sim->_total_nodes+1;
 
+  double *Xn = this->_sim->_v0;  // contains X, after solve_equations() contain Xn
+
+  double *X;  // dc-tran voltage at the beginning of current iteration, 
   // GS - additional array
-  v0_prev = new double[_total_nodes+1];  
-  std::fill_n(v0_prev,_total_nodes+1, 0);
+  X = new double[N];            
+  std::fill_n(X,N, 0);
   
-  fn = new double[_total_nodes+1];  
-  std::fill_n(fn,_total_nodes+1, 0);
+  double *f, *fn;   // dc-tran error function, previous and new. 
+  fn = new double[N];              // F "new"
+  std::fill_n(fn,N, 0);
+  f = new double[N];               // F 
+  std::fill_n(f,N, 0);
 
-  f = new double[_total_nodes+1];  
-  std::fill_n(f,_total_nodes+1, 0);
+  double *sx, *sf;   // scaling vectors
+  sx = new double[N];      // scale X: so far use 1 as scale. not tested with !=1  
+  std::fill_n(sx,N, 1);
+  sf = new double[N];      // scale F
+  std::fill_n(sf,N, 1);
   
+  double *gr;                           // gradient
+  gr = new double[N];      
+  std::fill_n(gr,N, 0);
 
-  converged = false;
+  double *Y;                           // newton step
+  Y = new double[N];      // step value = v0-v0_prev 
+  std::fill_n(Y,N, 0);
+
+  double lambda=1.;
+
+  double epssol = OPT::abstol;
+  double epsdu  = OPT::vntol;
+  double maxdu  = 1.e12;
+  double epsmin=1.e-17;         // 1.e-15;   - converged good, check for external solver
+  int limit = 100;
+  int retcode = 0;
+  int maxtaken= 0;
+  double fnor, fnor_n;    
+  void *add_data=0;
+  bool shall_stop;
+  
+  converged = false;                // GS old converged criterion - all devices are converged
+  bool converged_iter=false;        // GS new converged ccritereion - system is converged
   int convergedcount = 0;
   
   _sim->reset_iteration_counter(iSTEP);
@@ -111,10 +285,7 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
   
   //GS  double epsim = macheps()     - compute machine eps
   //GS int termcode = ne_input_check(N, epsim, irnag, sf, sx, U, epssol, epsdu, epsmin, maxdu, limit)
-  int tremcode = 0;
-  
-  int icode_return=termcode;
-  
+  int termcode = 0;  
   //GS if  termcode <0 - stop
   
  
@@ -124,7 +295,7 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
       print_results(static_cast<double>(-_sim->iteration_number()));
     }
     set_flags();            // GS check all conditions
-    clear_arrays();
+    // clear_arrays(); - called in calc_circuit
     // clear local arrays TODO
     
     finish_building_evalq();
@@ -141,8 +312,11 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
     //print_sol(this," evaluate_models");
     //print_matr(this," evaluate_models");
 
+    // this poubt "converge==true" means that devices are converged
+
 
  /* TODO : GS - double check logic  
+ 
     converged       - 
     _sim->limiting  -
     convergedcount  -
@@ -161,58 +335,112 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
     if (convergedcount <= OPT::itermin) {
       converged = false;
     }
+ 
  */      
-    if (!converged || !OPT::fbbypass || _sim->_damp < .99) {
+    if (!converged_iter || !OPT::fbbypass || _sim->_damp < .99) {
       //std::cout<<" === solve: set_damp \n";
 
       //set_damp();
-      _sim->damp=1;
+      _sim->_damp=1;
 
       //std::cout<<" === solve: load_matrix \n";
       load_matrix();
 
-      //print_rhs(this," load_matrix_print");
-      //print_sol(this," load_matrix_print");
-      //print_matr(this," load_matrix_print");
+      print_rhs(this," load_matrix_print");
+      print_sol(this," load_matrix_print");
+      print_matr(this," load_matrix_print");
 
-      error_func(this, fn);
+      calc_error_func(this, fn);      
+      print_vect(N,fn,"*** FN= \n");
+      
+      fnor=cblas_ddot(N, fn, 1,fn,1)/2.;
+      std::cout<<" *** fnor="<<fnor<<"\n";
       
       // calculate gradient  TODO
+      //GRADIE(IRANG,N,DFDX,FN,SF,GR)
+      this->_sim->_aa.gradient(fn,sf,gr);  
+      print_vect(N,gr,"*** GR= \n");
+    
 
-      // keep current point
-      for (int i=0; i<_sim->_total_nodes+1; i++)
-        v0_prev[i]=_sim->_v0[i];
-
+      // keep current point      
+      cblas_daxpy(N, 1 , Xn, 1, X, 1);      // store current vector v0 in X 
+      
       // keep current func
-      for (int i=0; i<_sim->_total_nodes+1; i++)
-        fn[i]=f[i];
+      cblas_daxpy(N, 1, fn, 1, f,1);         // store current vector f       
+      
 
       std::cout<<" === solve: solve_equations \n";
       solve_equations();
 
       print_sol(this," solution after linear solver");
       // now we have X_next
-      // ...    
       
-      // set voltage dump 
-      double d1=1;
-      if (_sim->iteration_number()==2 && false)   // fixing at the end of iteration 2 
-        d1=0.5;
-      
-      for (int i=0; i<_sim->_total_nodes+1; i++)
-        _sim->_v0[i] = _sim->_v0[i] *d1 + _sim->_v0_prev[i] * (1.-d1);
+      // calculate  X next = X prev - Y; y = x prev - x next
+      cblas_dcopy(N,  X,  1, Y, 1);
+      cblas_daxpy(N, -1, Xn, 1, Y, 1);       // Y is full newton step now
+        
+      print_vect(N,Y,"*** Y= \n");
 
+                        
+      /* 
+      N - defined           X - defined
+      FNOR   - defined
+      GR - gr - defiend     Y - defined
+      SX = sx  defined      SF = sf - defined
+      IRETCD,
+      MAXTKN,
+      XN = Xn - defiend     FN = fn - defined
+      FNORN         - defined
+      lambda,       - defined 
+      FUNCT,
+      EPSSOL        - abstol
+      EPSDU         - vntol
+      EPSMIN        - defined
+      MAXDU         - defined
+      LIMIT         - defined
+      add_data
+      */
+      
+      // linear search
+      //LSEARCH(N,U,FNOR,GR,Y,SX,SF,IRETCD,MAXTKN,UN,FN,FNORN,TLS, FUNCT,EPSSOL,EPSDU,EPSMIN,MAXDU,LIMIT, add_data)
+      
+      lsearch_(&N,X,&fnor,gr,Y,sx,sf,
+                &retcode,&maxtaken,
+                Xn,fn,
+                &fnor_n,&lambda, 
+                &calc_circuit,
+                &epssol,&epsdu,&epsmin,&maxdu,&limit, 
+                (void*)this);
+        
+      std::cout<<" after lin search - lambda="<<lambda<<" retcode = "<<retcode<<"\n";  
+      
       print_sol(this," solution after damping");
     
-    }
-  }while (!converged && !_sim->exceeds_iteration_limit(itl));
+      // check final stop condition   
+      int iterno=1;
+      int maxtkn=0;
+      int kmaxdu=5;
+      stop_(&N, X, Y, fn, &fnor, 
+            gr, sx, sf, &retcode, &iterno, &maxtkn,
+            &kmaxdu, &termcode, 
+            &epssol, &epsdu, &epsmin, &maxdu, &limit);        
+      std::cout<<" ---- termocode ="<<termcode<<"\n";
 
-  return converged;
+      converged_iter  = (termcode == 1);
+      shall_stop = converged_iter  || _sim->exceeds_iteration_limit(itl) || (termcode != 0)  ;
+      std::cout<<"  converged_iter = "<<converged_iter<<" shall_stop ="<<shall_stop<<"\n";
+      
+      
+    }
+  }while (!shall_stop );
+
+  return converged=converged_iter ;   // to pass outside "converged" for solve_with_homotopy
 }
 /*--------------------------------------------------------------------------*/
 bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
 {
   solve(itl, trace);
+  std::cout<<" #### solve_with_homotopy : continuing \n";
   //GS trace2("plain", ::status.iter[iSTEP], OPT::gmin);
   if (!converged && OPT::itl[OPT::SSTEP] > 0) {
     int save_itermin = OPT::itermin;
@@ -220,6 +448,7 @@ bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
     double save_gmin = OPT::gmin;
     OPT::gmin = 1;
     while (_sim->_iter[iPRINTSTEP] < OPT::itl[OPT::SSTEP] && OPT::gmin > save_gmin) {
+      std::cout<<"while in solve_with_homotory\n";
       //CARD_LIST::card_list.precalc();
       _sim->set_inc_mode_no();
       solve(itl, trace);
@@ -295,19 +524,20 @@ void SIM::set_flags()
   
   if (OPT::incmode == false) {
     _sim->set_inc_mode_no();
-  }else if (_sim->inc_mode_is_bad()) {
+  }else if (_sim->inc_mode_is_bad()) {                            // TBD - check this
     _sim->set_inc_mode_no();
-  }else if (_sim->is_iteration_number(OPT::itl[OPT::TRLOW])) {
+  }else if (_sim->is_iteration_number(OPT::itl[OPT::TRLOW])) {    // TBD - check this
     _sim->set_inc_mode_no();
-  }else if (_sim->is_iteration_number(0)) {
+  }else if (_sim->is_iteration_number(0)) {                       // TBD  - check this
     // leave it as is
   }else{
     _sim->set_inc_mode_yes();
   }
 
-  _sim->_bypass_ok = 
+  _sim->_bypass_ok =                                                // TBD - check this 
     (is_step_rejected()  ||  _sim->_damp < OPT::dampmax*OPT::dampmax)
     ? false : bool(OPT::bypass);
+    
 }
 /*--------------------------------------------------------------------------*/
 void SIM::clear_arrays(void)
@@ -373,7 +603,7 @@ void SIM::set_damp()
 void SIM::load_matrix()
 {
   std::cout<<"  ===# load_matrix entered \n";
-  print_rhs(this);
+  print_rhs(this, "point1");
 
   ::status.load.start();
   if (OPT::traceload && _sim->is_inc_mode()) {
@@ -381,14 +611,16 @@ void SIM::load_matrix()
     while (!_sim->_loadq.empty()) {
        std::cout<<"    =# device queue="<< _sim->_loadq.back()->long_label()<<" ->tr_load()\n";
       _sim->_loadq.back()->tr_load();
-       print_rhs(this);
+       print_rhs(this, "point2");
       _sim->_loadq.pop_back();
     }
   }else{
-    std::cout<<"    =# work with all.tr_load \n";
+    std::cout<<"    =# work with ARD_LIST::card_list.tr_load() \n";
     _sim->_loadq.clear();
     CARD_LIST::card_list.tr_load();
   }
+    print_rhs(this, "point \"load_matrix exit\"");
+
   ::status.load.stop();
 }
 /*--------------------------------------------------------------------------*/
@@ -403,8 +635,8 @@ void SIM::solve_equations()
   ::status.back.stop();
   
   std::cout<<"    == in solve_equations: \n";
-  print_rhs(this);
-  print_sol(this);
+  print_rhs(this, "point3");
+  print_sol(this, "point3");
    
   if (_sim->_nstat) {
     // mixed mode

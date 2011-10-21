@@ -92,7 +92,18 @@ protected:
 	void	set_damp();
 	void	load_matrix();
 	void	solve_equations();
+ friend void calc_circuit (int* nn, double* x, double* f, int* iflag, double* sf,
+                        double* fnor, void* add_data);
+ friend int conv_check_4stop(int* N, double* xc, double* xp, double* fplus, double* fplus_norm, 
+                              double* grad, double* sx, double* sf,
+                              int* retcode,
+                              double* fvectol, double* steptol, int* itncount, int *itnlimit, 
+                              bool *maxtaken, 
+                              double* mintol); 
+   
 };
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
+
 #endif

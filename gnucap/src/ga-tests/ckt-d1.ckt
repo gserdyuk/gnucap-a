@@ -1,0 +1,13 @@
+circuit 2 - quadratic
+
+.options nobypass
+*.options
+
+A1 1 0 deva1 Area=0.001
+I1 1 0 dc -0.001
+
+.model deva1 A 
+.print op v(1) i(I1)
+.op
+
+.end
