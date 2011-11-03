@@ -71,7 +71,16 @@ point3
  solution after linear solver
     == _sim->_v0 (sol): 
      _sim->_v0[1]=1e+09
-*** Y= 
+ *** calculating Y: 
+  X  = 
+
+     x[0]=0
+     x[1]=0
+ Xn = 
+
+     x[0]=0
+     x[1]=1e+09
+*** X-Xn= Y= 
 
      x[0]=0
      x[1]=-1e+09
@@ -550,145 +559,10 @@ point "load_matrix exit"
  solution after damping
     == _sim->_v0 (sol): 
      _sim->_v0[1]=1
-  RESIDUAL=0.100000E-11, STEP=0.100000E+10,  RESIDUAL DECR.  =0.100000E-14
- ---- termocode =0
-  converged_iter = 0 shall_stop =0
-==== loop beginning,  iter=1
-    =* OPT::bypass != true
-  ===# load_matrix entered 
-point1
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-    =# work with loadq 
-    =# device queue=I1 ->tr_load()
-element::tr_load_source I1 d=0
- NOTE - load is conditional, only change was loaded 
-point2
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-    =# device queue=A1.Yj ->tr_load()
-element::tr_load_source A1.Yj d=0
- NOTE - load is conditional, only change was loaded 
-point2
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-point "load_matrix exit"
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
- load_matrix_print
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
- load_matrix_print
-    == _sim->_v0 (sol): 
-     _sim->_v0[1]=1
- load_matrix_print
-    == _sim->_aa: 
- | 0 | 0 | 
- | 0 | 0.002 | 
- F cleaned: 
-     F[0]=0
-     F[1]=0
- V0 : 
-     _v0[0]=0
-     _v0[1]=1
- F =J*Xc: 
-     F[0]=0
-     F[1]=0.002
- F =J*Xc - Fg: 
-     F[0]=0
-     F[1]=1e-12
-*** FN= 
-
-     x[0]=0
-     x[1]=1e-12
- *** fnor=5.00001e-25
- N=1
-j=0 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
-j=1 i=0 GR[i]=0 s ij=0 fj=1e-12 sfj=1
-j=0 i=1 GR[i]=0 s ij=0 fj=0 sfj=1
-j=1 i=1 GR[i]=2e-15 s ij=0.002 fj=1e-12 sfj=1
-*** GR= 
-
-     x[0]=0
-     x[1]=2e-15
- === solve: solve_equations 
-    == in solve_equations: 
-point3
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-point3
-    == _sim->_v0 (sol): 
-     _sim->_v0[1]=1
- solution after linear solver
-    == _sim->_v0 (sol): 
-     _sim->_v0[1]=1
-*** Y= 
-
-     x[0]=0
-     x[1]=5.00001e-10
-      EPSDU= 0.100000E-05 RELLEN=0.500001E-09 MINLBD=0.200000E+04
- +++++++++++++++ calc_circuit entering +
- x[0]=0
- x[1]=1
---
-    ---------- copy X to _sim->_v0 
-    ---------- evaluate_models 
-    =* OPT::bypass != true
-    ---------- load_matrix 
-  ===# load_matrix entered 
-point1
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-    =# work with loadq 
-    =# device queue=I1 ->tr_load()
-element::tr_load_source I1 d=0
- NOTE - load is conditional, only change was loaded 
-point2
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-    =# device queue=A1.Yj ->tr_load()
-BSMATRIX<T>::load_symmetric i, j, + val: 1 0 -1e-12
-element::tr_load_source A1.Yj d=1e-12
- NOTE - load is conditional, only change was loaded 
-point2
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
-point "load_matrix exit"
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
- matrix loaded
-    == _sim->_i (rhs): 
-     _sim->_i[1]=0.002
- matrix loaded
-    == _sim->_aa: 
- | 0 | 0 | 
- | 0 | 0.002 | 
-    ---------- calc_error_func \n F cleaned: 
-     F[0]=0
-     F[1]=0
- V0 : 
-     _v0[0]=0
-     _v0[1]=1
- F =J*Xc: 
-     F[0]=0
-     F[1]=0.002
- F =J*Xc - Fg: 
-     F[0]=0
-     F[1]=0
-    ---------- results f[] 
- f[0]=0
- f[1]=0
---
- +++++++++++++++ calc_circuit returning- fnor=0
-      FNOR1=0.000000E+00 FNOR=0.500001E-24 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=-.100000E-23 MINLBD=0.200000E+04
- after lin search - lambda=1 retcode = 0
- solution after damping
-    == _sim->_v0 (sol): 
-     _sim->_v0[1]=1
 SUCCESS.
   AT     1-TH ITERATION CONVERGED TO SOLUTION    
-  WITH RESIDUAL <= 0.000000E+00 ( < 0.100000E-11 )
-  1/2 OF SQUARED L-2 NORM OF RESIDUAL =0.500001E-24
+  WITH RESIDUAL <= 0.100000E-11 ( < 0.100000E-09 )
+  1/2 OF SQUARED L-2 NORM OF RESIDUAL =0.500000E-06
  ---- termocode =1
   converged_iter = 1 shall_stop =1
  #### solve_with_homotopy : continuing 

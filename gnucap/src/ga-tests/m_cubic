@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CXX=g++44
+GNUCAPDIR="../"
+GNUCAP="../gnucap"
+MODELGEN=$GNUCAPDIR/../modelgen/gnucap-modelgen 
+
+#make -C ..
+
+$MODELGEN  d_cubic.model
+$CXX -c -O2 -g -I $GNUCAPDIR -fPIC -o d_cubic.o d_cubic.cc
+$CXX -shared d_cubic.o -o d_cubic.so
+

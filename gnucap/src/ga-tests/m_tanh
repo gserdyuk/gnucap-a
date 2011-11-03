@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CXX=g++44
+GNUCAPDIR="../"
+GNUCAP="../gnucap"
+MODELGEN=$GNUCAPDIR/../modelgen/gnucap-modelgen 
+
+#make -C ..
+
+$MODELGEN  d_tanh.model
+$CXX -c -O2 -g -I $GNUCAPDIR -fPIC -o d_tanh.o d_tanh.cc
+$CXX -shared d_tanh.o -o d_tanh.so
+

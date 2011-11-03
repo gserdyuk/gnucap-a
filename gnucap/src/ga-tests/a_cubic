@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP=../gnucap
+DSQUARE=d_cubic.so
+$GNUCAP -a ./$DSQUARE -b ckt-d3.ckt >a_cubic.txt   

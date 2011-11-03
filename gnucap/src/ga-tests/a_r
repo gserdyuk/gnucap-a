@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP=../gnucap
+DSQUARE=d_cubic.so
+$GNUCAP  -b ckt-r.ckt >linear.txt   

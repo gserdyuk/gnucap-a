@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP=~/gnucap/gnucap-work.orig/gnucap-a/gnucap/src/gnucap
+DSQUARE=d_tanh.so
+$GNUCAP -a ./$DSQUARE -b ckt-d-tanh.ckt  >std_tanh.txt

@@ -263,7 +263,8 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
 
   double lambda=1.;
 
-  double epssol = OPT::abstol;
+// TBD
+  double epssol = 1.e-10;       // OPT::abstol;
   double epsdu  = OPT::vntol;
   double maxdu  = 1.e12;
   double epsmin=1.e-17;         // 1.e-15;   - converged good, check for external solver
@@ -363,10 +364,12 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
     
 
       // keep current point      
-      cblas_daxpy(N, 1 , Xn, 1, X, 1);      // store current vector v0 in X 
+      //cblas_daxpy(N, 1 , Xn, 1, X, 1);      // store current vector v0 in X 
+      cblas_dcopy(N, Xn, 1, X, 1);      // store current vector v0 in X 
       
       // keep current func
-      cblas_daxpy(N, 1, fn, 1, f,1);         // store current vector f       
+      //cblas_daxpy(N, 1, fn, 1, f,1);         // store current vector f       
+      cblas_dcopy(N, fn, 1, f,1);         // store current vector f       
       
 
       std::cout<<" === solve: solve_equations \n";
@@ -376,10 +379,13 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
       // now we have X_next
       
       // calculate  X next = X prev - Y; y = x prev - x next
+      std::cout<<" *** calculating Y: \n";
       cblas_dcopy(N,  X,  1, Y, 1);
+      print_vect(N,Y,"  X  = \n");
+      print_vect(N,Xn," Xn = \n");
       cblas_daxpy(N, -1, Xn, 1, Y, 1);       // Y is full newton step now
-        
-      print_vect(N,Y,"*** Y= \n");
+                
+      print_vect(N,Y,"*** X-Xn= Y= \n");
 
                         
       /* 

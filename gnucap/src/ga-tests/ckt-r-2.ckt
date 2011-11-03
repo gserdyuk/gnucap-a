@@ -1,0 +1,15 @@
+circuit 1 - linear
+
+.options nobypass
+.options
+
+R1 1 0 1k
+I1 1 0 dc -0.001
+
+R2 2 0 1k
+I2 2 0 dc -0.002
+
+.print op v(1) i(R1) v(2) i(R2)
+.op
+
+.end
