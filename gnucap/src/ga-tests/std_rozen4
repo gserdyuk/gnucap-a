@@ -1,0 +1,5 @@
+#!/bin/bash
+
+GNUCAP=~/gnucap/gnucap-work.orig/gnucap-a/gnucap/src/gnucap
+  
+$GNUCAP  -b ckt-rozen4.ckt >std-rozen4.txt   

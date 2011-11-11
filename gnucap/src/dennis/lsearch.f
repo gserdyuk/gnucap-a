@@ -14,12 +14,12 @@ C$LARGE:Y
       DOUBLE PRECISION              NEWTLN,MINLBD,LAMBDA,LTEMP,LPREV
       INTEGER ADD_DATA
 
-*      print * ,' N= ',N,' FNOR= ',FNOR
-*      print * ,' ','       X     ', '  ', '      G     ','  ',' Y   '
-*      do i=1,N
-*      print 933, X(I), G(I),Y(I)
-*      enddo
-*933   format (1x, 3(E12.6,2x))     
+      write (6, *) ,' N= ',N,' FNOR= ',FNOR
+      write (6, *) ,' ','     X     ', '  ', '      G    ','  ',' Y   '
+      do i=1,N
+      write (6, 933), X(I), G(I),Y(I)
+      enddo
+933   format (1x, 3(E12.6,2x))     
 
 
 C initialization

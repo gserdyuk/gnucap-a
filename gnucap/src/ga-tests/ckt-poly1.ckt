@@ -1,0 +1,20 @@
+circuit  - failed 
+
+.options nobypass
+*.options
+
+
+I1  1 0           dc 0.002
+G11 1 0 VCR 1 0   PWL 0,0 1,1 1.5,2.25 2,4
+
+* V  / V^2 = 0.002
+* 1 = 0.002 * v
+* V = 5000
+  
+
+
+.print op v(1) 
+
+.op
+
+.end

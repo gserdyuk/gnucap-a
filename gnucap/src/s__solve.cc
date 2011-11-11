@@ -46,19 +46,26 @@ static bool converged = false;     // GS - refactor ? sttaic is a bad style
 void print_rhs(CKT_BASE* s, std::string a){
   std::cout<<a<<"\n";
   std::cout<<"    == _sim->_i (rhs): \n";
-  for (int ii = 1; ii<=s->_sim->_lu.size(); ++ii) 
+  int N = s ->_sim->_total_nodes+1;
+  for (int ii = 0; ii<N; ++ii) 
     std::cout<<"     _sim->_i["<<ii<<"]="<<s->_sim->_i[ii]<<"\n";
 }
 void print_sol(CKT_BASE* s, std::string a){
   std::cout<<a<<"\n";
   std::cout<<"    == _sim->_v0 (sol): \n";
-  for (int ii = 1; ii<=s->_sim->_lu.size(); ++ii) 
+  int N = s ->_sim->_total_nodes+1;
+  for (int ii = 0; ii<N; ++ii) 
     std::cout<<"     _sim->_v0["<<ii<<"]="<<s->_sim->_v0[ii]<<"\n";
 }
 void print_matr(SIM* s, std::string a){
   std::cout<<a<<"\n";
   std::cout<<"    == _sim->_aa: \n";
   (s->_sim->_aa).printm();
+}
+void print_matr_lu(SIM* s, std::string a){
+  std::cout<<a<<"\n";
+  std::cout<<"    == _sim->_lu: \n";
+  (s->_sim->_lu).printm();
 }
 void print_vect(int N, double* x, std::string a){
   std::cout<<a<<"\n";
@@ -125,6 +132,7 @@ void calc_error_func(SIM *s, double* F){
     
     std::fill_n(F, N, 0);
     
+    std::cout<<" --- ################ calc error func \n";
     std::cout<<" F cleaned: \n";
     for (int k = 0; k<N; k++) 
       std::cout<<"     F["<<k<<"]="<<F[k]<<"\n";
@@ -152,6 +160,7 @@ void calc_error_func(SIM *s, double* F){
     for (int k = 0; k<N; k++) 
       std::cout<<"     F["<<k<<"]="<<F[k]<<"\n";
 
+    std::cout<<" === ################ END calc error func \n";
 /*
     std::cout<<"\n";
     std::cout<<"    == F : \n";
@@ -169,7 +178,7 @@ typedef void (*ErrorFunction_TYPE) (int* N, double* XN, double* FN, int* IFLAG, 
 
 void calc_circuit (int* nn, double* x, double* f, int* iflag, double* sf,
                         double* fnor, void* add_data){
-    std::cout<<" +++++++++++++++ calc_circuit entering +\n";
+    std::cout<<" ##++++++++++++++++++++++++++++++++++ calc_circuit entering +\n";
     int  N=*nn;
     for (int i=0; i<N; i++)
         std::cout<<" x["<<i<<"]="<<x[i]<<"\n";
@@ -207,7 +216,7 @@ void calc_circuit (int* nn, double* x, double* f, int* iflag, double* sf,
         
     *fnor= cblas_ddot(N,f,1,f,1) / 2;  // fnor = F^2 / 2; fnor'=2F/2=F
     
-    std::cout<<" +++++++++++++++ calc_circuit returning- fnor="<<*fnor<<"\n";
+    std::cout<<" ##================================== calc_circuit returning - fnor="<<*fnor<<"\n";
     
  }
  
@@ -423,7 +432,7 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
       print_sol(this," solution after damping");
     
       // check final stop condition   
-      int iterno=1;
+      int iterno=_sim->iteration_number();
       int maxtkn=0;
       int kmaxdu=5;
       stop_(&N, X, Y, fn, &fnor, 
@@ -446,7 +455,8 @@ bool SIM::solve(OPT::ITL itl, TRACE trace)
 bool SIM::solve_with_homotopy(OPT::ITL itl, TRACE trace)
 {
   solve(itl, trace);
-  std::cout<<" #### solve_with_homotopy : continuing \n";
+  return converged;
+  //GS - so far will not allow homotopy for this solver - untill understand when is it possible 
   //GS trace2("plain", ::status.iter[iSTEP], OPT::gmin);
   if (!converged && OPT::itl[OPT::SSTEP] > 0) {
     int save_itermin = OPT::itermin;
@@ -633,11 +643,24 @@ void SIM::load_matrix()
 void SIM::solve_equations()
 {
   ::status.lud.start();
+  print_matr_lu(this, "@@@ solve_equations, _lu before lu_decomp" );
+  print_matr   (this, "@@@ solve_equations, _aa before lu_decomp" );
+  
   _sim->_lu.lu_decomp(_sim->_aa, bool(OPT::lubypass && _sim->is_inc_mode()));
+
+  print_matr_lu(this, "@@@ solve_equations, _lu AFTER lu_decomp" );
+  print_matr   (this, "@@@ solve_equations, _aa AFTER lu_decomp" );
   ::status.lud.stop();
 
   ::status.back.start();
+  print_rhs(this, "@@@ solve_equations, _sim->_i  before lu_fbsub");
+  print_sol(this, "@@@ solve_equations, _sim->_v0 before lu_fbsub");
+  
   _sim->_lu.fbsub(_sim->_v0, _sim->_i, _sim->_v0);
+
+  print_rhs(this, "@@@ solve_equations, _sim->_i  AFTER lu_fbsub");
+  print_sol(this, "@@@ solve_equations, _sim->_v0 AFTER lu_fbsub");
+
   ::status.back.stop();
   
   std::cout<<"    == in solve_equations: \n";

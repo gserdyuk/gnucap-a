@@ -1,0 +1,21 @@
+circuit  - failed 
+
+.options nobypass
+*.options
+
+
+I1  1 0           dc 0.002
+G11 1 0 VCR 1 0   POLY ( 1000 1 )
+
+* V  / (1000 + 1 * V) = 0.002
+* V = 0.002* 1000  + 0.002 * V
+* 0.998 V = 2
+* V = 2/ 0.998
+* V =  
+
+
+.print op v(1) 
+
+.op
+
+.end

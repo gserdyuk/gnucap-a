@@ -1,0 +1,113 @@
+1. implemented first approximation of linear search
+this linear search will not work with bypass (becuase of evalq destruction)
+but shall worek with nobypass
+
+2. further plan for now:
+    * test it with linear model
+    * test it with quedtratic model
+    * test with cubic model
+All those models shall not employ linear search - but it shall not intervene
+
+Then need to implement some complex models - see Dennis Schnabel 
+those models shall employ linear search. look how does it work.
+Shall work reasonable
+
+3. Further steps
+a) analyze bypass mode; this includes
+   a1) evalq usage
+   b2) partial LU solver
+b) look what is needed to use linear search with bypass mode
+c) add options. Figure out how to add options using plugins
+
+That shall be it.
+
+
+NOTE:
+to calculate function need to:
+- clean arrays.
+- compute
+
+
+15-oct
+status
+ - implemented solver
+ - need to check it under different conditions.
+ - have to analyze all possible switches which influences.
+ 
+
+
+23-oct
+
+Test plan:
+----------
+1. linear case      - done
+2. quadratic case   - done
+3. cubic case
+4. rosenbrock
+        f1=10( x2 - x1^2)
+        f2=1-x1
+        
+        solution 1,1
+        strat point preferred -1.2,1
+5. trigo
+       f1= 1 - [ cos(x1)+1*(1-cos(x1))-sim(x1) ]
+       
+       f1= 2 - [ cos(x1)+1*(1-cos(x1))-sim(x1) ]
+       f2= 2 - [ cos(x2)+2*(1-cos(x2))-sim(x2) ]
+       
+1. specific non-convered tests
+7. all existing tests
+
+
+refactor:
+---------
+* calc_circuit
+* calc_error_func
+* solve
+this->_sim->_aa.gradient(fn,sf,gr);  
+* add options (which are pligin-dependent)
+* define options for solver
+* make plugin
+
+switches detected:
+------------------
+OPT::fbbypass
+OPT::incmode
+
+is_step_rejected()
+
+! OPT::bypass
+! _sim->is_inc_mode()
+_sim->bypass_ok() == _sim->bypass_ok
+
+
+check:
+------
+* finish_building_evalq                         - done
+    CARD_LIST::card_list.tr_queue_eval()
+* evaluate_models
+* load_matrix
+* solve_equations();
+
+
+23-oct
+
+quadratic and quadratic with op point shift - work ok
+cubic with shift - work ok
+tanh -failed
+multi-var...
+
+26-oct
+Solved TANH!
+a) tanh with std approasch does not converge !
+ mine - does
+next - functions from Dennis.'
+
+1/11/2011
+2 equations
+1) 2 linear equatiosn - ok
+2) 2 quadratic equatiosn -ok
+
+rozenbrock ...
+
+

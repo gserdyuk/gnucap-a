@@ -805,12 +805,12 @@ void const BSMATRIX<T>::gradient (const T* F, const T* SF, T* GR){
     assert(GR);
     
     int N=size();
-    std::cout<<" N="<<N<<"\n";
+    // std::cout<<" N="<<N<<"\n";
     for (int i=0; i<=N; i++) { // i=0 is ground, do not use in computations
         GR[i]=0.;
         for ( int j=0; j<=N; j++) {
             GR[i]+=s(j,i)*F[j]*SF[j]*SF[j];
-            std::cout<<"j="<<j<<" i="<<i<<" GR[i]="<<GR[i]<<" s ij="<<s(j,i)<<" fj="<<F[j]<<" sfj="<<SF[j]<<"\n";
+            // std::cout<<"j="<<j<<" i="<<i<<" GR[i]="<<GR[i]<<" s ij="<<s(j,i)<<" fj="<<F[j]<<" sfj="<<SF[j]<<"\n";
             }
         }
     }

@@ -1,0 +1,185 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit 2 - cubic 
+#           v(1)       v(2)       i(I1)      i(I2)     
+==== SIM::solve/ linserach_solve 
+==== loop beginning,  iter=0
+    =* OPT::bypass != true
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+element::tr_load_source A1.I2 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source A1.I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I2 d=0
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | 0 | 
+ | 0 | 0 | 1e-12 | 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=0
+     _v0[2]=0
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+*** FN= 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+ *** fnor=0
+ N=2
+j=0 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
+j=2 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
+j=0 i=1 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=1 GR[i]=0 s ij=1e-12 fj=0 sfj=1
+j=2 i=1 GR[i]=0 s ij=0 fj=0 sfj=1
+j=0 i=2 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=2 GR[i]=0 s ij=0 fj=0 sfj=1
+j=2 i=2 GR[i]=0 s ij=1e-12 fj=0 sfj=1
+*** GR= 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+ === solve: solve_equations 
+    == in solve_equations: 
+point3
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+point3
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+ solution after linear solver
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+ *** calculating Y: 
+  X  = 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+ Xn = 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+*** X-Xn= Y= 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+      EPSDU= 0.100000E-05 RELLEN=0.000000E+00 MINLBD=   +Infinity
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=0
+ x[2]=0
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+element::tr_load_source A1.I2 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source A1.I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I2 d=0
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | 0 | 
+ | 0 | 0 | 1e-12 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=0
+     _v0[2]=0
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0
+ f[2]=0
+--
+ +++++++++++++++ calc_circuit returning- fnor=0
+      FNOR1=0.000000E+00 FNOR=0.000000E+00 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=0.000000E+00 MINLBD=   +Infinity
+ after lin search - lambda=1 retcode = 0
+ solution after damping
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+SUCCESS.
+  AT     1-TH ITERATION CONVERGED TO SOLUTION    
+  WITH RESIDUAL <= 0.000000E+00 ( < 0.100000E-09 )
+  1/2 OF SQUARED L-2 NORM OF RESIDUAL =0.000000E+00
+ ---- termocode =1
+  converged_iter = 1 shall_stop =1
+ #### solve_with_homotopy : continuing 
+ 27.        0.         0.         0.         0.        

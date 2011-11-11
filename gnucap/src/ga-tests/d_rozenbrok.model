@@ -1,84 +1,77 @@
-/* $Id:$ 
- * d_rozenbrok.model 
- * Copyright (C) 2011 Albert Davis
- * Author:   Gennadiy Serdyuk gserdyuk@gserdyuk.com
+/* $Id: d_mos.model,v 26.132 2009/11/24 04:26:37 al Exp $ -*- C++ -*-
+ * Copyright (C) 2001 Albert Davis
+ * Author: Albert Davis <aldavis@gnu.org>
  *
+ * This file is part of "Gnucap", the Gnu Circuit Analysis Package
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
  *------------------------------------------------------------------
- * i1=10*(x2-x1^2)
- * i2=1-x1
- 
+ * data structures and defaults for mos model.
+ * internal units all mks (meters)
+ * but some user input parameters are in cm.
+ *
  * netlist syntax:
- * device:  Axxxx n1 n2 gnd mname 
- * model:  .model mname A
- * properties - one of std test functions 
+ * device:  mxxxx d g s b mname <device args> <model card args>
+ * model:   .model mname NMOS <args>
+ *	or  .model mname PMOS <args>
  */
 h_headers {
-  enum region_t {REVERSE=-1, UNKNOWN=0, FORWARD=1};
-  enum polarity_t {pP = -1, pN = 1};
 }
 cc_headers {
-#include "e_aux.h"
-  static bool dummy=false;
-
 }
 /*--------------------------------------------------------------------------*/
-// GS - here ---------------------------
 device BUILT_IN_ROZEN {
   parse_name rozen;
   model_type BUILT_IN_ROZEN;
   id_letter A;
   circuit {
-    ports {n1 n2 c};  //// .....
-    admittance Yj {a c} eval=Yj;
-    }
-  tr_probe {
-    "v{d}" = "@n_a[V] - @n_c[V]";
-    "i{d}" = "@Yj[I] ";
-    ij = "@Yj[I]";
+    ports {a b c};
+
+
+    resistor R1 {a c} value=-1;
+    
+
+    diode Ddb {b id} ;
+
+    diode Dsb {b is} ;
+    
+
+    cpoly_g Ids {id is  g is  id g
+		b is  id b} state=idsxxx;
   }
-  
+  tr_probe {
+    v1   = "@n_a[V] - @n_c[V]";
+    v2   = "@n_b[V] - @n_c[V]";
+    va   = "@n_a[V] - @n_c[V]";
+    vb   = "@n_b[V] - @n_c[V]";
+  }
   device {
     calculated_parameters {
     }
   }
-  
   common {
-    unnamed area;
     raw_parameters {
-      double ar "ar factor"
-	name=AR default=1.0 positive;
-      double b "b term"
-        name=B default=-0.001 positive;
-      double v0 "v0 shift"
-        name=V0 default=1.0 positive;
-      double cr "cr factor"
-        name=CR default=1.0 positive;
-        
-        
-    }
-    calculated_parameters {
     }
   }
-  
-  
-  eval Yj {   // ar*(v-v0)^2 + b
-    FPOLY1& y = d->_y[0];
-    double volts = y.x;
-    double amps  = y.f0;
-    trace2(d->long_label().c_str(), volts, amps);
-
-    double polarity= (volts-c->v0)>=0?1:-1;
-    
-	y.f1 = c->ar *c->cr *( 1 - tanh(c->cr*(volts-c->v0)) * tanh(c->cr*(volts-c->v0) )  );
-	printf(" #### model: %f \n",y.f1);
-	y.f0 = c->ar        *tanh(c->cr*(volts-c->v0)) + c->b;
-
-  }
+  /*--------------------------------------------------------------------*/
 }
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-model BUILT_IN_TANH {
-  dev_type BUILT_IN_TANH;
+model BUILT_IN_ROZEN {
+  dev_type BUILT_IN_ROZEN;
   hide_base;
   inherit CARD;
   public_keys {
@@ -88,4 +81,5 @@ model BUILT_IN_TANH {
   }
 }
 /*--------------------------------------------------------------------------*/
-/*--------------------------------------------------------------------------*/
+
+
