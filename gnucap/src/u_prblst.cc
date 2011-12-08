@@ -53,6 +53,22 @@ void PROBELIST::listing(const std::string& label)const
   IO::mstdout << '\n';
 }
 /*--------------------------------------------------------------------------*/
+void PROBELIST::listingval(const std::string& label)const
+{
+  IO::mstdout.form("%-7s", label.c_str());
+  for (const_iterator p = begin();  p != end();  ++p) {
+    IO::mstdout << ' ' << p->label()<<' '<<
+      (p->object()? (p->object()->long_label()):0) <<
+      ( p->value() ) <<" | ";
+    if (p->range() != 0.) {untested();
+      IO::mstdout.setfloatwidth(5) 
+	<< '(' << p->lo() << ',' << p->hi() << ')';
+    }else{
+    }
+  }
+  IO::mstdout << '\n';
+}
+/*--------------------------------------------------------------------------*/
 void PROBELIST::clear(void)
 {
   erase(begin(), end());
@@ -95,6 +111,14 @@ void PROBELIST::remove_list(CS& cmd)
   }else{itested();
     cmd.warn(bWARNING, mark, "probe isn't set -- can't remove");
   }
+}
+/*--------------------------------------------------------------------------*/
+/* remove noise list
+ */
+void PROBELIST::remove_noise_list(CS& cmd)
+{ 
+ // todo - not implemented
+ untested();
 }
 /*--------------------------------------------------------------------------*/
 /* check for match
@@ -185,6 +209,40 @@ void PROBELIST::add_list(CS& cmd)
   }else{
   }
 }
+/*--------------------------------------------------------------------------*/
+/* add_noise_list: add a "list" of noise-specific probes, usually only one
+ * "onoise", "inoise" or "inoise onoise" or "onoise inoise"
+ * It also takes care of setting the range for plot or alarm.
+ * as add_list does
+ */
+void PROBELIST::add_noise_list(CS& cmd)
+{
+/*
+  std::cout<<" fullstring="<<cmd.fullstring()<<"\n";
+  std::cout<<"       tail="<<cmd.tail()<<"\n";
+  
+  std::cout<<" what 0="<<what<<"\n";
+  cmd.umatch("onoise");
+  std::cout<<"cmd="<<cmd()<<"\n";
+*/  
+  if (cmd.umatch("onoise") ){
+    // add inoise or onoise
+    push_new_probe("onoise",0);  // add_noise("*noise");
+    }
+  else if (cmd.umatch("inoise")){ 
+    push_new_probe("inoise",0);  // add_noise("inoise");
+    }
+  else if (cmd.umatch("all ")){   // add all
+    push_new_probe("inoise",0);  // add_noise("inoise");
+    push_new_probe("onoise",0);  // add_noise("\noise");
+    }
+  else{
+    cmd.warn(bDANGER, "need proper noise parameter");
+    }
+  
+}
+/*--------------------------------------------------------------------------*/
+
 /*--------------------------------------------------------------------------*/
 void PROBELIST::push_new_probe(const std::string& param,const CKT_BASE* object)
 {

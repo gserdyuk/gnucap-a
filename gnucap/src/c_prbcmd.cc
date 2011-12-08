@@ -53,6 +53,7 @@ void do_probe(CS& cmd, PROBELIST *probes)
     || Set(cmd, "dc",	       &simtype, s_DC)
     || Set(cmd, "op",	       &simtype, s_OP)
     || Set(cmd, "fo{urier}",   &simtype, s_FOURIER)
+    || Set(cmd, "noise",       &simtype, s_NOISE)
     ;
   
   if (!simtype) {			/* must be all simtypes */
@@ -62,6 +63,7 @@ void do_probe(CS& cmd, PROBELIST *probes)
       probes[s_DC].listing("dc");
       probes[s_OP].listing("op");
       probes[s_FOURIER].listing("fourier");
+      probes[s_NOISE].listing("noise");
     }else if (cmd.umatch("clear ")) {		/* clear all */
       for (int ii = sSTART;  ii < sCOUNT;  ++ii) {
 	probes[ii].clear();
@@ -99,13 +101,42 @@ void do_probe(CS& cmd, PROBELIST *probes)
 	}else{
 	}
 	if (action == aDELETE) {
-	  probes[simtype].remove_list(cmd);
+      if( simtype==s_NOISE){
+          probes[simtype].remove_noise_list(cmd);  // noise list much different from regular
+          }
+      else {
+      	  probes[simtype].remove_list(cmd);  // todo - check noise remove_list
+          }
 	}else{
-	  probes[simtype].add_list(cmd);
-	}
+      if( simtype==s_NOISE){
+         probes[simtype].add_noise_list(cmd);  // noise list much different from regular
+         }
+      else {  
+	     probes[simtype].add_list(cmd);
+         }
+    }
       }
     }
   }
+/*  
+  std::cout<<" ### exiting probe command\n";
+  // list all
+      probes[s_TRAN].listing("tran");
+      probes[s_AC].listing("ac");
+      probes[s_DC].listing("dc");
+      probes[s_OP].listing("op");
+      probes[s_FOURIER].listing("fourier");
+      probes[s_NOISE].listing("noise");
+      std::cout<<"-----------------\n";
+      probes[s_TRAN].listingval("tran");
+      probes[s_AC].listingval("ac");
+      probes[s_DC].listingval("dc");
+      probes[s_OP].listingval("op");
+      probes[s_FOURIER].listingval("fourier");
+      //probes[s_NOISE].listingval("noise");
+      std::cout<<"-----------------\n";
+*/
+    
 }
 /*--------------------------------------------------------------------------*/
 class CMD_STORE : public CMD {

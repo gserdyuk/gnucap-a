@@ -128,7 +128,14 @@ double PROBE::probe_node(void)const
     return CKT_BASE::_sim->_temp_c;
   }else if (Umatch(_what, "time ")) {untested();
     return CKT_BASE::_sim->_time0;
-  }else{
+  }
+  // noise
+  else if (Umatch(_what, "onoise{_density} ")) {untested();
+    return CKT_BASE::_sim->_onoise;
+  }else if (Umatch(_what, "inoise{_density} ")) {untested();
+    return CKT_BASE::_sim->_inoise;
+  }
+  else{
     return NOT_VALID;
   }
 }

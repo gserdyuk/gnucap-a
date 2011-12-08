@@ -42,11 +42,14 @@ public:
   typedef _container::iterator	     iterator;
   typedef _container::const_iterator const_iterator;
   void	   listing(const std::string&)const;
+  void	   listingval(const std::string&)const;
   void     clear();
 
   void	   remove_list(CS&);
   void     remove_one(CKT_BASE*);
   void     add_list(CS&);
+  void     add_noise_list(CS&);  
+  void     remove_noise_list(CS&);
   int	   size()const		{return static_cast<int>(bag.size());}
   const_iterator begin()const	{return bag.begin();}
   const_iterator end()const	{return bag.end();}

@@ -71,6 +71,10 @@ struct INTERFACE SIM_DATA {
   BSMATRIX<double> _aa;	/* raw matrix for DC & tran */
   BSMATRIX<double> _lu;	/* decomposed matrix for DC & tran */
   BSMATRIX<COMPLEX> _acx;/* raw & decomposed matrix for AC */
+  double _inoise;	 /* noise values - for noise simulation */
+  double _onoise;
+  double _inoise_tot;
+  double _onoise_tot;
   std::priority_queue<double, std::vector<double> > _eq; /*event queue*/
   std::vector<CARD*> _loadq;
   std::vector<CARD*> _acceptq;
