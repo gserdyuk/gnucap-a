@@ -42,7 +42,6 @@ public:
   typedef _container::iterator	     iterator;
   typedef _container::const_iterator const_iterator;
   void	   listing(const std::string&)const;
-  void	   listingval(const std::string&)const;
   void     clear();
 
   void	   remove_list(CS&);
