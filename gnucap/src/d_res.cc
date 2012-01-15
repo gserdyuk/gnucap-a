@@ -143,7 +143,8 @@ void DEV_RESISTANCE::do_noise(double & opower, COMPLEX * noise_ac)
 
 // Assumed that everything is evaluated as AC was called just before
 // invariant ?? :
-  assert(_ev == double(value()));
+
+  // assert(_ev == double(value()));
   assert(_ev == _y[0].f1);
   assert(_acg == 1./_ev);
    

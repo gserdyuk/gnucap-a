@@ -87,7 +87,7 @@ void do_probe(CS& cmd, PROBELIST *probes)
       }else{
       }
       if (action == aNEW) {			/* no +/- here or at beg. */
-	probes[simtype].clear();		/* means clear first	  */
+	probes[simtype].clear();		/* means clear first	  [GS - tbd]*/
 	action = aADD;
       }else{
       }
@@ -118,25 +118,7 @@ void do_probe(CS& cmd, PROBELIST *probes)
       }
     }
   }
-/*  
-  std::cout<<" ### exiting probe command\n";
-  // list all
-      probes[s_TRAN].listing("tran");
-      probes[s_AC].listing("ac");
-      probes[s_DC].listing("dc");
-      probes[s_OP].listing("op");
-      probes[s_FOURIER].listing("fourier");
-      probes[s_NOISE].listing("noise");
-      std::cout<<"-----------------\n";
-      probes[s_TRAN].listingval("tran");
-      probes[s_AC].listingval("ac");
-      probes[s_DC].listingval("dc");
-      probes[s_OP].listingval("op");
-      probes[s_FOURIER].listingval("fourier");
-      //probes[s_NOISE].listingval("noise");
-      std::cout<<"-----------------\n";
-*/
-    
+
 }
 /*--------------------------------------------------------------------------*/
 class CMD_STORE : public CMD {

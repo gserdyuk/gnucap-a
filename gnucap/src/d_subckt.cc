@@ -192,7 +192,7 @@ void DEV_SUBCKT::expand()
   PARAM_LIST* pl = const_cast<PARAM_LIST*>(model->subckt()->params());
   assert(pl);
   c->_params.set_try_again(pl);
-  assert(c->_params._try_again);
+  assert(c->_params.get_try_again());
 #if 1
   if(OPT::parhier!=parhNONE) {                  // fill upper_level if necessary
     c->_params.set_upper_level(this->scope());  // as this->scope()->params() are mutable - shall store owner ( this->scope() )

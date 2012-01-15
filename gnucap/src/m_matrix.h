@@ -107,6 +107,7 @@
  *   but you will find out about it later.
  */
 //testing=script 2008.09.19
+// 24-dec-2011 removed _zero member - no proper usage, cn be eliminated
 #ifndef M_MATRIX_H
 #define M_MATRIX_H
 /*--------------------------------------------------------------------------*/
@@ -123,7 +124,7 @@ private:
   T**	_diaptr;	// ptrs to diagonal
   int	_nzcount;	// count of non-zero elements
   int	_size;		// # of rows and columns
-  T	_zero;		// always 0 but not const
+  // T	_zero;		// always 0 but not const
   T	_trash;		// depository for row and col 0, write only
   T	_min_pivot;	// minimum pivot value
 private:
@@ -193,7 +194,7 @@ void BSMATRIX<T>::init(int ss)
   assert(!_diaptr);
   assert(!_space);
 
-  assert(_zero == 0.);
+  // assert(_zero == 0.);
   _min_pivot = _trash = 0.;
   _nzcount = 0;
   _size = ss;
@@ -260,7 +261,7 @@ BSMATRIX<T>::BSMATRIX(int ss)
    _diaptr(NULL),
    _nzcount(0),
    _size(ss),
-   _zero(0.),
+   // _zero(0.),
    _trash(0.),
    _min_pivot(0.)
 {
@@ -304,7 +305,8 @@ void BSMATRIX<T>::iwant(int node1, int node2)
 template <class T>
 void BSMATRIX<T>::unallocate()
 {
-  assert (_zero == 0.);
+  // assert (_zero == 0.);
+ 
   delete [] _rowptr;
   delete [] _colptr;
   delete [] _diaptr;
@@ -358,7 +360,7 @@ template <class T>
 void BSMATRIX<T>::zero()
 {
   assert(_space);
-  assert(_zero == 0.);
+  // assert(_zero == 0.);
   _trash = 0.;
   std::fill_n(_space, _nzcount, 0.);
 }
@@ -467,7 +469,7 @@ T& BSMATRIX<T>::s(int row, int col)
   assert(col <= size());
   assert(0 <= row);
   assert(row <= size());
-  assert(_zero == 0.);
+  // assert(_zero == 0.);
 
   if (col == row) {untested();
     return d(row,col);
@@ -475,7 +477,7 @@ T& BSMATRIX<T>::s(int row, int col)
     if (row == 0) {untested();
       return _trash;
     }else if (row < _lownode[col]) {untested();
-      return _zero;
+      return 0; // return _zero;
     }else{untested();
       return u(row,col);
     }
@@ -484,7 +486,7 @@ T& BSMATRIX<T>::s(int row, int col)
     if (col == 0) {untested();
       return _trash;
     }else if (col < _lownode[row]) {untested();
-      return _zero;
+      return 0; // return _zero;
     }else{untested();
       return l(row,col);
     }
