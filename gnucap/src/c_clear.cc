@@ -39,9 +39,14 @@ public:
     command("unmark", Scope);
     //command("ic clear", Scope);
     //command("nodeset clear", Scope);
+    
     command("alarm clear", Scope);
     command("plot clear", Scope);
     command("print clear", Scope);
+    
+// GS added - need to eliminate memory alloc problem with "store" command
+    command("store clear", Scope);
+    
     command("delete all", Scope);
     command("title '", Scope);
   }
