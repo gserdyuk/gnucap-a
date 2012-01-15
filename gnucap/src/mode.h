@@ -44,7 +44,7 @@ enum SIM_MODE { // simulation types
   s_NOISE   /* GS: noise command  */
 };
 const int sSTART = s_NONE;
-const int sCOUNT = s_NOISE;
+const int sCOUNT = s_NOISE+1;       // last + 1
 inline OMSTREAM& operator<<(OMSTREAM& o, SIM_MODE t) {
   const std::string s[] = {"ALL", "AC", "OP", "DC", "TRAN", "FOURIER", "NOISE"};
   assert(t >= int(s_NONE));

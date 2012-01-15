@@ -53,22 +53,6 @@ void PROBELIST::listing(const std::string& label)const
   IO::mstdout << '\n';
 }
 /*--------------------------------------------------------------------------*/
-void PROBELIST::listingval(const std::string& label)const
-{
-  IO::mstdout.form("%-7s", label.c_str());
-  for (const_iterator p = begin();  p != end();  ++p) {
-    IO::mstdout << ' ' << p->label()<<' '<<
-      (p->object()? (p->object()->long_label()):0) <<
-      ( p->value() ) <<" | ";
-    if (p->range() != 0.) {untested();
-      IO::mstdout.setfloatwidth(5) 
-	<< '(' << p->lo() << ',' << p->hi() << ')';
-    }else{
-    }
-  }
-  IO::mstdout << '\n';
-}
-/*--------------------------------------------------------------------------*/
 void PROBELIST::clear(void)
 {
   erase(begin(), end());
@@ -217,14 +201,6 @@ void PROBELIST::add_list(CS& cmd)
  */
 void PROBELIST::add_noise_list(CS& cmd)
 {
-/*
-  std::cout<<" fullstring="<<cmd.fullstring()<<"\n";
-  std::cout<<"       tail="<<cmd.tail()<<"\n";
-  
-  std::cout<<" what 0="<<what<<"\n";
-  cmd.umatch("onoise");
-  std::cout<<"cmd="<<cmd()<<"\n";
-*/  
   if (cmd.umatch("onoise") ){
     // add inoise or onoise
     push_new_probe("onoise",0);  // add_noise("*noise");

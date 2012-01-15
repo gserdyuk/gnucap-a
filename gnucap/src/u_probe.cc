@@ -124,20 +124,21 @@ double PROBE::probe_node(void)const
     return CKT_BASE::_sim->_genout;
   }else if (Umatch(_what, "hidden ")) {untested();
     return ::status.hidden_steps;
-  }else if (Umatch(_what, "temp{erature} ")) {untested();
+  }else if (Umatch(_what, "temp{erature} ")) {itested(); // GS // untested();
     return CKT_BASE::_sim->_temp_c;
   }else if (Umatch(_what, "time ")) {untested();
     return CKT_BASE::_sim->_time0;
   }
   // noise
-  else if (Umatch(_what, "onoise{_density} ")) {untested();
+  else if (Umatch(_what, "onoise{_density} ")) {//untested();
     return CKT_BASE::_sim->_onoise;
-  }else if (Umatch(_what, "inoise{_density} ")) {untested();
+  }else if (Umatch(_what, "inoise{_density} ")) {//untested();
     return CKT_BASE::_sim->_inoise;
   }
   else{
     return NOT_VALID;
   }
 }
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/

@@ -59,10 +59,13 @@ virtual void	first();
 virtual bool	next();
         void	solve();
         void	clear();
+        double  start(){return _start;};
+        double  stop(){return _stop;};
 virtual void	setup(CS&);
-private:
+protected:  
   PARAMETER<double> _start;	// sweep start frequency
   PARAMETER<double> _stop;	// sweep stop frequency
+private:
   PARAMETER<double> _step_in;	// step size, as input
   double _step;			// printed step size
   bool	_linswp;		// flag: use linear sweep (vs log sweep)
