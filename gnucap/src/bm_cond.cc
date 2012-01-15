@@ -199,6 +199,9 @@ void EVAL_BM_COND::parse_common_obsolete_callback(CS& cmd) //used
   if (!_func[s_AC] && _set[s_NONE] && (!is_source || c->ac_too()))
 				   {attach_common(_func[s_NONE],&(_func[s_AC]));}
   if (!_func[s_AC])		   {attach_common(&func_zero,  &(_func[s_AC]));}
+
+// GS: s_NOISE introduced - so need to attach zero function
+  if (!_func[s_NOISE])		   {attach_common(&func_zero,  &(_func[s_NOISE]));}
   
   for (int i = 1; i < sCOUNT; ++i) {
     assert(_func[i]);
