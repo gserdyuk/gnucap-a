@@ -1,5 +1,10 @@
 #!/bin/bash
-export CXXFLAGS="-g -O0";
+export CFLAGS="-g -O0 ";
+#-DDO_TRACE";
+export CXXFLAGS="-g -O0 ";
+#-DDO_TRACE";
+export LIBS="-lefence";
 export CXX=g++44;
 export CC=gcc44;
-./configure
+./configure --enable-debug
+
