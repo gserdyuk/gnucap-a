@@ -97,12 +97,28 @@ void PROBELIST::remove_list(CS& cmd)
   }
 }
 /*--------------------------------------------------------------------------*/
-/* remove noise list
+/* remove noise list. indeed - removes one item.
  */
 void PROBELIST::remove_noise_list(CS& cmd)
 { 
  // todo - not implemented
- untested();
+  itested();
+    
+  unsigned mark = cmd.cursor();
+  std::string parameter(cmd.ctos(" =,"));
+  parameter+="(0)";    // remember - inoise stored as inoise(0) and onoise is stored as onoise(0)
+  
+  if (parameter.empty()) {untested();
+    cmd.warn(bWARNING, "what's this?");
+  }else{
+  }
+
+  iterator x = remove(begin(), end(), parameter);
+  if (x != end()) {
+    erase(x, end());
+  }else{itested();
+    cmd.warn(bWARNING, mark, "probe isn't set -- can't remove");
+  }
 }
 /*--------------------------------------------------------------------------*/
 /* check for match

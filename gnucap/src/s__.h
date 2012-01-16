@@ -78,6 +78,8 @@ protected:
   virtual void	print_results(double);
   virtual void	alarm();
   virtual void	store_results(double);
+          void  listAllProbes(void);
+          void  list_probes(PROBELIST*a);
 public:
   /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */ 
 protected:				/* s__solve.cc */

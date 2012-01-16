@@ -105,7 +105,7 @@ void do_probe(CS& cmd, PROBELIST *probes)
           probes[simtype].remove_noise_list(cmd);  // noise list much different from regular
           }
       else {
-      	  probes[simtype].remove_list(cmd);  // todo - check noise remove_list
+      	  probes[simtype].remove_list(cmd);
           }
 	}else{
       if( simtype==s_NOISE){
