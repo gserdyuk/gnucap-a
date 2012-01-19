@@ -1,0 +1,29 @@
+noise ckt with complex interacton
+v1   1  0  dc 1 ac 1
+R1   1  0  100.
+R2   1  2  10
+R3   2  0  100
+
+
+
+.store ac vm(1) vp(1) temp(0)
+.print ac vm(1) vp(1) temp(0)
+.ac dec 10 10 100
+.measure maxm = max("vm(1)")
+
+
+.store noise inoise onoise
+.print noise  inoise onoise 
+.noise v(2) v1 dec 10 10 100
+
+.measure maxn=max( "onoise(0)" )
+* it is possible to operate with onoise and inoise with zero index
+
+* values onoise_total an inoise_total are injeced 
+* as measurements and can be addressed afterwards:
+
+.measure r=eval(onoise_total/inoise_total)
+.measure r2=eval(onoise_total*maxm)
+
+
+.end

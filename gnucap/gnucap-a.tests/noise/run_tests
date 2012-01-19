@@ -1,0 +1,17 @@
+#!/bin/bash
+
+GNUCAP="./an"
+
+$GNUCAP noise-0-store.ckt |tee noise-0-store.out
+$GNUCAP noise-1.ckt |tee noise-1.out
+$GNUCAP noise-2.ckt |tee noise-2.out
+$GNUCAP noise-3.ckt |tee noise-3.out
+$GNUCAP noise-4.ckt |tee noise-4.out
+
+$GNUCAP noise-5.ckt   |tee noise-5.out
+$GNUCAP noise-5-1.ckt |tee noise-5-1.out
+$GNUCAP noise-5-2.ckt |tee noise-5-2.out
+$GNUCAP noise-5-3.ckt |tee noise-5-3.out
+
+$GNUCAP noise-6.ckt |tee noise-6.out
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+G=../../src/gnucap 
+NOISE=../../../../gnucap-plugins/noise/libnoise_1_0.so
+
+$G -a $NOISE -b $1

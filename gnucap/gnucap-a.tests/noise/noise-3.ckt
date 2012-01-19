@@ -1,0 +1,16 @@
+simple noise - store/ print with measure
+v1   1  0  dc 1 ac 1
+R1   1  0  100.
+R2   1  2  10
+R3   2  0  100
+
+
+
+
+.store noise inoise onoise
+.print noise  inoise onoise 
+.noise v(2) v1 dec 10 10 100
+
+.measure inmin=min( "inoise(0)" )
+
+.end

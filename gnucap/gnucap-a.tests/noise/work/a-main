@@ -1,0 +1,4 @@
+#!/bin/bash
+G=../../../../gnucap-work.orig/gnucap-main/gnucap/src/gnucap 
+
+$G -b $1

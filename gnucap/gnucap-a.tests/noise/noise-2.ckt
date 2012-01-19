@@ -1,0 +1,25 @@
+Simple noise, 
+* print store measure ac; 
+* print noise - no store nno measure
+
+v1   1  0  dc 1 ac 1
+R1   1  0  100.
+R2   1  2  10
+R3   2  0  100
+
+.store ac vm(1) temp(0)
+.print ac vm(1) vp(1) temp(0)
+.ac dec 1 1 10
+
+.measure minv = min("vm(1)")
+.measure mt   = min("temp(0)")
+
+
+*.store noise inoise
+.print noise  inoise onoise 
+.print noise  inoise 
+.noise v(2) v1 dec 10 10 100
+
+*.measure inmin=min( "inoise(0)" )
+
+.end

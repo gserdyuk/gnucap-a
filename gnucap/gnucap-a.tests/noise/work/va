@@ -1,0 +1,3 @@
+#!/bin/bash
+G=../src/gnucap 
+valgrind --leak-check=full -v $G -b $1

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NGSP="/home/gserdyuk/ngspice/ng-spice-rework-17.git/src/ngspice"
+
+$NGSP -b $1

@@ -1,0 +1,13 @@
+circuit to catch memory error in stored command
+* during ".store noise" implementation was detected 
+v1   1  0  dc 1 ac 1
+R1   1  0  100.
+R2   1  2  10
+R3   2  0  100
+
+.print ac vm(1) vp(1)
+.store ac vm(1)
+.ac dec 1 1 10
+.measure vmmax=max("vm(1)")
+
+.end

@@ -1,0 +1,28 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+ac: already installed, replacing
+stashing as ac:0
+noise - sources manipulation + - - 
+@@#
+@@@:u_probe.cc:66:operator=
+#Freq      
+ 10.       
+ 12.589    
+ 15.849    
+ 19.953    
+ 25.119    
+ 31.623    
+ 39.811    
+ 50.119    
+ 63.096    
+ 79.433    
+ 100.      
+inoise_total= 16.7746E-18
+onoise_total= 13.8633E-18
