@@ -1,7 +1,7 @@
 circuit  - linear
 
 .options nobypass
-.options gmin=1.e-20
+.options gmin=1.e-6
 *.options
 
 

@@ -646,6 +646,8 @@ void SIM::solve_equations()
   print_matr_lu(this, "@@@ solve_equations, _lu before lu_decomp" );
   print_matr   (this, "@@@ solve_equations, _aa before lu_decomp" );
   
+  std::cout<<" bool(OPT::lubypass && _sim->is_inc_mode()) = "<<OPT::lubypass<<" "<<_sim->is_inc_mode()<<" "
+  << bool(OPT::lubypass && _sim->is_inc_mode())<<"\n";
   _sim->_lu.lu_decomp(_sim->_aa, bool(OPT::lubypass && _sim->is_inc_mode()));
 
   print_matr_lu(this, "@@@ solve_equations, _lu AFTER lu_decomp" );

@@ -55,7 +55,7 @@ Test plan:
        f1= 2 - [ cos(x1)+1*(1-cos(x1))-sim(x1) ]
        f2= 2 - [ cos(x2)+2*(1-cos(x2))-sim(x2) ]
        
-1. specific non-convered tests
+1. specific non-converged tests
 7. all existing tests
 
 
@@ -111,3 +111,23 @@ next - functions from Dennis.'
 rozenbrock ...
 
 
+14-11
+Rozenbrock was simplufies (linearized) and still ahve issue.
+issue is depiceted in gnucap wiki
+matter is in linear solver, which can not make LU decompoisition of matrix 
+with zero diagonal and in case of
+
+eps  -1    X  = 1 
+10   -10        0
+
+may give good solution jr bad
+good: eps = 1.e-6   x= {1,1}
+bad ; eps = 1.e-20  x= {0,1}
+
+what todo further
+
+1) refactor of pieces
+2) plugin-dependent options
+3) more tests (first of all - resalistic)
+
+1 proof at one exasmple that my algo is better that existing...

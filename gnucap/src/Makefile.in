@@ -105,8 +105,9 @@ am__objects_10 = $(am__objects_4) $(am__objects_5) $(am__objects_6) \
 	findbr.$(OBJEXT) plot.$(OBJEXT) main.$(OBJEXT) \
 	globals.$(OBJEXT)
 am__objects_11 = $(am__objects_10) $(am__objects_1)
+am__objects_12 = lsearch.$(OBJEXT) stop.$(OBJEXT)
 nodist_gnucap_OBJECTS = $(am__objects_1) $(am__objects_3) \
-	$(am__objects_11)
+	$(am__objects_11) $(am__objects_12)
 gnucap_OBJECTS = $(nodist_gnucap_OBJECTS)
 gnucap_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -117,6 +118,10 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
+F77COMPILE = $(F77) $(AM_FFLAGS) $(FFLAGS)
+F77LD = $(F77)
+F77LINK = $(F77LD) $(AM_FFLAGS) $(FFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$@
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -145,6 +150,8 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
+F77 = @F77@
+FFLAGS = @FFLAGS@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
@@ -164,6 +171,7 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
+PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 SET_MAKE = @SET_MAKE@
@@ -171,6 +179,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
 ac_ct_CXX = @ac_ct_CXX@
+ac_ct_F77 = @ac_ct_F77@
 am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
 am__fastdepCXX_TRUE = @am__fastdepCXX_TRUE@
 am__include = @am__include@
@@ -256,6 +265,10 @@ func_core.cc func_userdef.cc measure_eval.cc \
 measure_max.cc measure_min.cc measure_slewrate.cc measure_cross.cc \
 measure_integral.cc measure_average.cc measure_rms.cc measure_at.cc
 
+FORT_SRCS = \
+dennis/lsearch.f \
+dennis/stop.f
+
 #------------------------------------------------------------------------
 RAW_SRCS = \
 $(D_SRCS) \
@@ -299,10 +312,10 @@ c_comand.h globals.h
 #------------------------------------------------------------------------
 MODELSRCS = ${MODELS:.model=.cc} ${MODELS:.model=.h}
 MODELOBJS = ${MODELS:.model=.${OBJEXT}}
-nodist_gnucap_SOURCES = ${SRCS1} ${MODELSRCS} ${SRCS2}
+nodist_gnucap_SOURCES = ${SRCS1} ${MODELSRCS} ${SRCS2} ${FORT_SRCS}
 SRCS1 = 
 SRCS2 = ${RAW_SRCS} ${RAW_HDRS}
-EXTRA_DIST = ${MODELS} ${SRCS1} ${SRCS2} \
+EXTRA_DIST = ${MODELS} ${SRCS1} ${SRCS2} ${FORT_SRCS}\
 configure.old Make1 test_readline.cc spice-wrapper.cc \
 Make3 Makefile.template \
 Make2.g++ Make2.Debug Make2.mingw32 \
@@ -315,7 +328,7 @@ SUFFIXES = .model
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .model .cc .o .obj
+.SUFFIXES: .model .cc .f .o .obj
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -528,6 +541,24 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.f.o:
+	$(F77COMPILE) -c -o $@ $<
+
+.f.obj:
+	$(F77COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+lsearch.o: dennis/lsearch.f
+	$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o lsearch.o `test -f 'dennis/lsearch.f' || echo '$(srcdir)/'`dennis/lsearch.f
+
+lsearch.obj: dennis/lsearch.f
+	$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o lsearch.obj `if test -f 'dennis/lsearch.f'; then $(CYGPATH_W) 'dennis/lsearch.f'; else $(CYGPATH_W) '$(srcdir)/dennis/lsearch.f'; fi`
+
+stop.o: dennis/stop.f
+	$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o stop.o `test -f 'dennis/stop.f' || echo '$(srcdir)/'`dennis/stop.f
+
+stop.obj: dennis/stop.f
+	$(F77) $(AM_FFLAGS) $(FFLAGS) -c -o stop.obj `if test -f 'dennis/stop.f'; then $(CYGPATH_W) 'dennis/stop.f'; else $(CYGPATH_W) '$(srcdir)/dennis/stop.f'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
@@ -579,6 +610,7 @@ distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distdir: $(DISTFILES)
+	$(mkdir_p) $(distdir)/dennis
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
