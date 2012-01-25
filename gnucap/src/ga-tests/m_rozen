@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CXX=g++44
+GNUCAPDIR="../"
+GNUCAP="../gnucap"
+MODELGEN=$GNUCAPDIR/../modelgen/gnucap-modelgen 
+
+#make -C ..
+
+$MODELGEN  d_rozenbrok.model
+$CXX -c -O2 -g -I $GNUCAPDIR -fPIC -o d_rozenbrok.o d_rozenbrok.cc
+$CXX -shared -g d_rozenbrok.o -o d_rozenbrok.so
+

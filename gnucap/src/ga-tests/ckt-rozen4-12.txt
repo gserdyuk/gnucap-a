@@ -1,0 +1,475 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit  - linear 
+#           v(1)       v(2)       i(I1)      i(I2)     
+==== SIM::solve/ linserach_solve 
+==== loop beginning,  iter=0
+    =* OPT::bypass != true
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G11 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G12 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G21 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I2 d=1
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+ --- ################ calc error func 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=0
+     _v0[2]=0
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=1
+     F[2]=0
+ === ################ END calc error func 
+*** FN= 
+
+     x[0]=0
+     x[1]=1
+     x[2]=0
+ *** fnor=0.5
+*** GR= 
+
+     x[0]=0
+     x[1]=1e-12
+     x[2]=-1
+ === solve: solve_equations 
+@@@ solve_equations, _lu before lu_decomp
+    == _sim->_lu: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | 0 | 
+ | 0 | 0 | 1e-12 | 
+@@@ solve_equations, _aa before lu_decomp
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+ bool(OPT::lubypass && _sim->is_inc_mode()) = 1 0 0
+@@@ solve_equations, _lu AFTER lu_decomp
+    == _sim->_lu: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1e+12 | 
+ | 0 | 10 | 1e+13 | 
+@@@ solve_equations, _aa AFTER lu_decomp
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+@@@ solve_equations, _sim->_i  before lu_fbsub
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+@@@ solve_equations, _sim->_v0 before lu_fbsub
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=0
+     _sim->_v0[2]=0
+@@@ solve_equations, _sim->_i  AFTER lu_fbsub
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+@@@ solve_equations, _sim->_v0 AFTER lu_fbsub
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+    == in solve_equations: 
+point3
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+point3
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+ solution after linear solver
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+ *** calculating Y: 
+  X  = 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+ Xn = 
+
+     x[0]=0
+     x[1]=1.00009
+     x[2]=1
+*** X-Xn= Y= 
+
+     x[0]=0
+     x[1]=-1.00009
+     x[2]=-1
+  N=            3  FNOR=   0.50000000000000000     
+       X             G       Y   
+ 0.000000E+00  0.000000E+00  0.000000E+00
+ 0.000000E+00  0.100000E-11  -.100009E+01
+ 0.000000E+00  -.100000E+01  -.100000E+01
+      EPSDU= 0.100000E-05 RELLEN=0.100009E+01 MINLBD=0.999911E-06
+ ##++++++++++++++++++++++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1.00009
+ x[2]=1
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=0
+     _sim->_i[2]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G11 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G12 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source G21 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I2 d=1
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+    ---------- calc_error_func \n --- ################ calc error func 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1.00009
+     _v0[2]=1
+ F =J*Xc: 
+     F[0]=0
+     F[1]=-1
+     F[2]=0.000889301
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+     F[2]=0.000889301
+ === ################ END calc error func 
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0
+ f[2]=0.000889301
+--
+ ##================================== calc_circuit returning - fnor=3.95428e-07
+      FNOR1=0.395428E-06 FNOR=0.500000E+00 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=-.100000E+01 MINLBD=0.999911E-06
+ after lin search - lambda=1 retcode = 0
+ solution after damping
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+  RESIDUAL=0.889301E-03, STEP=0.100009E+01,  RESIDUAL DECR.  =0.666667E+00
+ ---- termocode =0
+  converged_iter = 0 shall_stop =0
+==== loop beginning,  iter=1
+    =* OPT::bypass != true
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+    =# work with loadq 
+    =# device queue=I2 ->tr_load()
+element::tr_load_source I2 d=0
+ NOTE - load is conditional, only change was loaded 
+point2
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+    =# device queue=I1 ->tr_load()
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+point2
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+ --- ################ calc error func 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1.00009
+     _v0[2]=1
+ F =J*Xc: 
+     F[0]=0
+     F[1]=-1
+     F[2]=0.000889301
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+     F[2]=0.000889301
+ === ################ END calc error func 
+*** FN= 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0.000889301
+ *** fnor=3.95428e-07
+*** GR= 
+
+     x[0]=0
+     x[1]=0.00889301
+     x[2]=-0.00889301
+ === solve: solve_equations 
+@@@ solve_equations, _lu before lu_decomp
+    == _sim->_lu: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1e+12 | 
+ | 0 | 10 | 1e+13 | 
+@@@ solve_equations, _aa before lu_decomp
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+ bool(OPT::lubypass && _sim->is_inc_mode()) = 1 1 1
+@@@ solve_equations, _lu AFTER lu_decomp
+    == _sim->_lu: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1e+12 | 
+ | 0 | 10 | 1e+13 | 
+@@@ solve_equations, _aa AFTER lu_decomp
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+@@@ solve_equations, _sim->_i  before lu_fbsub
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+@@@ solve_equations, _sim->_v0 before lu_fbsub
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+@@@ solve_equations, _sim->_i  AFTER lu_fbsub
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+@@@ solve_equations, _sim->_v0 AFTER lu_fbsub
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+    == in solve_equations: 
+point3
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+point3
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+ solution after linear solver
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+ *** calculating Y: 
+  X  = 
+
+     x[0]=0
+     x[1]=1.00009
+     x[2]=1
+ Xn = 
+
+     x[0]=0
+     x[1]=1.00009
+     x[2]=1
+*** X-Xn= Y= 
+
+     x[0]=0
+     x[1]=0
+     x[2]=0
+  N=            3  FNOR=   3.95428393129844733E-007
+       X             G       Y   
+ 0.000000E+00  0.000000E+00  0.000000E+00
+ 0.100009E+01  0.889301E-02  0.000000E+00
+ 0.100000E+01  -.889301E-02  0.000000E+00
+      EPSDU= 0.100000E-05 RELLEN=0.000000E+00 MINLBD=   +Infinity
+ ##++++++++++++++++++++++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1.00009
+ x[2]=1
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+    =# work with loadq 
+    =# device queue=I2 ->tr_load()
+element::tr_load_source I2 d=0
+ NOTE - load is conditional, only change was loaded 
+point2
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+    =# device queue=I1 ->tr_load()
+element::tr_load_source I1 d=0
+ NOTE - load is conditional, only change was loaded 
+point2
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[0]=0
+     _sim->_i[1]=-1
+     _sim->_i[2]=0
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 0 | 
+ | 0 | 1e-12 | -1 | 
+ | 0 | 10 | -10 | 
+    ---------- calc_error_func \n --- ################ calc error func 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+     F[2]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1.00009
+     _v0[2]=1
+ F =J*Xc: 
+     F[0]=0
+     F[1]=-1
+     F[2]=0.000889301
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+     F[2]=0.000889301
+ === ################ END calc error func 
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0
+ f[2]=0.000889301
+--
+ ##================================== calc_circuit returning - fnor=3.95428e-07
+      FNOR1=0.395428E-06 FNOR=0.395428E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=0.000000E+00 MINLBD=   +Infinity
+ after lin search - lambda=1 retcode = 0
+ solution after damping
+    == _sim->_v0 (sol): 
+     _sim->_v0[0]=0
+     _sim->_v0[1]=1.00009
+     _sim->_v0[2]=1
+FAILURE IS POSSIBLE. CHECK RESIDUAL.
+  AT     2 ITERATION MAX. STEP =0.000000E+00 ( <0.100000E-05)
+  RESIDUAL =0.889301E-03
+  1/2 SQUARED NORM OF RESIDUAL =0.395428E-06
+ ---- termocode =2
+  converged_iter = 0 shall_stop =1
+did not converge
+ 27.        1.         1.0001     0.         1.        

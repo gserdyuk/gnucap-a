@@ -1,0 +1,27 @@
+circuit 2 - cubic
+
+.options nobypass
+*.options
+
+* i1 = 10 (v2-v1^v1)
+* i2 = 1 - v1
+***
+*
+*  i1 =   -10 * V1 * V1     +   10 *v2
+*  i2 =   -1  * V1                        +1
+*
+*
+
+I1  1 0           dc 0
+G11 1 0 VCG 1 0   -10
+G12 1 0 2 0       -10
+
+I2  2 0           dc -1
+G21 2 0 1 0       1
+
+ 
+.print op v(1) v(2)
+
+.op
+
+.end

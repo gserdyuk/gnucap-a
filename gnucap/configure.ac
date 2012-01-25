@@ -49,6 +49,7 @@ fi
 
 # Checks for programs.
 AC_PROG_CXX
+AC_PROG_F77([gfortran44 gfortran g77])
 
 # If we are cross compiling, then we need to search for a
 # gnucap-modelgen program to use for our build.  This can
@@ -93,6 +94,10 @@ if test "x$with_readline" != xno ; then
 fi    
 
 AC_CHECK_LIB([dl], [dlopen])
+
+AC_CHECK_LIB([gslcblas],[main])
+AC_CHECK_LIB([gfortran],[main])
+
 
 # Checks for header files.
 #AC_CHECK_HEADERS([fcntl.h unistd.h])

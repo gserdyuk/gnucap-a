@@ -1,0 +1,112 @@
+/* $Id:$ 
+ * d_rozenbrok.model 
+ * Copyright (C) 2011 Albert Davis
+ * Author:   Gennadiy Serdyuk gserdyuk@gserdyuk.com
+ *
+ *------------------------------------------------------------------
+ * i1=10*(x2-x1^2)
+ * i2=1-x1
+ 
+ * netlist syntax:
+ * device:  Axxxx n1 n2 gnd mname 
+ * model:  .model mname A
+ * properties - one of std test functions 
+ */
+h_headers {
+#include "d_diode.h"
+
+}
+
+cc_headers {
+#include "e_aux.h"
+  static bool dummy=false;
+
+}
+/*--------------------------------------------------------------------------*/
+// GS - here ---------------------------
+device BUILT_IN_ROZEN {
+  parse_name rozen;
+  model_type BUILT_IN_ROZEN;
+  id_letter A;
+  circuit {
+    ports {n1 n2 c};  //// .....
+   
+    cpoly_g I1 {n1 c  n2 c} state=i1xxx;
+
+    cpoly_g I2 {n2 c  n1 c} state=i2xxx;
+
+    }
+  tr_probe {
+    "v1{d}" = "@n_n1[V] - @n_c[V]";
+    "v2{d}" = "@n_n2[V] - @n_c[V]";
+  }
+  
+  device {
+    calculated_parameters {
+    double i1xxx;
+    double i2xxx;
+    }
+  }
+  
+  common {
+    unnamed area;
+    raw_parameters {
+    }
+    calculated_parameters {
+    }
+  }
+  tr_eval {
+    int foo=3;
+  }
+
+ 
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+model BUILT_IN_ROZEN {
+  dev_type BUILT_IN_ROZEN;
+  hide_base;
+  inherit CARD;
+  public_keys {
+     A dummy=true; //?
+  }
+  independent {
+  }
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+cc_direct {
+/*--------------------------------------------------------------------------*/
+bool DEV_BUILT_IN_ROZEN::tr_needs_eval()const
+{
+  return true;
+}
+
+bool DEV_BUILT_IN_ROZEN::do_tr()
+{
+
+  double v1=1; //_n[n_n1].v0() - _n[n_c].v0();
+  double v2=2; //_n[n_n2].v0() - _n[n_c].v0();
+  
+
+  if (_sim->is_initial_step()) {
+    v1 = v1 = 0.;
+  }else{
+  }
+
+  //m->tr_eval(this);
+
+//
+//        f1=10( x2 - x1^2)
+//        f2=1-x1
+//
+  i1xxx = 10* ( v2 - v1*v1) ;
+  i2xxx =  1   - v1; 
+  
+  assert(subckt());
+ 
+  return converged();
+}
+
+}
+

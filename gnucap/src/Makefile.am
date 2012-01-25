@@ -69,6 +69,10 @@ FUNC_SRCS = \
 func_core.cc func_userdef.cc measure_eval.cc \
 measure_max.cc measure_min.cc measure_slewrate.cc measure_cross.cc \
 measure_integral.cc measure_average.cc measure_rms.cc measure_at.cc
+
+FORT_SRCS = \
+dennis/lsearch.f \
+dennis/stop.f
 #------------------------------------------------------------------------
 RAW_SRCS = \
 $(D_SRCS) \
@@ -112,7 +116,7 @@ c_comand.h globals.h
 MODELSRCS= ${MODELS:.model=.cc} ${MODELS:.model=.h}
 MODELOBJS= ${MODELS:.model=.${OBJEXT}}
 
-nodist_gnucap_SOURCES= ${SRCS1} ${MODELSRCS} ${SRCS2}
+nodist_gnucap_SOURCES= ${SRCS1} ${MODELSRCS} ${SRCS2} ${FORT_SRCS}
 
 SRCS1= 
 SRCS2= ${RAW_SRCS} ${RAW_HDRS}
@@ -125,7 +129,7 @@ ${MODELOBJS}: ${MODELSRCS}
 ## Include the .model files in the distfile as well as the rest of the
 ## non-generated sources
 
-EXTRA_DIST= ${MODELS} ${SRCS1} ${SRCS2} \
+EXTRA_DIST= ${MODELS} ${SRCS1} ${SRCS2} ${FORT_SRCS}\
 configure.old Make1 test_readline.cc spice-wrapper.cc \
 Make3 Makefile.template \
 Make2.g++ Make2.Debug Make2.mingw32 \

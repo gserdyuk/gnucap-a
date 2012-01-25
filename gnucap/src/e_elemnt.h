@@ -225,6 +225,9 @@ inline void ELEMENT::tr_unload_shunt()
 /*--------------------------------------------------------------------------*/
 inline void ELEMENT::ac_load_shunt()
 {
+  std::cout<<"element::tr_load_source "<<long_label()<<" mfactor() * _loss0 ="<<mfactor() * _loss0 <<"\n";
+  std::cout<<" NOTE - load is unconditioonal \n";
+  
   _sim->_acx.load_symmetric(_n[OUT1].m_(), _n[OUT2].m_(), mfactor() * _loss0);
 }
 /*--------------------------------------------------------------------------*/
@@ -234,13 +237,13 @@ inline void ELEMENT::tr_load_source()
   assert(_loaditer != _sim->iteration_tag()); // double load
   _loaditer = _sim->iteration_tag();
 #endif
-  
+  std::cout<<"element::tr_load_source "<<long_label();
+
   double d = dampdiff(&_m0.c0, _m1.c0);
-  std::cout<<" ELEMENT::tr_load_source()  OUT2, OUT1, d ="<<_n[OUT2].m_()<<" "<<_n[OUT1].m_()<<" "<<d<<"\n";
-  std::cout<<" ELEMENT::tr_load_source()   long_label    "<<long_label() <<"\n";
-  std::cout<<" ELEMENT::tr_load_source()   _m0.c0 (new)  "<<_m0.c0 <<"\n";
-  std::cout<<" ELEMENT::tr_load_source()   _m1.c0 (was)  "<<_m1.c0 <<"\n";
-  std::cout<<" ELEMENT::tr_load_source()   diff=         "<<d <<"\n";
+  
+  std::cout<<" d="<<d<<"\n";
+  std::cout<<" NOTE - load is conditional, only change was loaded \n";
+  
   if (d != 0.) {
     if (_n[OUT2].m_() != 0) {
       _n[OUT2].i() += d;

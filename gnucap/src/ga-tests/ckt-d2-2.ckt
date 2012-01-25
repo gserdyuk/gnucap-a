@@ -1,0 +1,18 @@
+circuit 2 - quadratic, 2-dim
+
+.options nobypass
+*.options
+
+A1 1 0 deva1 AR=0.001 B=0.001 V0=1
+I1 1 0 dc -0.001
+
+A2 2 0 deva1 AR=0.002 B=0.002 V0=2
+I2 2 0 dc -0.002
+
+.model deva1 A 
+
+.print op v(1) i(I1)  v(2) i(I2)
+
+.op
+
+.end

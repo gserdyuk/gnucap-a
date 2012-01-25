@@ -1,0 +1,569 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit 2 - quadratic 
+#           v(1)       i(I1)     
+==== SIM::solve/ linserach_solve 
+==== loop beginning,  iter=0
+    =* OPT::bypass != true
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+element::tr_load_source A1.Yj d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 1e-12 | 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=0
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=-0.001
+*** FN= 
+
+     x[0]=0
+     x[1]=-0.001
+ *** fnor=5e-07
+ N=1
+j=0 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=0 GR[i]=0 s ij=0 fj=-0.001 sfj=1
+j=0 i=1 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=1 GR[i]=-1e-15 s ij=1e-12 fj=-0.001 sfj=1
+*** GR= 
+
+     x[0]=0
+     x[1]=-1e-15
+ === solve: solve_equations 
+    == in solve_equations: 
+point3
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+point3
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1e+09
+ solution after linear solver
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1e+09
+ *** calculating Y: 
+  X  = 
+
+     x[0]=0
+     x[1]=0
+ Xn = 
+
+     x[0]=0
+     x[1]=1e+09
+*** X-Xn= Y= 
+
+     x[0]=0
+     x[1]=-1e+09
+      EPSDU= 0.100000E-05 RELLEN=0.100000E+10 MINLBD=0.100000E-14
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1e+09
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1e+09
+ F =J*Xc: 
+     F[0]=0
+     F[1]=1e+07
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=1e+07
+    ---------- results f[] 
+ f[0]=0
+ f[1]=1e+07
+--
+ +++++++++++++++ calc_circuit returning- fnor=5e+13
+      FNOR1=0.500000E+14 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+               1-DIMENSIONAL SEARCH: 
+                  FNOR=0.500000E+14,  LAMBDA=0.100000E+00
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1e+08
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1e+08
+ F =J*Xc: 
+     F[0]=0
+     F[1]=1e+06
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=1e+06
+    ---------- results f[] 
+ f[0]=0
+ f[1]=1e+06
+--
+ +++++++++++++++ calc_circuit returning- fnor=5e+11
+      FNOR1=0.500000E+12 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E+00 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.500000E+12,  LAMBDA=0.100000E-01
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1e+07
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1e+07
+ F =J*Xc: 
+     F[0]=0
+     F[1]=100000
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=100000
+    ---------- results f[] 
+ f[0]=0
+ f[1]=100000
+--
+ +++++++++++++++ calc_circuit returning- fnor=5e+09
+      FNOR1=0.500000E+10 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-01 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.500000E+10,  LAMBDA=0.100000E-02
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1e+06
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1e+06
+ F =J*Xc: 
+     F[0]=0
+     F[1]=10000
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=9999.97
+    ---------- results f[] 
+ f[0]=0
+ f[1]=9999.97
+--
+ +++++++++++++++ calc_circuit returning- fnor=4.99997e+07
+      FNOR1=0.499997E+08 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-02 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.499997E+08,  LAMBDA=0.100000E-03
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=100000
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=100000
+ F =J*Xc: 
+     F[0]=0
+     F[1]=1000
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=999.974
+    ---------- results f[] 
+ f[0]=0
+ f[1]=999.974
+--
+ +++++++++++++++ calc_circuit returning- fnor=499974
+      FNOR1=0.499974E+06 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-03 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.499974E+06,  LAMBDA=0.100000E-04
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=10000
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=10000
+ F =J*Xc: 
+     F[0]=0
+     F[1]=100
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=99.974
+    ---------- results f[] 
+ f[0]=0
+ f[1]=99.974
+--
+ +++++++++++++++ calc_circuit returning- fnor=4997.4
+      FNOR1=0.499740E+04 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-04 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.499740E+04,  LAMBDA=0.100000E-05
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1000
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1000
+ F =J*Xc: 
+     F[0]=0
+     F[1]=10
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=9.974
+    ---------- results f[] 
+ f[0]=0
+ f[1]=9.974
+--
+ +++++++++++++++ calc_circuit returning- fnor=49.7403
+      FNOR1=0.497403E+02 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-05 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.497403E+02,  LAMBDA=0.100000E-06
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=100
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=100
+ F =J*Xc: 
+     F[0]=0
+     F[1]=1
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0.974
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0.974
+--
+ +++++++++++++++ calc_circuit returning- fnor=0.474338
+      FNOR1=0.474338E+00 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-06 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.474338E+00,  LAMBDA=0.100000E-07
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=10
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.01
+element::tr_load_source A1.Yj d=-0.025
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.01 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=10
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0.1
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0.074
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0.074
+--
+ +++++++++++++++ calc_circuit returning- fnor=0.002738
+      FNOR1=0.273800E-02 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-07 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+                  FNOR=0.273800E-02,  LAMBDA=0.100000E-08
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.002
+element::tr_load_source A1.Yj d=-0.001
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.002
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.002
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.002 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0.002
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=1e-12
+    ---------- results f[] 
+ f[0]=0
+ f[1]=1e-12
+--
+ +++++++++++++++ calc_circuit returning- fnor=5.00001e-25
+      FNOR1=0.500001E-24 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E-08 SLOPE=-.100000E-05 MINLBD=0.100000E-14
+ after lin search - lambda=1e-09 retcode = 0
+ solution after damping
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+SUCCESS.
+  AT     1-TH ITERATION CONVERGED TO SOLUTION    
+  WITH RESIDUAL <= 0.100000E-11 ( < 0.100000E-09 )
+  1/2 OF SQUARED L-2 NORM OF RESIDUAL =0.500000E-06
+ ---- termocode =1
+  converged_iter = 1 shall_stop =1
+ #### solve_with_homotopy : continuing 
+ 27.        1.        -0.001     

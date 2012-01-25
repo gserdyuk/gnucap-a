@@ -1,0 +1,4 @@
+#!/bin/bash
+
+SIM=/usr/local/bin/ngspice
+$SIM  -b ngsp-rozen4.ckt >ngsp-rozen4.txt   

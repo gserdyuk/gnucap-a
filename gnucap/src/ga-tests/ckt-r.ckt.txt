@@ -1,0 +1,162 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit 1 - linear 
+* i/o
+.options  nosimbinfmt  noacct  nolist  clobber  out=9999  ydivisions= 4.  phase=degrees  harmonics=9  edit  language=acs  insensitive  units=spice  recursion=20  nodrop_spice_comments  nodollar_as_spice_comment  parhier=none
+
+* paths
+.options  includepath=
++ loadpath=
+
+* accuracy, i/o
+.options  numdgt=5  floor= 1.E-21  vfloor= 1.f  roundofftol= 100.f
+
+* accuracy, tolerances
+.options  gmin= 1.p  short= 10.u  reltol= 0.001  abstol= 1.p  vntol= 1.u  trtol= 7.  chgtol= 10.f  pivtol= 100.f  bypasstol= 0.1  loadtol= 0.1  gmax= 100.
+
+* accuracy, algorithms
+.options  method=trap  nobypass  incmode  lcbypass  lubypass  fbbypass  traceload  order=auto  mode=mixed  transits=2  noquitconvfail
+
+* iteration limiting and heuristics
+.options  itl1=100  itl2=50  itl3=6  itl4=20  itl5=0  itl6=5000  itl7=1  itl8=99  itermin=1  vmax= 5.  vmin=-5.  dampmax= 1.  dampmin= 0.5  dampstrategy=0
+
+* time step control
+.options  dtmin= 1.p  dtratio= 1.G  trstepgrow= 1.E+99  trstephold= 1.E+99  trstepshrink= 2.  trreject= 0.5  trsteporder=3  trstepcoef1= 0.25  trstepcoef2= 0.04166667  trstepcoef3= 0.005208333
+
+* circuit environment
+.options  tnom= 27.  temperature= 27.  rstray  cstray  defl= 100.u  defw= 100.u  defad= 0.  defas= 0.  scalm= 1.  scale= 1.
+
+#           v(1)       i(R1)     
+==== SIM::solve/ linserach_solve 
+==== loop beginning,  iter=0
+    =* OPT::bypass != true
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.001
+element::tr_load_source R1 d=0
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix_print
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ load_matrix_print
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.001 | 
+ F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=0
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=-0.001
+*** FN= 
+
+     x[0]=0
+     x[1]=-0.001
+ *** fnor=5e-07
+ N=1
+j=0 i=0 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=0 GR[i]=0 s ij=0 fj=-0.001 sfj=1
+j=0 i=1 GR[i]=0 s ij=0 fj=0 sfj=1
+j=1 i=1 GR[i]=-1e-06 s ij=0.001 fj=-0.001 sfj=1
+*** GR= 
+
+     x[0]=0
+     x[1]=-1e-06
+ === solve: solve_equations 
+    == in solve_equations: 
+point3
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+point3
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ solution after linear solver
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+*** Y= 
+
+     x[0]=0
+     x[1]=-1
+      EPSDU= 0.100000E-05 RELLEN=0.100000E+01 MINLBD=0.100000E-05
+ +++++++++++++++ calc_circuit entering +
+ x[0]=0
+ x[1]=1
+--
+    ---------- copy X to _sim->_v0 
+    ---------- evaluate_models 
+    =* OPT::bypass != true
+    ---------- load_matrix 
+  ===# load_matrix entered 
+point1
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+    =# work with ARD_LIST::card_list.tr_load() 
+BSMATRIX<T>::load_symmetric i, j, + val: 1 0 0.001
+element::tr_load_source R1 d=-8.68209e-21
+ NOTE - load is conditional, only change was loaded 
+element::tr_load_source I1 d=-0.001
+ NOTE - load is conditional, only change was loaded 
+point "load_matrix exit"
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ matrix loaded
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ matrix loaded
+    == _sim->_aa: 
+ | 0 | 0 | 
+ | 0 | 0.001 | 
+    ---------- calc_error_func \n F cleaned: 
+     F[0]=0
+     F[1]=0
+ V0 : 
+     _v0[0]=0
+     _v0[1]=1
+ F =J*Xc: 
+     F[0]=0
+     F[1]=0.001
+ F =J*Xc - Fg: 
+     F[0]=0
+     F[1]=0
+    ---------- results f[] 
+ f[0]=0
+ f[1]=0
+--
+ +++++++++++++++ calc_circuit returning- fnor=0
+      FNOR1=0.000000E+00 FNOR=0.500000E-06 ALPHA=0.100000E-03 LAMBDA=0.100000E+01 SLOPE=-.100000E-05 MINLBD=0.100000E-05
+ after lin search - lambda=1 retcode = 0
+ solution after damping
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+SUCCESS.
+  AT     1-TH ITERATION CONVERGED TO SOLUTION    
+  WITH RESIDUAL <= 0.000000E+00 ( < 0.100000E-11 )
+  1/2 OF SQUARED L-2 NORM OF RESIDUAL =0.500000E-06
+ ---- termocode =1
+  converged_iter = 1 shall_stop =1
+ #### continuing 
+ 27.        1.         0.001     

@@ -1,0 +1,221 @@
+Gnucap gnucap-arails  2009.12.07 RCS 26.136 master 2010-09-25  bmm_semi_hsp, bm_model fix, back to bmm_semi
+The Gnu Circuit Analysis Package
+Never trust any version less than 1.0
+Copyright 1982-2009, Albert Davis
+Gnucap comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome
+to redistribute it under the terms of 
+the GNU General Public License, version 3 or later.
+See the file "COPYING" for details.
+circuit 2 - quadratic 
+#           v(1)       i(I1)     
+ ===== iter = 1
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=0
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1e+09
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 2
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.001
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1e+09
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1e+09
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=2.6
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 3
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.026
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=2.6
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00776
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=2.6
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00776
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.49231
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 4
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00776
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.49231
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00322698
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.49231
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00322698
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.08121
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 5
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00322698
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.08121
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00216901
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.08121
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00216901
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.00305
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 6
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00216901
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.00305
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00200611
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1.00305
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00200611
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 7
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00200001
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00200001
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 8
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.00200001
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ evaluate_models
+    == _sim->_aa: 
+ load_matrix
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.002
+ load_matrix
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ load_matrix
+    == _sim->_aa: 
+ solve _equatioins
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.002
+ solve _equatioins
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ solve _equatioins
+    == _sim->_aa: 
+ ===== iter = 9
+ evaluate_models
+    == _sim->_i (rhs): 
+     _sim->_i[1]=0.002
+ evaluate_models
+    == _sim->_v0 (sol): 
+     _sim->_v0[1]=1
+ evaluate_models
+    == _sim->_aa: 
+ 27.        1.        -0.001     

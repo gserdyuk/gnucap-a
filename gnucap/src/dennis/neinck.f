@@ -1,0 +1,60 @@
+      SUBROUTINE NEINCK(N,EPSIM,IDIM,SCALEF,SCALEU,U,ICODE,
+     +                  EPSSOL,EPSDU,EPSMIN,MAXDU,LIMIT) 
+
+C      ðPOéúBOäéT ðPOBEPKõ é HAþAìøHùE õCTAHOBKé
+C      ðAPAMEPTOB ðPOçPAMMù SOLVE
+C      checks parameters of SOLVE program and initializes values
+
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      double precision   TYPU,TYPI
+      DOUBLE PRECISION   SCALEF(1),SCALEU(1)  
+      DOUBLE PRECISION             EPSSOL,EPSDU,EPSMIN,MAXDU
+      INTEGER          LIMMAX/10000/
+      DOUBLE PRECISION             U(1)
+      DOUBLE PRECISION             NORSTP,NOR1
+      
+      typu=0.
+      typi=0.
+
+C  ðPOBEPKA BEìéþéHù N - PAúMEPHOCTé CéCTEMù
+C  check N - dimension of system
+      IF (N.GE.1) GO TO 5
+      ICODE=-1
+      RETURN
+    5 IF(N.LE.IDIM) GO TO 10
+      ICODE=-2
+      RETURN
+   10 CONTINUE
+C ðPOBEPKA õCTAHOBKé MACûTAâOB
+C check scales
+      IF(TYPU.LE.0.D0) TYPU=1.D0
+      IF(TYPI.LE.0.D0) TYPI=1.D0
+      DO 20 I=1,N
+      SCALEF(I)=1.D0/TYPI
+   20 SCALEU(I)=1.D0/TYPU
+C  õCTAHOBKA ðAPAMETPOB METOäA
+C  set up method parameters
+C  EPSSOL
+      IF(EPSSOL.LE.0) EPSSOL=EPSIM**(1.D0/3.D0)
+C  EPSDU
+      IF(EPSDU.LE.0) EPSDU=EPSIM**(2.D0/3.D0)
+C  EPSMIN
+      IF(EPSMIN.LE.0) EPSMIN=EPSIM**(2.D0/3.D0)
+C  MAXDU
+      IF(MAXDU.GT.0.D0) GO TO 30
+      NORSTP=0.D0
+      NOR1=0.D0
+      DO 40 JJ=1,N
+      NORSTP=NORSTP+(SCALEU(JJ)*DABS(U(JJ)))**2
+      NOR1=NOR1+(SCALEU(JJ))**2
+   40 CONTINUE
+      NORSTP=DSQRT(NORSTP)
+      NOR1=DSQRT(NOR1)
+      MAXDU=1000.D0*DMAX1(NORSTP,NOR1)
+   30 CONTINUE
+C  ðPEäEì KOìéþECTBA éTEPAãéê
+C  limit of iterations
+      IF(LIMIT.LE.0.OR.LIMIT.GT.LIMMAX) LIMIT=LIMMAX
+      RETURN
+C     DEBUG SUBCHK,INIT
+      END

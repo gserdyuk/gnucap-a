@@ -1,0 +1,6 @@
+#!/bin/bash
+
+GNUCAP=../gnucap
+DSQUARE=d_square_1.so
+$GNUCAP -a ./$DSQUARE -b ckt-d2-2.ckt  > a_square_1-2.txt 
+#ckt-d2.txt

@@ -1,0 +1,85 @@
+/* $Id: d_mos.model,v 26.132 2009/11/24 04:26:37 al Exp $ -*- C++ -*-
+ * Copyright (C) 2001 Albert Davis
+ * Author: Albert Davis <aldavis@gnu.org>
+ *
+ * This file is part of "Gnucap", the Gnu Circuit Analysis Package
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ *------------------------------------------------------------------
+ * data structures and defaults for mos model.
+ * internal units all mks (meters)
+ * but some user input parameters are in cm.
+ *
+ * netlist syntax:
+ * device:  mxxxx d g s b mname <device args> <model card args>
+ * model:   .model mname NMOS <args>
+ *	or  .model mname PMOS <args>
+ */
+h_headers {
+}
+cc_headers {
+}
+/*--------------------------------------------------------------------------*/
+device BUILT_IN_ROZEN {
+  parse_name rozen;
+  model_type BUILT_IN_ROZEN;
+  id_letter A;
+  circuit {
+    ports {a b c};
+
+
+    resistor R1 {a c} value=-1;
+    
+
+    diode Ddb {b id} ;
+
+    diode Dsb {b is} ;
+    
+
+    cpoly_g Ids {id is  g is  id g
+		b is  id b} state=idsxxx;
+  }
+  tr_probe {
+    v1   = "@n_a[V] - @n_c[V]";
+    v2   = "@n_b[V] - @n_c[V]";
+    va   = "@n_a[V] - @n_c[V]";
+    vb   = "@n_b[V] - @n_c[V]";
+  }
+  device {
+    calculated_parameters {
+    }
+  }
+  common {
+    raw_parameters {
+    }
+  }
+  /*--------------------------------------------------------------------*/
+}
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+model BUILT_IN_ROZEN {
+  dev_type BUILT_IN_ROZEN;
+  hide_base;
+  inherit CARD;
+  public_keys {
+     A dummy=true; //?
+  }
+  independent {
+  }
+}
+/*--------------------------------------------------------------------------*/
+
+

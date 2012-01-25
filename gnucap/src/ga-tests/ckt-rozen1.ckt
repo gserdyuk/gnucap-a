@@ -1,0 +1,17 @@
+circuit 2 - cubic
+
+.options nobypass
+.attach "./d_rozenbrok.so"
+*.options
+
+A1 1 2 0 rozen1 
+I1 1 0 dc 0
+I2 2 0 dc 0
+
+.model rozen1 A
+ 
+.print op v(1) v(2) i(I1) i(I2)
+
+.op
+
+.end
