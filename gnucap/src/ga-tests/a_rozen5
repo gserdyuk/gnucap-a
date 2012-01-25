@@ -1,0 +1,6 @@
+#!/bin/bash
+
+GNUCAP=../gnucap
+#DROZEN=d_rozenbrok.so
+#$GNUCAP -a ./$DROZEN -b ckt-rozen1.ckt >ckt-rozen1.txt   
+$GNUCAP  -b ckt-rozen5.ckt >ckt-rozen5.txt   
